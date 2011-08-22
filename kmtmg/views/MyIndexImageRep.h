@@ -1,0 +1,36 @@
+//
+//  MyIndexImageRep.h
+//  kmtmg
+//
+//  Created by 武村 健二 on 11/07/02.
+//  Copyright 2011 wHITEgODDESS. All rights reserved.
+//
+
+#import <AppKit/AppKit.h>
+#import "../funcs/myImageData.h"
+
+@interface MyIndexImageRep : NSCustomImageRep {
+    NSMutableArray *palette;
+    unsigned char *data;
+    
+@private
+    NSImage *dispImage, *preDispImage;
+    NSRect preImgRect, scrollImg;
+}
+
+- (id)initWithPaletteArray:(NSMutableArray *)array size:(NSSize)size;
+- (void)convertImageFromBitmapRep:(NSBitmapImageRep *)bitmap;
+- (void)setIndexData:(unsigned char *)index;
+- (void)testpattern;
+- (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img origin:(NSInteger)originType background:(BOOL)bkImage;
+- (void)drawScrollDispRect:(NSRect)disp imageRect:(NSRect)img origin:(NSInteger)originType background:(BOOL)bkImage;
+- (BOOL)drawPlot:(NSPoint)po paletteIndex:(NSInteger)no;
+- (NSInteger)indexAtPosition:(NSPoint)pos;
+- (void)setInfoColorFromDataPosition:(NSPoint)pos;
+- (MYID)myIdSrc;
+- (MYID)myIdDst;
+
+@property(readonly,assign) NSMutableArray *palette;
+@property(readonly) unsigned char *data;
+
+@end
