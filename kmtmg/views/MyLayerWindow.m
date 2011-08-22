@@ -53,7 +53,8 @@
         vf.origin.y += [[view horizontalScroller] frame].size.height;
     
     vf.origin.y += [split dividerThickness];
-
+    
+    // NSLog(@"LayerWindow:%@", NSStringFromRect(vf));
     
     [self setFrame:vf display:YES];
 }
