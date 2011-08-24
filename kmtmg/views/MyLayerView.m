@@ -8,6 +8,7 @@
 
 #import "MyLayerView.h"
 #import "MyViewData.h"
+#import "MyLayerWindow.h"
 
 @implementation MyCursorView
 
@@ -82,6 +83,8 @@
     if( NSEqualPoints(cursorPos, NSZeroPoint) == NO )
     {
         NSPoint pos = [self viewPointFromImagePoint:cursorPos];
+        if( pos.x < LAYER_ADJUST_SIZE ) return;
+        if( [self frame].size.height - LAYER_ADJUST_SIZE <= pos.y ) return;
 
         NSGraphicsContext* gc = [NSGraphicsContext currentContext];
         [gc saveGraphicsState];
@@ -130,6 +133,7 @@
     pos.y -= scrollStart.y;
     
     //  NSLog(@"  >>>>>   %@",NSStringFromPoint(pos));
+    pos.x += LAYER_ADJUST_SIZE;
     
     if( 2 <= mvd.pixel.x )
         pos.x += (mvd.pixel.x /2);

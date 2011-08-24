@@ -8,55 +8,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/Views/MyWindowController.m"
-         timestampString = "335686698.334789"
+         filePath = "kmtmg/io/IoSKY.m"
+         timestampString = "335842483.774167"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "862"
-         endingLineNumber = "862"
-         landmarkName = "-splitView:shouldCollapseSubview:forDoubleClickOnDividerAtIndex:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/views/MyRubberView.m"
-         timestampString = "335687182.157458"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "216"
-         endingLineNumber = "216"
-         landmarkName = "-drawRect:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/views/MyRubberView.m"
-         timestampString = "335687278.126778"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "181"
-         endingLineNumber = "181"
-         landmarkName = "-drawInfo"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/funcs/MyDrawingManager.m"
-         timestampString = "335689845.183467"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "687"
-         endingLineNumber = "687"
-         landmarkName = "-setRubberMode"
+         startingLineNumber = "395"
+         endingLineNumber = "395"
+         landmarkName = "-saveToURL:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -65,26 +23,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "kmtmg/views/MyVScrollView.m"
-         timestampString = "335690220.824198"
+         timestampString = "335847563.361228"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "50"
-         endingLineNumber = "50"
+         startingLineNumber = "27"
+         endingLineNumber = "27"
          landmarkName = "-drawRect:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/views/MyIndexImageRep.m"
-         timestampString = "335690395.075942"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "361"
-         endingLineNumber = "361"
-         landmarkName = "-drawScrollDispRect:imageRect:origin:background:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -92,12 +36,40 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/views/MyRubberView.m"
-         timestampString = "335692070.349386"
+         filePath = "kmtmg/views/MyVScrollView.m"
+         timestampString = "335848898.63067"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "271"
-         endingLineNumber = "271"
+         startingLineNumber = "52"
+         endingLineNumber = "52"
+         landmarkName = "-drawRect:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "kmtmg/Views/MyWindowController.m"
+         timestampString = "335851019.148933"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "139"
+         endingLineNumber = "139"
+         landmarkName = "-resizeWithoutData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "kmtmg/views/MyVScrollView.m"
+         timestampString = "335852210.852419"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "17"
+         endingLineNumber = "17"
          landmarkName = "-drawRect:"
          landmarkType = "5">
       </FileBreakpoint>

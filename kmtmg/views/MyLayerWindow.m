@@ -54,9 +54,18 @@
     
     vf.origin.y += [split dividerThickness];
     
+    vf.origin.x -= LAYER_ADJUST_SIZE;
+    vf.size.width += LAYER_ADJUST_SIZE;
+    vf.size.height += LAYER_ADJUST_SIZE;
+    
     // NSLog(@"LayerWindow:%@", NSStringFromRect(vf));
     
     [self setFrame:vf display:YES];
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    NSLog( @">>retainCount:%d, type:%d", [self retainCount],type );
 }
 
 @end

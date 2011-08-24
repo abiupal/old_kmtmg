@@ -10,6 +10,7 @@
 #import "MyViewData.h"
 #import "../MyDefines.h"
 #import "../panels/MyInfo.h"
+#import "../funcs/myDrawing.h"
 
 @implementation MyRubberView
 
@@ -45,6 +46,10 @@
     end = NSZeroPoint;
     
     type = newType;
+    if (type & RUBBER_XSAGON)
+    {
+        myDraw_sincos( type & RUBBER_MASK );
+    }
     
     if( iFont == nil )
         iFont = [[MyInfo sharedManager] rubberFont];
@@ -54,11 +59,16 @@
     [self setNeedsDisplay:YES];
 }
 
+- (NSInteger)typeMask
+{
+    return type & RUBBER_MASK;
+}
+
 #pragma mark - func
 
 - (void)cancel
 {
-    if( type == RUBBER_LINE || type & RUBBER_RECT )
+    if( type & RUBBER_LINE || type & RUBBER_RECT )
     {
         rect = NSZeroRect;
         end = NSZeroPoint;
@@ -98,6 +108,8 @@
 
 - (void)setPosition:(NSPoint)pos
 {
+    [super setPosition:pos];
+    
     if ( NSEqualPoints(rect.origin,NSZeroPoint) == YES)
     {
         [self setStartPosition:pos];
@@ -191,22 +203,51 @@
 
 - (void)plotCircle:(CGContextRef)cg center:(NSPoint)pos
 {
-    NSRect circleRect = NSOffsetRect( NSMakeRect( -3, -3, 7, 7 ), pos.x, pos.y );
+    NSRect circleRect = NSOffsetRect( NSMakeRect( -4, -4, 8, 8 ), pos.x, pos.y );
 
     [[NSColor greenColor] set];
     CGContextFillEllipseInRect( cg,  NSRectToCGRect(circleRect) );
     
     
-    circleRect = NSOffsetRect( NSMakeRect( -2, -2, 5, 5 ), pos.x, pos.y );
+    circleRect = NSOffsetRect( NSMakeRect( -3, -3, 6, 6 ), pos.x, pos.y );
     [[NSColor redColor] set];
     CGContextFillEllipseInRect( cg,  NSRectToCGRect(circleRect) );
 }
+
+#pragma mark - Xsagon
+
+- (void)xsagonNum:(int)n cgc:(CGContextRef)cg center:(NSPoint)cp outside:(NSPoint)op
+{
+    
+    NSInteger i;    
+    myDraw_xsagon(n, cp.x, cp.y, op.x, op.y );
+    MYPOINT *po = myDraw_poolPoint();
+    if( po == NULL )
+    {
+        return;
+    }
+    
+    for( i = 0; i < n -1; i++ )
+    {
+        po[i].x += cp.x;
+        po[i].y += cp.y;
+    }
+
+    CGContextMoveToPoint( cg, op.x, op.y);
+	for( i = 0; i < n -1; i++ )
+	{
+        CGContextAddLineToPoint( cg, po[i].x, po[i].y );
+	}
+    CGContextAddLineToPoint( cg, op.x, op.y);
+}
+
+#pragma mark - drawRect
 
 - (void)drawRect:(NSRect)dirtyRect
 {
     [[NSColor clearColor] set];
     NSRectFill(dirtyRect);
-    
+        
     if( NSEqualPoints(end, NSZeroPoint) == YES ) return;
     
     NSGraphicsContext* gc = [NSGraphicsContext currentContext];
@@ -221,7 +262,23 @@
     
     const CGFloat dashStyle[] = {3.0};
     
-    if( type == RUBBER_LINE )
+    if ( type & RUBBER_XSAGON )
+    {
+        [[NSColor blackColor] set];
+        CGContextSetLineWidth(cg, 1.0);
+        CGContextSetLineDash(cg, 0.0, dashStyle, 1); 
+
+        [self xsagonNum:[self typeMask] cgc:cg center:st outside:ed];
+        CGContextStrokePath(cg);
+        
+        [[NSColor whiteColor] set];
+        CGContextSetLineDash(cg, 3.0, dashStyle, 1);  
+        
+        [self xsagonNum:[self typeMask] cgc:cg center:st outside:ed];
+        CGContextStrokePath(cg);
+    }
+    
+    if( type & RUBBER_LINE )
     {        
         [[NSColor blackColor] set];
         CGContextSetLineWidth(cg, 1.0);

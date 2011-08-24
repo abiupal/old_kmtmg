@@ -128,19 +128,15 @@ const unsigned char colorLevel[4][4] = {
 
 - (void)inputDes:(unsigned char *)p
 {
-    des = [[NSMutableData dataWithCapacity:imageSize.width * imageSize.height] retain];
-    int i = 0;
-    for( i = 0; i < imageSize.height; i++ )
-    {
-        [des appendBytes:p length:imageSize.width];
-        p += (NSInteger)(imageSize.width);
-    }
+    des = [[NSMutableData dataWithBytesNoCopy:p length:imageSize.width * imageSize.height freeWhenDone:NO] retain];
+    /*
+    NSInteger i;
     p = (unsigned char *)[des bytes];
     for( i = 0; i < imageSize.height * imageSize.width; i++, p++ )
     {
         if( 215 < *p )
             *p -= 192;
-    }
+    }*/
 }
 
 - (void)inputIndex
@@ -302,7 +298,7 @@ const unsigned char colorLevel[4][4] = {
     if( [extension isEqualToString:@"idx"] )
         fileName = [basePath stringByAppendingPathExtension:@"des"];
     else
-        fileName = [basePath stringByAppendingPathExtension:@"DES"];
+        fileName = [basePath stringByAppendingPathExtension:@"DES"];    
     NSData *tmp = [NSData dataWithContentsOfFile:fileName options:NSDataReadingUncached error:[[MyOS sharedManager] error]];
     if( tmp == nil )
     {

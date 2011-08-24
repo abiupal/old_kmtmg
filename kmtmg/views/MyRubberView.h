@@ -10,7 +10,14 @@
 
 #import "MyLayerView.h"
 
-enum { RUBBER_NONE = 0, RUBBER_LINE, RUBBER_CIRCLE, RUBBER_RECT = 0x100, RUBBER_MAX = 0x110 };
+enum {
+    RUBBER_NONE = 0,
+    RUBBER_MASK = 0xff,
+    RUBBER_LINE = 0x100,
+    RUBBER_CIRCLE = 0x200,
+    RUBBER_RECT = 0x400,
+    RUBBER_XSAGON = 0x800,
+    RUBBER_MAX = 0x9999 };
 
 @interface MyRubberView : MyCursorView
 {
@@ -29,5 +36,6 @@ enum { RUBBER_NONE = 0, RUBBER_LINE, RUBBER_CIRCLE, RUBBER_RECT = 0x100, RUBBER_
 - (void)setPosition:(NSPoint)pos;
 - (void)cancel;
 - (NSPoint)startPoint;
+- (NSInteger)typeMask;
 
 @end

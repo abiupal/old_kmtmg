@@ -8,7 +8,7 @@
 
 #import <AppKit/AppKit.h>
 
-enum { LAYER_CURSOR = 1, LAYER_RUBBER, LAYER_MAX };
+enum { LAYER_CURSOR = 1, LAYER_RUBBER, LAYER_ADJUST_SIZE = 32, LAYER_MAX };
 
 @interface MyLayerWindow : NSWindow
 {
@@ -22,7 +22,7 @@ enum { LAYER_CURSOR = 1, LAYER_RUBBER, LAYER_MAX };
 
 @property (assign) NSScrollView *view;
 @property (assign) NSSplitView *split;
-@property (assign) CGFloat addy;
+@property CGFloat addy;
 @property int type;
 
 @end

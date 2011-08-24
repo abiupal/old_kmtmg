@@ -53,7 +53,7 @@
 - (void)setCenterFromInfoAutoCenter:(BOOL)flag;
 - (void)checkUpdateData;
 
-@property(retain) MyViewData *mvd;
-@property(retain) MyView *oView;
+@property(assign) MyViewData *mvd;
+@property(readonly,assign) MyView *oView;
 
 @end

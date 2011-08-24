@@ -12,9 +12,17 @@
 #include <ApplicationServices/ApplicationServices.h>
 #include "myImageData.h"
 
+typedef struct {
+    long x, y;
+} MYPOINT;
+
 void myDraw_init();
 void myDraw_dispatch( MYDRAW *md );
 int myDraw_get( MYID *mi, long x, long y );
 void myDraw_paint( MYID *mi, unsigned int pen );
+int myDraw_dtoi( double dst );
+void myDraw_sincos( int num );
+void myDraw_xsagon( int num, int sx, int sy, int ex, int ey );
+MYPOINT *myDraw_poolPoint();
 
 #endif

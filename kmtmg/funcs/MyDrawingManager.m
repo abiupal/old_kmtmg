@@ -630,6 +630,29 @@ NSInteger circle_cx, circle_cy, circle_sw;
     [self line];
 }
 
+- (void)xsagon:(NSInteger)n
+{
+    myDraw_xsagon( n, pre.x, pre.y, pos.x, pos.y );
+    MYPOINT *po = myDraw_poolPoint();
+    if( po == NULL ) return;
+    
+    NSPoint keep[2];
+    keep[0] = pre;
+    keep[1] = pos;
+    
+    int i = 0;
+    pre = pos;
+	for( i = 0; i < n -1; i++ )
+	{
+        pos.x = po[i].x + keep[0].x;
+        pos.y = po[i].y + keep[0].y;
+        [self line];
+        pre = pos;
+	}
+    pos = keep[1];
+    [self line];
+}
+
 #pragma mark - func
 
 - (void)select4Command:(char *)cmd
@@ -691,6 +714,22 @@ NSInteger circle_cx, circle_cy, circle_sw;
     {
         [rubber setRubberType:RUBBER_RECT | RUBBER_CIRCLE];
     }
+    else if( MY_CMP(funcCommand, "D_Tri" ) )
+    {
+        [rubber setRubberType:RUBBER_LINE | RUBBER_XSAGON + 3];
+    }
+    else if( MY_CMP(funcCommand, "D_Rect" ) )
+    {
+        [rubber setRubberType:RUBBER_LINE | RUBBER_XSAGON + 4];
+    }
+    else if( MY_CMP(funcCommand, "D_Pent" ) )
+    {
+        [rubber setRubberType:RUBBER_LINE | RUBBER_XSAGON + 5];
+    }
+    else if( MY_CMP(funcCommand, "D_Hexi" ) )
+    {
+        [rubber setRubberType:RUBBER_LINE | RUBBER_XSAGON + 6];
+    }
     else
         [rubber setRubberType:RUBBER_NONE];
 
@@ -708,6 +747,7 @@ NSInteger circle_cx, circle_cy, circle_sw;
 - (BOOL)moveCommandCheck
 {
     BOOL ret = NO;
+    
     if( MY_CMP(funcCommand, "D_Trace") )
         ret = YES;
     else if( MY_CMP(funcCommand, "D_Box") )
@@ -720,8 +760,59 @@ NSInteger circle_cx, circle_cy, circle_sw;
         ret = YES;
     else if( MY_CMP(funcCommand, "D_AllLineM") )
         ret = YES;
+    else if( MY_CMP(funcCommand, "D_Tri" ) )
+        ret = YES;
+    else if( MY_CMP(funcCommand, "D_Rect" ) )
+        ret = YES;
+    else if( MY_CMP(funcCommand, "D_Pent" ) )
+        ret = YES;
+    else if( MY_CMP(funcCommand, "D_Hexi" ) )
+        ret = YES;
     
     return ret;
+}
+
+- (void) dispatch
+{
+    BOOL cancel = YES;
+    
+    if( MY_CMP(funcCommand, "D_Trace") )
+    {
+        [self line];
+        [rubber setStartPosition:pos];
+        pre = pos;
+        cancel = NO;
+    }
+    else if( MY_CMP(funcCommand, "D_Box") )
+    {
+        [self rect];
+    }
+    else if( MY_CMP(funcCommand, "D_FillBox") )
+    {
+        [self fillRect];
+    }
+    else if( MY_CMP(funcCommand, "D_Circle") )
+    {
+        [self circleWithFill:NO];
+    }
+    else if( MY_CMP(funcCommand, "D_FCircle") )
+    {
+        [self circleWithFill:YES];
+    }
+    else if( MY_CMP(funcCommand, "D_AllLineM") )
+    {
+        [self allLine];
+    }
+    else if( MY_CMP(funcCommand, "D_Tri" ) ||
+             MY_CMP(funcCommand, "D_Rect" ) ||
+             MY_CMP(funcCommand, "D_Pent" ) ||
+             MY_CMP(funcCommand, "D_Hexi" ) )
+    {
+        [self xsagon:[rubber typeMask]];
+    }
+
+    if( cancel ) 
+        [self cancel];
 }
 
 #pragma mark - Cancel
@@ -761,52 +852,10 @@ NSInteger circle_cx, circle_cy, circle_sw;
     {
         [self plot];
     }
-    else if( MY_CMP(funcCommand, "D_Trace") )
-    {
-        if( NSEqualPoints( [rubber startPoint], NSZeroPoint ) == NO )
-        {
-            pre = [rubber startPoint];
-            [self line];
-        }
-        [rubber setPosition:pos];
-    }
-    else if( MY_CMP(funcCommand, "D_Box") ||
-             MY_CMP(funcCommand, "D_FillBox") ||
-             MY_CMP(funcCommand, "D_Circle") ||
-             MY_CMP(funcCommand, "D_FCircle") )
-    {
-        if( NSEqualPoints( [rubber startPoint], NSZeroPoint ) == NO )
-        {
-            pre = [rubber startPoint];
-            if( funcCommand[2] == 'F' && funcCommand[3] == 'i' )
-                [self fillRect];
-            else if (funcCommand[2] == 'B' )
-                [self rect];
-            else if (funcCommand[2] == 'F' )
-                [self circleWithFill:YES];
-            else
-                [self circleWithFill:NO];
-            
-            [rubber cancel];
-        }
-        else
-            [rubber setPosition:pos];
-    }
     else if( MY_CMP(funcCommand, "D_AllLineX" ) ||
              MY_CMP(funcCommand, "D_AllLineY" ) )
     {
         [self allLine];
-    }
-    else if( MY_CMP(funcCommand, "D_AllLineM") )
-    {
-        if( NSEqualPoints( [rubber startPoint], NSZeroPoint ) == NO )
-        {
-            pre = [rubber startPoint];
-            [self allLine];
-            [rubber cancel];
-        }
-        else
-            [rubber setPosition:pos];
     }
     else if( MY_CMP(funcCommand, "D_Paint2") )
     {
@@ -816,6 +865,17 @@ NSInteger circle_cx, circle_cy, circle_sw;
     {
         [self paint];
     }
+    else
+    {
+        if( NSEqualPoints( [rubber startPoint], NSZeroPoint ) == NO )
+        {
+            pre = [rubber startPoint];
+            [self dispatch];
+        }
+        else
+            [rubber setPosition:pos];
+    }
+    
 
 END_MOUSEUP:
     [super mouseFinishedUp];

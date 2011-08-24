@@ -17,21 +17,28 @@
 #define BEST_BYTE_ALIGNMENT 16
 #define COMPUTE_BEST_BYTES_PER_ROW(bpr)		( ( (bpr) + (BEST_BYTE_ALIGNMENT-1) ) & ~(BEST_BYTE_ALIGNMENT-1) )
 
-typedef struct {
-    long x, y;
-} MYPOINT;
 
 static MYPOINT *poolPoint = NULL;
 static long poolSize = 0;
 static long poolIndex = 0;
 static int stopFunc = 0;
+static double sindig[99], cosdig[99];
+
+int myDraw_dtoi( double dst )
+{
+ 	if( 0 < dst)
+        dst += 0.5 ;
+	else if( dst < 0 )
+        dst -= 0.5 ;
+    
+	return( (int)dst ) ;
+}
 
 void myDraw_allocError()
 {
     fprintf(stderr, "Alloc Error!!");
     stopFunc = 1;
 }
-
 
 void myDraw_init()
 {
@@ -40,6 +47,11 @@ void myDraw_init()
     
     poolPoint = NULL;
     poolSize = 0;
+}
+
+MYPOINT *myDraw_poolPoint()
+{
+    return poolPoint;
 }
 
 int myDraw_poolPoint_init( int size )
@@ -78,6 +90,7 @@ void myDraw_addPoolPoint( long x, long y )
     }
     poolPoint[poolIndex].x = x;
     poolPoint[poolIndex].y = y;
+    // fprintf(stderr, "pool[%2d]:%.3f, %.3f / %3d,%3d\n", poolIndex,x, y,myDraw_dtoi(x),myDraw_dtoi(y));
 }
 
 unsigned char *myDraw_getLine( MYID *mi, long y )
@@ -213,6 +226,47 @@ void myDraw_paint( MYID *mi, unsigned int pen )
             if( stopFunc ) break;
         }
         if( stopFunc ) break;
+    }
+}
+
+void myDraw_sincos( int num )
+{
+    double adjust = 0;
+    double degree;
+    int i;
+    if( num % 2 ) adjust = - 0.0000000000001f;
+    
+    for( i = 1; i < num; i++ )
+    {
+        degree = 2 * i * M_PI;
+        degree /= num;
+        sindig[i -1] = sin( degree ) + adjust;
+        cosdig[i -1] = cos( degree ) + adjust;
+    }
+}
+
+void myDraw_xsagon( int num, int sx, int sy, int ex, int ey )
+{    
+    int i;
+    int tx, ty;
+    tx = ex - sx;
+    ty = ey - sy;
+    
+    if( myDraw_poolPoint_init(1000) ) return;
+    poolIndex--;
+    if( num == 4 )
+    {
+        myDraw_addPoolPoint( ty, -tx );
+        myDraw_addPoolPoint( -tx, -ty );
+        myDraw_addPoolPoint( -ty, tx );
+    }
+    else
+    {
+        num--;
+        for( i = 0; i < num; i++ )
+        {
+            myDraw_addPoolPoint( cosdig[i] * tx -sindig[i] * ty, sindig[i] * tx +cosdig[i] * ty );
+        }
     }
 }
 

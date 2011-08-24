@@ -11,6 +11,7 @@
 @interface MyPanel : NSPanel
 {
     NSInteger tag;
+    NSCursor *cursor;
 }
 
 - (void)setTag:(NSInteger)n;

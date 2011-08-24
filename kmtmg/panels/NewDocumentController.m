@@ -87,14 +87,60 @@ static NewDocumentController *sharedNewDocumentControllerManager = NULL;
 	return Nil;
 }
 
-- (void)checkSetData
+#define MAX_WIDTH 40000
+#define MAX_HEIGHT 40000
+enum { TYPE_HEIGHT = 1, TYPE_NAME = 2, TYPE_WIDTH };
+
+- (void)checkSetData:(NSInteger)type
 {
 	NSButton *btn = [self getObjectName:"NSButton" tag:10];
 	
-	if( 1.0 <= iWidth && 1.0 <= iHeight && 0 < [iName length])
+	if( 1.0 <= iWidth &&  iWidth <= MAX_WIDTH &&
+        1.0 <= iHeight && iHeight <= MAX_HEIGHT &&
+       0 < [iName length])
+    {
 		[btn setEnabled:YES];
+    }
 	else
+    {
 		[btn setEnabled:NO];
+        
+		NSMutableString *alertMessage = [NSMutableString stringWithFormat:@""];
+		
+        if (type == TYPE_WIDTH) 
+        {
+            if( iWidth < 1.0 )
+                [alertMessage appendFormat:@"Width is 1 pixel under."];
+            if( MAX_WIDTH < iWidth )
+                [alertMessage appendFormat:@"Maximum Width is 40000 pixel."];
+        }
+        if( type ==TYPE_HEIGHT )
+        {
+            if( iHeight < 1.0 )
+                [alertMessage appendFormat:@"Height is 1 pixel under."];
+            if( MAX_HEIGHT < iHeight )
+                [alertMessage appendFormat:@"Maximum Height is 40000 pixel."];
+        }
+        if( type == TYPE_NAME )
+        {
+            if( [iName length] < 1 )
+                [alertMessage appendFormat:@"Name is nothing!!"];
+        }
+        
+        if( 0 < [alertMessage length] )
+        {
+        
+            NSAlert *alert = [NSAlert alertWithMessageText:@"alertWithMessageText" 		defaultButton:@"Confirm" 
+                                           alternateButton:nil //@"alternateButton"
+                                               otherButton:nil //@"otherButton" 
+                                 informativeTextWithFormat:alertMessage];
+        
+            [alert beginSheetModalForWindow:oPanel
+                              modalDelegate:self
+                             didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
+                                contextInfo:nil];
+        }
+    }
 	
 }
 
@@ -102,7 +148,7 @@ static NewDocumentController *sharedNewDocumentControllerManager = NULL;
 {
 	[iBackground autorelease];
 	iBackground = [[sender color] retain];
-	[self checkSetData];
+	// [self checkSetData];
 }
 
 - (IBAction)disclogure:(id)sender
@@ -112,7 +158,7 @@ static NewDocumentController *sharedNewDocumentControllerManager = NULL;
 - (IBAction)height:(id)sender
 {
 	iHeight = [sender floatValue];
-	[self checkSetData];
+	[self checkSetData:TYPE_HEIGHT];
 }
 
 - (IBAction)name:(id)sender
@@ -121,7 +167,7 @@ static NewDocumentController *sharedNewDocumentControllerManager = NULL;
 		[iName release];
 	iName = [sender stringValue];
 	[iName retain];
-	[self checkSetData];
+	[self checkSetData:TYPE_NAME];
 }
 
 - (void)alertDidEnd:(NSAlert *)alert
@@ -143,37 +189,13 @@ static NewDocumentController *sharedNewDocumentControllerManager = NULL;
 	[self height:[self getObjectName:"NSTextField" tag:1002]];
 	[self background:[self getObjectName:"NSColorWell" tag:1003]];
 	
-	if( [[self getObjectName:"NSButton" tag:10] isEnabled] == YES )
-    {
-        [oPanel setTag:YES];
-    }
-	else
-	{
-		NSMutableString *alertMessage = [NSMutableString stringWithFormat:@""];
-		
-		if( iWidth < 1.0 )
-			[alertMessage appendFormat:@"Width is 1 pixel under."];
-		if( iHeight < 1.0 )
-			[alertMessage appendFormat:@"Height is 1 pixel under."];
-		if( [iName length] < 1 )
-			[alertMessage appendFormat:@"Name is nothing!!"];
-		 
-		NSAlert *alert = [NSAlert alertWithMessageText:@"alertWithMessageText" 		defaultButton:@"Confirm" 
-			alternateButton:nil //@"alternateButton"
-			otherButton:nil //@"otherButton" 
-			informativeTextWithFormat:alertMessage];
-        
-		[alert beginSheetModalForWindow:oPanel
-			modalDelegate:self
-			didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
-			contextInfo:nil];
-	}
+    [oPanel setTag:YES];
 }
 
 - (IBAction)width:(id)sender
 {
 	iWidth = [sender floatValue];
-	[self checkSetData];
+	[self checkSetData:TYPE_WIDTH];
 }
 
 - (id)init

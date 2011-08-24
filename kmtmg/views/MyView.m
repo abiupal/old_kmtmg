@@ -310,19 +310,19 @@
 	
 	[[NSColor darkGrayColor] set];
     NSRectFill(rect);
-	
+    	
 	// MyLog( @"OS > %@", NSStringFromRect(rect));
 	[self updateRect:rect];
     
     if (NSWidth(iUpdateDisp) < 1 || NSHeight(iUpdateDisp) < 1) {
-        return;
+        goto END_DRAWRECT;
     }
 	
-	// MyLog( @"View:%@ real:%@", NSStringFromRect(iUpdateDisp), NSStringFromRect(iUpdateRect));
+    // MyLog( @"View:%@ real:%@", NSStringFromRect(iUpdateDisp), NSStringFromRect(iUpdateRect));
 	
 	// Background Color Rect
 	[mvd.backgroundColor set];
-	NSRectFillUsingOperation( iUpdateDisp, NSCompositeSourceOver );
+	NSRectFill( iUpdateDisp );
 	// Background Color Rect -END-
 	
 	
@@ -340,8 +340,10 @@
 	if( oldInterpolation != -1 )
 		[gc setImageInterpolation:oldInterpolation];
     
+END_DRAWRECT:
 	[self drawGrid:rect];
     
+
     [gc restoreGraphicsState];
 }
 

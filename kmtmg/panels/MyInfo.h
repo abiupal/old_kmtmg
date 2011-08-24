@@ -30,7 +30,7 @@
     NSFont *scrollerFont;
     NSFont *rubberFont;
 }
-@property (retain) MyTrackAreaScrollView *scroll;
+@property (assign) MyTrackAreaScrollView *scroll;
 @property (assign) NSWindow *currentWindow;
 @property (readonly) NSPoint prePosition;
 @property NSSize dotSize;

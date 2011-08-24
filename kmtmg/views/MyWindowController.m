@@ -43,7 +43,6 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 - (void)dealloc
 {
     [mvd release];
-    
     [super dealloc];
 }
 
@@ -137,7 +136,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
         [[self window] center];
     
     [oView setFrameSize:mvd.frameSize];
-    
+    MyLog(@"%@", NSStringFromSize(mvd.frameSize));
     
 	po = mvd.pixel;
     CGFloat line, page, scale;
@@ -223,22 +222,20 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     oCursorWindow.view = oScrollView;
     oCursorWindow.split = oUDSplit;
     [self.window addChildWindow:oCursorWindow ordered:NSWindowAbove];
-    
     [oCursorWindow windowSizeChanged:nil];
     [[NSNotificationCenter defaultCenter] addObserver:oCursorWindow
                                              selector:@selector(windowSizeChanged:)
                                                  name:NSWindowDidResizeNotification object:[self window]];
-
+    
     oRubberWindow.type = LAYER_RUBBER;
     oRubberWindow.view = oScrollView;
     oRubberWindow.split = oUDSplit;
     [self.window addChildWindow:oRubberWindow ordered:NSWindowAbove];
-    
     [oRubberWindow windowSizeChanged:nil];
     [[NSNotificationCenter defaultCenter] addObserver:oRubberWindow
                                              selector:@selector(windowSizeChanged:)
                                                  name:NSWindowDidResizeNotification object:[self window]];
-
+    
     oCursorView.mvd = mvd;
     oRubberView.mvd = mvd;
     oScrollView.oCursor = oCursorView;
@@ -287,11 +284,28 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 
 - (void)windowDidResignMain:(NSNotification *)aNotification
 {
+    palette.currentButton = nil;
+    palette.currentWindow = nil;
+    palette.scroll.keyWindow = nil;
     palette = nil;
+    info.currentWindow = nil;
+    info.scroll.keyWindow = nil;
     info = nil;
     draw = nil;
     
     MyLog( @"windowDidResignMain:%@ ",[self className] );
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    [self windowDidResignMain:nil];
+    
+    [[self window] removeChildWindow:oCursorWindow];
+    [[self window] removeChildWindow:oRubberWindow];
+    [oCursorWindow close];
+    [oRubberWindow close];
+    
+    [self autorelease];
 }
 
 #pragma mark - Setter
@@ -812,7 +826,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     ret -= [sender dividerThickness];
     ret -= SPLITVIEW_FIXED_WIDTH;
-    
+        
     return ret;
 }
 

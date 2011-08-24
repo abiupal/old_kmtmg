@@ -30,7 +30,7 @@
 	x = 15; // 9
 	// x = 10.0; // 12
 	y = iData.startPosition.y;
-    MyLog( @"iBase:%.3f", iBase );
+    // MyLog( @"iBase:%.3f", iBase );
 	
 	[[NSColor whiteColor] set];
 	path = [NSBezierPath bezierPath];

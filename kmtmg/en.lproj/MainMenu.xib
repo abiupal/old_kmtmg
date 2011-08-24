@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">10K549</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1910</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1923</string>
 		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1910</string>
+			<string key="NS.object.0">1923</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSScroller</string>
@@ -1720,7 +1720,7 @@
 			</object>
 			<object class="NSCollectionViewItem" id="176694532"/>
 			<object class="NSView" id="538059832">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">4096</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSImageView" id="37746462">
@@ -1736,8 +1736,6 @@
 						</set>
 						<string key="NSFrameSize">{34, 34}</string>
 						<reference key="NSSuperview" ref="538059832"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="289320767">
 							<int key="NSCellFlags">130560</int>
@@ -1751,8 +1749,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{34, 34}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="37746462"/>
 			</object>
 			<object class="NSArrayController" id="901516098">
@@ -3829,7 +3825,7 @@
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="arrayController">NSArrayController</string>
-						<string key="palette">NSPanel</string>
+						<string key="palette">PalettewithCursor</string>
 						<string key="scroll">MyTrackAreaScrollView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -3839,7 +3835,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="palette">
 							<string key="name">palette</string>
-							<string key="candidateClassName">NSPanel</string>
+							<string key="candidateClassName">PalettewithCursor</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="scroll">
 							<string key="name">scroll</string>

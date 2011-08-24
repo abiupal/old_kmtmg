@@ -30,7 +30,6 @@
 
 - (void)dealloc
 {
-    [mvc release];
     [mvd release];
     
     [super dealloc];
@@ -54,6 +53,7 @@
     {
         mvc = [[[MyWindowController alloc] initWithWindowNibName:@"MyDocument"] retain];
         [self addWindowController:mvc];
+        [mvc setShouldCloseDocument:YES];
         
         mvc.mvd = [mvd retain];
     }

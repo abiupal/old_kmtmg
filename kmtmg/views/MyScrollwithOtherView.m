@@ -312,20 +312,23 @@
 		start.x = [hs floatValue];
 		start.y = [vs floatValue];
 	}
+    
+    NSRect cr = [aClipView frame];
+    NSRect dr = [[self documentView] frame];
+    NSInteger w = (dr.size.width -cr.size.width +1);
+    NSInteger h = (dr.size.height -cr.size.height +1);
+    start.x *= w;
+    start.y = 1 -start.y;
+    start.y *= h;
+    NSInteger  tmp = (NSInteger)start.x;
+    start.x = tmp;
+    tmp = (NSInteger)start.y;
+    start.y = tmp;
+
 	if( NSEqualPoints( start, preScrollValue ) != YES )
 	{
-		preScrollValue = start;
-		NSRect cr = [aClipView frame];
-		NSRect dr = [[self documentView] frame];
-        NSInteger w = (dr.size.width -cr.size.width +1);
-        NSInteger h = (dr.size.height -cr.size.height +1);
-		start.x *= w;
-		start.y = 1 -start.y;
-		start.y *= h;
-        NSInteger  tmp = (NSInteger)start.x;
-        start.x = tmp;
-		tmp = (NSInteger)start.y;
-        start.y = tmp;
+        preScrollValue = start;
+
 		// MyLog( @"reflect >> ScrollTo: %f, %f", start.x, start.y );
 		// if( 0.0 <= start.x && start.x <= (dr.size.width -cr.size.width) && 0.0 <= start.y && start.y <= (dr.size.height -cr.size.height) )
         [aClipView scrollToPoint:start];
@@ -347,7 +350,6 @@
         }
 
         // MyLog( @"visible:%@", NSStringFromRect( [aClipView documentVisibleRect] ) );
-        
         // MyLog( @"start %@ / clip %@ / doc %@", NSStringFromPoint(startPosition), NSStringFromSize(cr.size), NSStringFromSize(dr.size) );
 	}
 	
@@ -371,7 +373,7 @@
     
     [aClipView scrollToPoint:start];
     [aClipView setNeedsDisplay:YES];
-    // MyLog(@"aClipView >> setNeedsDisplay");
+    MyLog(@"aClipView >>%@", NSStringFromPoint(start));
     
     [self updateScrolledHSView:start.x];
     [self updateScrolledVSView:start.y];

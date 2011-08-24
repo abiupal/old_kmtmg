@@ -25,7 +25,7 @@
     int funcId;
 }
 
-@property (retain) MyTrackAreaScrollView *scroll;
+@property (assign) MyTrackAreaScrollView *scroll;
 @property (readwrite, assign) NSWindow *currentWindow;  
 @property (readwrite, assign) MyDrawButton *currentButton;
 

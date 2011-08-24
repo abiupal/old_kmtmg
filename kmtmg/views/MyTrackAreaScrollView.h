@@ -10,12 +10,12 @@
 
 
 @interface MyTrackAreaScrollView : NSScrollView {
-    IBOutlet NSWindow *keyWindow;
+    NSWindow *keyWindow;
     
 @private
     NSTrackingArea *trackingArea;
 }
 
-@property (retain) NSWindow *keyWindow;
+@property (assign) NSWindow *keyWindow;
 
 @end
