@@ -40,6 +40,7 @@
 		BA7D2FE013C6B59A00122C65 /* MyfuncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA7D2FDF13C6B59A00122C65 /* MyfuncManager.m */; };
 		BA92462013BBFFC300FDA346 /* IoCGS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA92461F13BBFFC300FDA346 /* IoCGS.framework */; };
 		BA9519A713EFDEC5007D36AB /* MyColorData.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9519A613EFDEC5007D36AB /* MyColorData.m */; };
+		BAA6F487141602E70042D66F /* MyTopSsk.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6F486141602E60042D66F /* MyTopSsk.m */; };
 		BAB02C9E13D50EB8008F0187 /* IoSKY.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB02C9D13D50EB7008F0187 /* IoSKY.m */; };
 		BAC2496E131384A600B6A2B0 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC2496C131384A600B6A2B0 /* MyDocument.xib */; };
 		BAC2EFAB13DD893900ED6CF4 /* MyRubberView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC2EFAA13DD893800ED6CF4 /* MyRubberView.m */; };
@@ -132,6 +133,8 @@
 		BA92461F13BBFFC300FDA346 /* IoCGS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IoCGS.framework; path = ../../../../../../../../Library/Frameworks/IoCGS.framework; sourceTree = "<group>"; };
 		BA9519A513EFDEC5007D36AB /* MyColorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyColorData.h; path = views/MyColorData.h; sourceTree = "<group>"; };
 		BA9519A613EFDEC5007D36AB /* MyColorData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyColorData.m; path = views/MyColorData.m; sourceTree = "<group>"; };
+		BAA6F485141602E60042D66F /* MyTopSsk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTopSsk.h; path = panels/MyTopSsk.h; sourceTree = "<group>"; };
+		BAA6F486141602E60042D66F /* MyTopSsk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTopSsk.m; path = panels/MyTopSsk.m; sourceTree = "<group>"; };
 		BAB02C9C13D50EB7008F0187 /* IoSKY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoSKY.h; path = io/IoSKY.h; sourceTree = "<group>"; };
 		BAB02C9D13D50EB7008F0187 /* IoSKY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IoSKY.m; path = io/IoSKY.m; sourceTree = "<group>"; };
 		BAC2496D131384A600B6A2B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MyDocument.xib; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				BAFC4F00133ABDB600E1820B /* MyPaletteImage.m */,
 				BAFC4F01133ABDB600E1820B /* MyPalette.h */,
 				BAFC4EFE133ABDB600E1820B /* MyPalette.m */,
+				BAA6F485141602E60042D66F /* MyTopSsk.h */,
+				BAA6F486141602E60042D66F /* MyTopSsk.m */,
 				BA1B04B713EA88CA00AAFA8B /* MyPanel.h */,
 				BA1B04B813EA88CA00AAFA8B /* MyPanel.m */,
 				BA4A966213024F8300A4A0EC /* NewDocumentController.h */,
@@ -540,6 +545,7 @@
 				BA06976F13E8CA8500EE9915 /* MySelect4.m in Sources */,
 				BA1B04B913EA88CA00AAFA8B /* MyPanel.m in Sources */,
 				BA9519A713EFDEC5007D36AB /* MyColorData.m in Sources */,
+				BAA6F487141602E70042D66F /* MyTopSsk.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
