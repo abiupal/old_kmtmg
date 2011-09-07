@@ -74,4 +74,34 @@ static MyTopSsk     *sharedMyTopSskManager = NULL;
 	return self;
 }
 
+#pragma mark - Init
+
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        int i;
+        // Initialization code here.
+        images = [[NSMutableArray alloc] init];
+        for( i = 0; i < 20; i++ )
+        {
+            NSImage *image = [[[NSImage alloc] initWithSize:NSMakeSize(128, 128)] autorelease];
+            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:image
+                                                                          forKey:@"image"];
+            [images addObject:dic];
+        }
+    }
+    
+    return self;
+}
+
+- (void)dealloc
+{
+    [images release];
+    
+    [super dealloc];
+}
+
+
 @end
