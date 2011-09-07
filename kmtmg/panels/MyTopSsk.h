@@ -16,5 +16,7 @@
 
 
 + (MyTopSsk *)sharedManager;
+- (IBAction)pressTOP:(id)sender;
+- (IBAction)pressSSK:(id)sender;
 
 @end

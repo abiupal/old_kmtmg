@@ -7,7 +7,7 @@
 //
 
 #import "MyTopSsk.h"
-
+#import "../MyDefines.h"
 
 
 static MyTopSsk     *sharedMyTopSskManager = NULL;
