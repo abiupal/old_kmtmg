@@ -10,69 +10,9 @@
 #import "../MyDefines.h"
 #import "MyTopImage.h"
 
-static MyTopSsk     *sharedMyTopSskManager = NULL;
 
 @implementation MyTopSsk
 
-#pragma mark - Singleton
-
-+ (MyTopSsk *)sharedManager
-{
-	@synchronized(self)
-	{
-		MyLog( @"sharedManager:%@ ",[self className] );
-		
-		if( sharedMyTopSskManager == Nil )
-			[[self alloc] init];
-	}
-	
-	return sharedMyTopSskManager;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-	@synchronized(self)
-	{
-		if( sharedMyTopSskManager == Nil )
-		{
-			sharedMyTopSskManager = [super allocWithZone:zone];
-			return sharedMyTopSskManager;
-		}
-	}
-	
-	return Nil;
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-	MyLog( @"copyWithZone:%@ ",[self className] );
-	
-	return self;
-}
-
-- (id)retain
-{
-	MyLog( @"retain:%@ ",[self className] );
-    
-	return self;
-}
-
-- (NSUInteger)retainCount
-{
-	return UINT_MAX;
-}
-
-- (void)release
-{
-	MyLog( @"release:%@ ",[self className] );
-}
-
-- (id)autorelease
-{
-	MyLog( @"autorelease:%@ ",[self className] );
-	
-	return self;
-}
 
 #pragma mark - Init
 
@@ -82,16 +22,15 @@ static MyTopSsk     *sharedMyTopSskManager = NULL;
     if (self)
     {
         // Initialization code here.
+        /* No retain / release NSMutableArray
+        CFArrayCallBacks cb = kCFTypeArrayCallBacks;
+        cb.retain = NULL;
+        cb.release = NULL;
+        
+        images = (NSMutableArray *)CFArrayCreateMutable(kCFAllocatorDefault, 0, &cb);
+         */
         images = [[NSMutableArray alloc] init];
-        /*
-        int i;
-        for( i = 0; i < 5; i++ )
-        {
-            MyTopImage *image = [[[MyTopImage alloc] initWithSize:NSMakeSize(128, 128)] autorelease];
-            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:image
-                                                                          forKey:@"image"];
-            [images addObject:dic];
-        }*/
+
     }
     
     return self;
@@ -102,6 +41,16 @@ static MyTopSsk     *sharedMyTopSskManager = NULL;
     [images release];
     
     [super dealloc];
+}
+
+- (NSMutableArray *)array
+{
+    return images;
+}
+
+- (void)update
+{
+    [collectionView setNeedsDisplay:YES];
 }
 
 

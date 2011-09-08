@@ -19,6 +19,7 @@
 #import "MyLayerView.h"
 #import "MyRubberView.h"
 #import "../panels/MySelect4.h"
+#import "../panels/MyTopSsk.h"
 
 @implementation MyWindowController
 
@@ -193,14 +194,14 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     [self resizeWithoutData:YES];
 }
 
+
 - (void)windowDidLoad
 {
     [super windowDidLoad];
         
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     MyLog( @"windowDidLoad:%@ ",[self className] );
-    
-    
+        
     [oOrigin setFuncName:origin[1] menuName:@"原点"];
     [self setMyViewData];
 	[oOrigin setFuncName:origin[mvd.originType] menuName:NULL];
@@ -243,6 +244,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     [oRubberView setRubberType:RUBBER_NONE];
     
+    [mvd setTopSsk:oTopSsk];
+    
     [self checkUpdateData];
 }
 
@@ -278,8 +281,10 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
         [self setPenColorFromPaletteNo:mvd.penColorNo];
     }
     
+    [self showWindow:nil];
+
         
-    MyLog( @"windowDidBecomeMain:%@ ",[self className] );
+    MyLog( @":%@ ",[self className] );
 }
 
 - (void)windowDidResignMain:(NSNotification *)aNotification
@@ -293,7 +298,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     info = nil;
     draw = nil;
     
-    MyLog( @"windowDidResignMain:%@ ",[self className] );
+    MyLog( @":%@ ",[self className] );
 }
 
 - (void)windowWillClose:(NSNotification *)notification
@@ -309,6 +314,11 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 }
 
 #pragma mark - Setter
+
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)name
+{
+    return [super windowTitleForDocumentDisplayName:[mvd name]];
+}
 
 - (void)setCenterViewFromImagePosition:(NSPoint)center
 {

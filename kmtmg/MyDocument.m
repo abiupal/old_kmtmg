@@ -172,7 +172,7 @@
     if (result == NSOKButton)
     {
 		NSImage *image = [[NSImage alloc] initWithContentsOfURL:[oPanel URL]];
-        [mvd setBackgroundImage:image];
+        [mvd addBackgroundImage:image];
         [image release];
         [mvc checkUpdateData];
         [[MyInfo sharedManager] setImageFraction:mvd.backgroundFraction];

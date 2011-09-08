@@ -260,7 +260,7 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
     if( currentWindow != nil )
     {
         MyWindowController *mwc = [currentWindow windowController];
-        if( [mwc.mvd backgroundImage] != nil )
+        if( 0 < [mwc.mvd.topImages count] )
             [fraction setEnabled:YES];
         else
             [fraction setEnabled:NO];

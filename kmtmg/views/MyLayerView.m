@@ -21,6 +21,7 @@
     if( self != nil )
     {
         cursorPos = NSZeroPoint;
+        previousPos = NSZeroPoint;
         flag = NO;
     }
     
@@ -80,8 +81,10 @@
 	[[NSColor clearColor] set];
     NSRectFill(dirtyRect);
     
-    if( NSEqualPoints(cursorPos, NSZeroPoint) == NO )
+    if( NSEqualPoints(cursorPos, previousPos) == NO )
     {
+        previousPos = cursorPos;
+
         NSPoint pos = [self viewPointFromImagePoint:cursorPos];
         if( pos.x < LAYER_ADJUST_SIZE ) return;
         if( [self frame].size.height - LAYER_ADJUST_SIZE <= pos.y ) return;

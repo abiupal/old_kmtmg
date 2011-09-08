@@ -20,6 +20,7 @@
 @class MyLayerWindow;
 @class MyCursorView;
 @class MyRubberView;
+@class MyTopSsk;
 
 @interface MyWindowController : NSWindowController {
     IBOutlet MyHScrollView *oHSview;
@@ -31,6 +32,7 @@
     IBOutlet MyLayerWindow *oCursorWindow, *oRubberWindow;
     IBOutlet MyCursorView *oCursorView;
     IBOutlet MyRubberView   *oRubberView;
+    IBOutlet MyTopSsk *oTopSsk;
     
 @private
     MyDrawingManager * draw;
@@ -48,6 +50,7 @@
 
 - (void)setMyViewData;
 - (void)setScale:(CGFloat)f autoPosition:(BOOL)flag;
+- (void)setPenColorFromPaletteNo:(NSInteger)palNo;
 - (void)pressPaletteNo:(NSInteger)palNo pos:(NSPoint)pos;
 - (void)functionCommand:(char *)cmd;
 - (void)setCenterFromInfoAutoCenter:(BOOL)flag;

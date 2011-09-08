@@ -8,13 +8,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/io/IoSKY.m"
-         timestampString = "335842483.774167"
+         filePath = "kmtmg/views/MyViewData.m"
+         timestampString = "337180275.94093"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "395"
-         endingLineNumber = "395"
-         landmarkName = "-saveToURL:"
+         startingLineNumber = "278"
+         endingLineNumber = "278"
+         landmarkName = "-setTopSsk:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -22,97 +22,27 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/views/MyVScrollView.m"
-         timestampString = "335847563.361228"
+         filePath = "kmtmg/views/MyViewData.m"
+         timestampString = "337180275.94093"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "27"
-         endingLineNumber = "27"
-         landmarkName = "-drawRect:"
+         startingLineNumber = "560"
+         endingLineNumber = "560"
+         landmarkName = "-addTopImage:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/views/MyVScrollView.m"
-         timestampString = "335848898.63067"
+         filePath = "kmtmg/views/MyViewData.m"
+         timestampString = "337180275.94093"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "52"
-         endingLineNumber = "52"
-         landmarkName = "-drawRect:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/Views/MyWindowController.m"
-         timestampString = "335851019.148933"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "139"
-         endingLineNumber = "139"
-         landmarkName = "-resizeWithoutData:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/views/MyVScrollView.m"
-         timestampString = "335852210.852419"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "17"
-         endingLineNumber = "17"
-         landmarkName = "-drawRect:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/MyDocument.m"
-         timestampString = "337073132.321559"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "44"
-         endingLineNumber = "44"
-         landmarkName = "-makeWindowControllers"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/panels/MyPalette.m"
-         timestampString = "337077043.542509"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "35"
-         endingLineNumber = "35"
-         landmarkName = "+sharedManager"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/MyDocument.m"
-         timestampString = "337077092.539815"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "58"
-         endingLineNumber = "58"
-         landmarkName = "-makeWindowControllers"
+         startingLineNumber = "574"
+         endingLineNumber = "574"
+         landmarkName = "-addBackgroundImage:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

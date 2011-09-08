@@ -27,7 +27,7 @@
 @synthesize backgroundFraction;
 @synthesize sutekake;
 @synthesize indexImage;
-@synthesize palette;
+@synthesize palette, topImages;
 
 #pragma mark -
 
@@ -89,7 +89,8 @@
             }
         }*/
         
-        topImages = [[[NSMutableArray alloc] init] retain];
+        topSsk = nil;
+        topImages = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -272,6 +273,11 @@
     penColorNo = palNo;
 }
 
+- (void)setTopSsk:(MyTopSsk *)mts
+{
+    topSsk = mts;
+}
+
 #pragma mark - Effect / Ignore
 
 - (void)checkEffectIgnoreWithPaletteArray
@@ -446,6 +452,7 @@
     */
     
     /* background topImages */
+    [self addBackgroundImage:img];
     
     [self setImageWithSize:size];
 }
@@ -537,18 +544,34 @@
     myd->pen = penColorNo;
 }
 
+- (void)addTopImage:(MyTopImage *)tImg
+{
+    [topImages addObject:tImg];
+    
+    if ( topSsk == nil ) return;
+    
+    NSImage *image = [[[NSImage alloc] initWithSize:NSMakeSize(128, 128)] autorelease];
+    [image lockFocus];
+    [tImg drawInRect:NSZeroRect fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0f];
+    [image unlockFocus];
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:image
+                                                    forKey:@"image"];
+        
+    [[topSsk array] addObject:dic];
+    [topSsk update];
+}
+
 - (void)addBackgroundImage:(NSImage *)img
 {
     MyTopImage *tImage = [[MyTopImage alloc] initWithSize:[img size]];
     [tImage lockFocus];
-    [img drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0f];
+    [img drawInRect:NSZeroRect fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0f];
     [tImage unlockFocus];
     
     [tImage setDispPosition:NSMakeRect(0, 0, size.width, size.height)];
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:tImage
-                                                                  forKey:@"image"];
-    [topImages addObject:dic];
+    tImage.parentImageSize = size;
+
+    [self addTopImage:tImage];
 }
 
 #pragma mark - Position

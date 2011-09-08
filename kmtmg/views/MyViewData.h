@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "MyIndexImageRep.h"
 #import "MyViewDataDefines.h"
-
+#import "../panels/MyTopSsk.h"
 
 @interface MyViewData : NSObject {
        
@@ -29,6 +29,7 @@
     MyIndexImageRep *indexImage;
     CGFloat backgroundFraction;
     NSMutableArray *topImages;
+    MyTopSsk *topSsk;
     
     // -1: Ignore
     //  0: normal
@@ -82,6 +83,7 @@
 - (NSInteger)indexFromDataPosition:(NSPoint)pos;
 - (void)setMyDrawSrc:(MYDRAW *)myd;
 - (void)setMyDrawDst:(MYDRAW *)myd;
+- (void)setTopSsk:(MyTopSsk *)mts;
 
 @property NSSize size, frameSize, penDot;
 @property NSPoint scale, ratio, pixel;
@@ -96,7 +98,7 @@
 @property CGFloat backgroundFraction;
 @property NSInteger sutekake;
 @property(readonly, assign) MyIndexImageRep *indexImage;
-@property(readonly, assign) NSMutableArray *palette;
+@property(readonly, assign) NSMutableArray *palette, *topImages;
 
 
 @end

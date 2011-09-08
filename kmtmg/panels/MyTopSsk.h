@@ -12,11 +12,14 @@
 {
     NSMutableArray *images;
     IBOutlet NSArrayController *arrayController;
+    IBOutlet NSCollectionView *collectionView;
 }
 
+- (NSMutableArray *)array;
+- (void)update;
 
-+ (MyTopSsk *)sharedManager;
 - (IBAction)pressTOP:(id)sender;
 - (IBAction)pressSSK:(id)sender;
+
 
 @end

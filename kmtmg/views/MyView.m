@@ -4,6 +4,7 @@
 #import "../MyDefines.h"
 #import "../menuTool/MyDrawButton.h"
 #import "../panels/MySelect4.h"
+#import "../panels/MyTopImage.h"
 
 @implementation MyView
 
@@ -205,21 +206,11 @@
         
         // [[iData image] drawInRect:iUpdateDisp fromRect:iUpdateRect operation:NSCompositeSourceOver fraction:1.0];
         
-        NSImage *bk = [mvd backgroundImage];
-        if( bk != nil )
+        
+        MyTopImage *topImage;
+        for( topImage in [mvd topImages] )
         {
-            NSSize imgSize = [mvd size];
-            NSSize bkSize = [bk size];
-            CGFloat x, y, w, h;
-            x = bkSize.width * iUpdateRect.origin.x / imgSize.width;
-            y = bkSize.height * iUpdateRect.origin.y / imgSize.height;
-            w = bkSize.width * iUpdateRect.size.width / imgSize.width;
-            h = bkSize.height * iUpdateRect.size.height / imgSize.height;
-            NSRect backgroundRect = NSMakeRect( x, y, w, h );
-            [bk drawInRect:iUpdateDisp
-                  fromRect:backgroundRect
-                 operation:NSCompositeSourceOver 
-                  fraction:mvd.backgroundFraction];
+            [topImage drawUpdateRect:iUpdateRect disp:iUpdateDisp fraction:mvd.backgroundFraction];
         }
         
         if ( keyScroll == YES )

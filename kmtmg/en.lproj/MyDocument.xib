@@ -354,7 +354,7 @@
 																			<string key="NSFrameSize">{488, 126}</string>
 																			<reference key="NSSuperview" ref="463231561"/>
 																			<reference key="NSWindow"/>
-																			<reference key="NSNextKeyView" ref="717106582"/>
+																			<reference key="NSNextKeyView" ref="12926121"/>
 																			<string key="NSMinGridSize">{0, 0}</string>
 																			<string key="NSMaxGridSize">{0, 0}</string>
 																			<int key="NSMaxNumberOfGridRows">0</int>
@@ -407,7 +407,7 @@
 															<string key="NSFrameSize">{490, 128}</string>
 															<reference key="NSSuperview" ref="276230304"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="12926121"/>
+															<reference key="NSNextKeyView" ref="463231561"/>
 															<int key="NSsFlags">133666</int>
 															<reference key="NSVScroller" ref="12926121"/>
 															<reference key="NSHScroller" ref="167522541"/>
@@ -444,7 +444,6 @@
 											<string key="NSFrameSize">{0, 493}</string>
 											<reference key="NSSuperview" ref="452081562"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
 											<string key="NSClassName">NSView</string>
 										</object>
 									</array>
@@ -471,7 +470,7 @@
 				<string key="NSScreenRect">{{0, 0}, {1366, 768}}</string>
 				<string key="NSMinSize">{320, 262}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
-				<bool key="NSWindowIsRestorable">YES</bool>
+				<bool key="NSWindowIsRestorable">NO</bool>
 			</object>
 			<object class="NSWindowTemplate" id="464546253">
 				<int key="NSWindowBacking">1</int>
@@ -482,7 +481,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="397099299">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSCustomView" id="186698734">
@@ -490,10 +489,13 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrameSize">{202, 136}</string>
 							<reference key="NSSuperview" ref="397099299"/>
+							<reference key="NSWindow"/>
 							<string key="NSClassName">MyCursorView</string>
 						</object>
 					</array>
 					<string key="NSFrameSize">{202, 136}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="186698734"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1366, 768}}</string>
@@ -532,7 +534,7 @@
 			</object>
 			<object class="NSCollectionViewItem" id="578116863"/>
 			<object class="NSView" id="817488943">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSImageView" id="751878084">
@@ -548,8 +550,6 @@
 						</set>
 						<string key="NSFrame">{{-3, -3}, {126, 126}}</string>
 						<reference key="NSSuperview" ref="817488943"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="364335529">
 							<int key="NSCellFlags">67239424</int>
@@ -564,8 +564,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{120, 120}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="751878084"/>
 			</object>
 			<object class="NSArrayController" id="674351445">
@@ -764,6 +762,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">oTopSsk</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="582650971"/>
+					</object>
+					<int key="connectionID">100352</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="275939982"/>
 						<reference key="destination" ref="512844837"/>
@@ -865,6 +871,14 @@
 						<reference key="destination" ref="731023500"/>
 					</object>
 					<int key="connectionID">100338</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">collectionView</string>
+						<reference key="source" ref="582650971"/>
+						<reference key="destination" ref="906795404"/>
+					</object>
+					<int key="connectionID">100353</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1340,7 +1354,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100351</int>
+			<int key="maxID">100353</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1431,17 +1445,20 @@
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">arrayController</string>
-						<string key="NS.object.0">NSArrayController</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">arrayController</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="arrayController">NSArrayController</string>
+						<string key="collectionView">NSCollectionView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="arrayController">
 							<string key="name">arrayController</string>
 							<string key="candidateClassName">NSArrayController</string>
 						</object>
-					</object>
+						<object class="IBToOneOutletInfo" key="collectionView">
+							<string key="name">collectionView</string>
+							<string key="candidateClassName">NSCollectionView</string>
+						</object>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/MyTopSsk.h</string>
@@ -1516,6 +1533,7 @@
 						<string key="oRubberView">MyRubberView</string>
 						<string key="oRubberWindow">MyLayerWindow</string>
 						<string key="oScrollView">MyScrollwithOtherView</string>
+						<string key="oTopSsk">MyTopSsk</string>
 						<string key="oUDSplit">NSSplitView</string>
 						<string key="oVSview">MyVScrollView</string>
 						<string key="oView">MyView</string>
@@ -1568,6 +1586,10 @@
 						<object class="IBToOneOutletInfo" key="oScrollView">
 							<string key="name">oScrollView</string>
 							<string key="candidateClassName">MyScrollwithOtherView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="oTopSsk">
+							<string key="name">oTopSsk</string>
+							<string key="candidateClassName">MyTopSsk</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="oUDSplit">
 							<string key="name">oUDSplit</string>

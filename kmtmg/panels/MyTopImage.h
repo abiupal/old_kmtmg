@@ -11,8 +11,12 @@
 @interface MyTopImage : NSImage {
 
     NSRect dstDispPosition;
+    NSSize parentImageSize;
 }
 
 - (void)setDispPosition:(NSRect)r;
+- (void)drawUpdateRect:(NSRect)update disp:(NSRect)disp fraction:(CGFloat)f;
+
+@property NSSize parentImageSize;
 
 @end

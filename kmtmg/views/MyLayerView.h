@@ -15,7 +15,7 @@
     MyViewData *mvd;
     NSPoint scrollStart;
 
-    NSPoint cursorPos;
+    NSPoint cursorPos, previousPos;
     BOOL flag;
 }
 
