@@ -8,7 +8,7 @@
 
 #import "MyTopSsk.h"
 #import "../MyDefines.h"
-
+#import "MyTopImage.h"
 
 static MyTopSsk     *sharedMyTopSskManager = NULL;
 
@@ -81,16 +81,17 @@ static MyTopSsk     *sharedMyTopSskManager = NULL;
     self = [super init];
     if (self)
     {
-        int i;
         // Initialization code here.
         images = [[NSMutableArray alloc] init];
-        for( i = 0; i < 20; i++ )
+        /*
+        int i;
+        for( i = 0; i < 5; i++ )
         {
-            NSImage *image = [[[NSImage alloc] initWithSize:NSMakeSize(128, 128)] autorelease];
+            MyTopImage *image = [[[MyTopImage alloc] initWithSize:NSMakeSize(128, 128)] autorelease];
             NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:image
                                                                           forKey:@"image"];
             [images addObject:dic];
-        }
+        }*/
     }
     
     return self;

@@ -11,6 +11,7 @@
 #import "MyIndexImageRep.h"
 #import "MyColorData.h"
 #import "../io/IoSKY.h"
+#import "../panels/MyTopImage.h"
 
 @implementation MyViewData
 
@@ -47,9 +48,7 @@
 		startPosition = NSMakePoint( 0, 0 );
 		gridBoldFat = NSMakePoint( 10, 10 );
 		index = -1;
-		image = nil;
         indexImage = nil;
-        backgroundImage = nil;
         IoSKY *sky = [[IoSKY alloc] init];
         [self setPaletteFromData:[sky l64] colorNum:256];
         [sky release];
@@ -89,6 +88,8 @@
                 allowToDst[i] = -1;
             }
         }*/
+        
+        topImages = [[[NSMutableArray alloc] init] retain];
     }
     
     return self;
@@ -96,12 +97,15 @@
 
 - (void)dealloc
 {
+    [topImages release];
+    
     [palette release];
+    
 	[backgroundColor release];
+    
     if( indexImage != nil )
         [indexImage release];
-	if( image != nil )
-		[image release];
+    
 	if( name != nil )
 		[name release];
     
@@ -416,37 +420,9 @@
 
 #pragma mark - Image
 
-- (void)setBackgroundImage:(NSImage *)img
-{
-    /*
-    if( backgroundImage != nil )
-        [backgroundImage autorelease];
-    
-    
-    backgroundImage = [[NSImage alloc] initWithSize:NSMakeSize(img.size.width * 3.0f, img.size.height * 3.0f)];
-    [backgroundImage lockFocus];
-    NSSize bSize = [backgroundImage size];
-    
-    [img drawInRect: NSMakeRect(0, 0, bSize.width, bSize.height)
-           fromRect: NSMakeRect(0, 0, img.size.width, img.size.height)
-          operation: NSCompositeSourceOver fraction: 1.0];
-    [backgroundImage unlockFocus];
-    [backgroundImage retain];*/
-    [img retain];
-    [backgroundImage release];
-    backgroundImage = img;
-}
-
-- (NSImage *)backgroundImage
-{
-    return backgroundImage;
-}
 
 - (void)setImageFromStandard:(NSImage *)img
 {
-	if( image != nil )
-		[image autorelease];
-    
     NSBitmapImageRep *bitmap = [NSBitmapImageRep imageRepWithData:[img TIFFRepresentation]];
     
     size = NSMakeSize([bitmap pixelsWide], [bitmap pixelsHigh]);
@@ -468,7 +444,9 @@
     [NSGraphicsContext restoreGraphicsState];
     [bitmapWhoseFormatIKnow release];
     */
-    [self setBackgroundImage:img];
+    
+    /* background topImages */
+    
     [self setImageWithSize:size];
 }
 
@@ -495,11 +473,6 @@
         [indexImage release];
     
     indexImage = [[MyIndexImageRep alloc] initWithPaletteArray:palette size:size];
-    
-    if( image != nil )
-        [image release];
-    image = [[NSImage alloc] initWithSize:size];
-    [image setCacheMode:NSImageCacheAlways];
 }
 
 - (void)setImageWithData:(unsigned char *)indexData 
@@ -515,7 +488,7 @@
 
 - (BOOL)hasImage
 {
-	if( image != nil )
+	if( indexImage != nil )
 		return YES;
 	else
 		return NO;
@@ -530,7 +503,7 @@
 
 - (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img
 {
-    if( backgroundImage != nil && 0.0f < backgroundFraction )
+    if( 0 < [topImages count] && 0.0f < backgroundFraction )
         [indexImage drawDispRect:disp imageRect:img origin:originType background:YES];
     else
         [indexImage drawDispRect:disp imageRect:img origin:originType background:NO];
@@ -539,7 +512,7 @@
 - (void)drawScrollDispRect:(NSRect)disp imageRect:(NSRect)img
 {
     BOOL bk = NO;
-    if( backgroundImage != nil && 0.0f < backgroundFraction )
+    if( 0 < [topImages count] && 0.0f < backgroundFraction )
         bk = YES;
 
     if( pixel.x < 3 && pixel.y < 3 )
@@ -562,6 +535,20 @@
     myd->dst.allow = &allowToDst[0];
     myd->dst.effectIgnoreType = [self effectIgnoreDst];
     myd->pen = penColorNo;
+}
+
+- (void)addBackgroundImage:(NSImage *)img
+{
+    MyTopImage *tImage = [[MyTopImage alloc] initWithSize:[img size]];
+    [tImage lockFocus];
+    [img drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0f];
+    [tImage unlockFocus];
+    
+    [tImage setDispPosition:NSMakeRect(0, 0, size.width, size.height)];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:tImage
+                                                                  forKey:@"image"];
+    [topImages addObject:dic];
 }
 
 #pragma mark - Position

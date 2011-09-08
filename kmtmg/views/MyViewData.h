@@ -19,7 +19,7 @@
 	NSPoint noSpace, startPosition, startPositionIsNoSpace;
 	NSPoint gridBoldFat;
 	NSColor *backgroundColor, *gridColor, *penColor;
-	NSImage *image, *backgroundImage;
+	// NSImage *image, *backgroundImage;
     NSMutableArray *palette;
 	NSString *name;
 	NSInteger originType, gridType, index;
@@ -28,6 +28,7 @@
     
     MyIndexImageRep *indexImage;
     CGFloat backgroundFraction;
+    NSMutableArray *topImages;
     
     // -1: Ignore
     //  0: normal
@@ -65,10 +66,11 @@
 - (void)setImageFromStandard:(NSImage *)img;
 - (void)setImageWithData:(unsigned char *)indexData size:(NSSize)imageSize palette:(unsigned char *)palData colorNum:(int)n;
 - (void)setImageWithSize:(NSSize)imageSize;
-- (void)setBackgroundImage:(NSImage *)img;
+
+- (void)addBackgroundImage:(NSImage *)img;
 - (BOOL)hasImage;
 - (void)setName:(NSString *)newName;
-- (NSImage *)backgroundImage;
+
 - (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img;
 - (void)drawScrollDispRect:(NSRect)disp imageRect:(NSRect)img;
 - (BOOL)drawPlot:(NSPoint)po;
