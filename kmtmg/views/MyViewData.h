@@ -68,7 +68,7 @@
 - (void)setImageWithData:(unsigned char *)indexData size:(NSSize)imageSize palette:(unsigned char *)palData colorNum:(int)n;
 - (void)setImageWithSize:(NSSize)imageSize;
 
-- (void)addBackgroundImage:(NSImage *)img;
+- (void)addBackgroundImageURL:(NSURL *)url;
 - (BOOL)hasImage;
 - (void)setName:(NSString *)newName;
 

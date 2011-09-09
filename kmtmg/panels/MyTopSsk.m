@@ -13,7 +13,6 @@
 
 @implementation MyTopSsk
 
-
 #pragma mark - Init
 
 - (id)init
@@ -48,10 +47,53 @@
     return images;
 }
 
-- (void)update
+
+- (void)addTopImage:(NSDictionary *)dic
 {
-    [collectionView setNeedsDisplay:YES];
+    [arrayController addObject:dic];
+    
+    NSImage *img = [[images lastObject] objectForKey:@"image"];
+    MyLog(@"%@, size:%@", [img name], NSStringFromSize( [img size] ));
+    /*
+    NSSavePanel *p = [NSSavePanel savePanel];
+    if( [p runModal] )
+    {
+        [[img TIFFRepresentation] writeToURL:[p URL] atomically:NO];
+    }*/
+}
+
+- (IBAction)pressTOP:(id)sender
+{
+    
+}
+- (IBAction)pressSSK:(id)sender
+{
+    
+}
+
+@end
+
+#pragma mark - MyTopSskCell
+
+@implementation MyTopSskCell
+
+- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
+{
+    return YES;
+}
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+    NSPoint po = [self convertPoint:[theEvent locationInWindow] fromView:Nil];
+    // MyLog( @"> %d, %@", myTag, NSStringFromPoint(po) );
+}
+
+- (void)drawRect:(NSRect)dirtyRect
+{
+    [super drawRect:dirtyRect];
 }
 
 
 @end
+
+

@@ -21,7 +21,7 @@
 
 @end
 
-@interface MyImageCell : NSImageView {
+@interface MyPaletteCell : NSImageView {
     MyWindowController *windowController;
     NSInteger myTag;
 }

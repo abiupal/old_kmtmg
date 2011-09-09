@@ -171,9 +171,7 @@
     NSInteger result = [oPanel runModal];
     if (result == NSOKButton)
     {
-		NSImage *image = [[NSImage alloc] initWithContentsOfURL:[oPanel URL]];
-        [mvd addBackgroundImage:image];
-        [image release];
+        [mvd addBackgroundImageURL:[oPanel URL]];
         [mvc checkUpdateData];
         [[MyInfo sharedManager] setImageFraction:mvd.backgroundFraction];
     }

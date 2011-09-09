@@ -550,24 +550,22 @@
     
     if ( topSsk == nil ) return;
     
+    if( [tImg isValid] == NO )
+        [tImg recache];
     NSImage *image = [[[NSImage alloc] initWithSize:NSMakeSize(128, 128)] autorelease];
     [image lockFocus];
-    [tImg drawInRect:NSZeroRect fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0f];
+    [tImg drawInRect:NSMakeRect(0,0,128,128) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0f];
     [image unlockFocus];
+    [image setName:[NSString stringWithFormat:@"topImages_%d",[topImages count]]];
     NSDictionary *dic = [NSDictionary dictionaryWithObject:image
                                                     forKey:@"image"];
-        
-    [[topSsk array] addObject:dic];
-    [topSsk update];
+    
+    [topSsk addTopImage:dic];
 }
 
-- (void)addBackgroundImage:(NSImage *)img
+- (void)addBackgroundImageURL:(NSURL *)url
 {
-    MyTopImage *tImage = [[MyTopImage alloc] initWithSize:[img size]];
-    [tImage lockFocus];
-    [img drawInRect:NSZeroRect fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0f];
-    [tImage unlockFocus];
-    
+    MyTopImage *tImage = [[[MyTopImage alloc] initWithContentsOfURL:url] autorelease];    
     [tImage setDispPosition:NSMakeRect(0, 0, size.width, size.height)];
     tImage.parentImageSize = size;
 

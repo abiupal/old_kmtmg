@@ -15,7 +15,7 @@
 }
 
 - (void)setDispPosition:(NSRect)r;
-- (void)drawUpdateRect:(NSRect)update disp:(NSRect)disp fraction:(CGFloat)f;
+- (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img fraction:(CGFloat)f;
 
 @property NSSize parentImageSize;
 

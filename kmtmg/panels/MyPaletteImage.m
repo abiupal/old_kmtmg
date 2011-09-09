@@ -88,9 +88,9 @@
 
 @end
 
-#pragma mark - MyImageCell
+#pragma mark - MyPaletteCell
 
-@implementation MyImageCell
+@implementation MyPaletteCell
 
 @synthesize windowController;
 
@@ -184,6 +184,7 @@
 #pragma mark - MyPaletteView
 
 @implementation MyPaletteView
+
 @synthesize palImage;
 
 - (void)awakeFromNib

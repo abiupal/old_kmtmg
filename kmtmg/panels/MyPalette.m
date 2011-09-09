@@ -196,7 +196,7 @@ static char *funcName[2] = { "M_PALETTE_OPEN", "M_PALETTE_CLOSE"};
     MyPaletteImage *img;
     NSCollectionViewItem *item;
     NSArray *a;
-    MyImageCell *cell;
+    MyPaletteCell *cell;
     int i = 0;
     MyColorData *rgba;
     for( rgba in array )

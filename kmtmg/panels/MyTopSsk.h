@@ -12,14 +12,19 @@
 {
     NSMutableArray *images;
     IBOutlet NSArrayController *arrayController;
-    IBOutlet NSCollectionView *collectionView;
 }
 
 - (NSMutableArray *)array;
-- (void)update;
 
 - (IBAction)pressTOP:(id)sender;
 - (IBAction)pressSSK:(id)sender;
+- (void)addTopImage:(NSDictionary *)dic;
+
+@end
+
+
+@interface MyTopSskCell : NSImageView {
+}
 
 
 @end

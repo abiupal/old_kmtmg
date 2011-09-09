@@ -20,6 +20,8 @@
     {
         dstDispPosition = NSZeroRect;
     }
+    
+    return self;
 }
 
 - (void)setDispPosition:(NSRect)r
@@ -27,14 +29,15 @@
     dstDispPosition = r;
 }
 
-- (void)drawUpdateRect:(NSRect)update disp:(NSRect)disp fraction:(CGFloat)f
+- (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img fraction:(CGFloat)f
 {
     NSSize bkSize = [self size];
     CGFloat x, y, w, h;
-    x = bkSize.width * update.origin.x / parentImageSize.width;
-    y = bkSize.height * update.origin.y / parentImageSize.height;
-    w = bkSize.width * update.size.width / parentImageSize.width;
-    h = bkSize.height * update.size.height / parentImageSize.height;
+    x = bkSize.width * img.origin.x / parentImageSize.width;
+    y = bkSize.height * img.origin.y / parentImageSize.height;
+    w = bkSize.width * img.size.width / parentImageSize.width;
+    h = bkSize.height * img.size.height / parentImageSize.height;
+    
     [self drawInRect:disp
           fromRect:NSMakeRect( x, y, w, h )
          operation:NSCompositeSourceOver 
