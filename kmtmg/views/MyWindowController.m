@@ -537,6 +537,21 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 
 #pragma mark - Command
 
+- (void) topSskCommand:(char *)cmd
+{
+    cmd += 3;
+    NSInteger n = atoi( cmd +7 );
+    if( MY_CMP(cmd, "RESIZE_" ) )
+    {
+        
+    }
+    else if( MY_CMP(cmd, "REMOVE_" ) )
+    {
+        [mvd removeBackgroundImage:n];
+        [self checkUpdateData];
+    }
+}
+
 - (void) viewCommand:(char *)cmd
 {
     CGFloat x, y;
@@ -637,6 +652,10 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     else if( MY_CMP(cmd, "V_" ) )
     {
         [self viewCommand:(char *)cmd];
+    }
+    else if( MY_CMP(cmd, "TS_" ) )
+    {
+        [self topSskCommand:(char *)cmd];
     }
     else
     {

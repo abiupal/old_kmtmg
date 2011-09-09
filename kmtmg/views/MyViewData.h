@@ -69,6 +69,8 @@
 - (void)setImageWithSize:(NSSize)imageSize;
 
 - (void)addBackgroundImageURL:(NSURL *)url;
+- (void)removeBackgroundImage:(NSInteger)n;
+
 - (BOOL)hasImage;
 - (void)setName:(NSString *)newName;
 

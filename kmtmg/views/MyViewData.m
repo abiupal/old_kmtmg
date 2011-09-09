@@ -12,6 +12,7 @@
 #import "MyColorData.h"
 #import "../io/IoSKY.h"
 #import "../panels/MyTopImage.h"
+#import <IoCGS/MyOS.h>
 
 @implementation MyViewData
 
@@ -570,6 +571,23 @@
     tImage.parentImageSize = size;
 
     [self addTopImage:tImage];
+}
+
+- (void)removeBackgroundImage:(NSInteger)n
+{
+    if ( n < 0 || [topImages count] <= n ) return;
+    
+    MyOS *myos = [MyOS sharedManager];
+    NSArray *btns = [NSArray arrayWithObjects:@"Remove", @"Cancel", nil];
+    NSString *info = [NSString stringWithFormat:@"Background Image No.%d / %d", n +1, [topImages count]];
+    if( [myos alertButtons:btns
+                   message:@"Remove the original Picture ?"
+                      info:info] == NSAlertSecondButtonReturn )
+            return;
+      
+    
+    [topImages removeObjectAtIndex:n];
+    [topSsk removeImageIndex:n];
 }
 
 #pragma mark - Position

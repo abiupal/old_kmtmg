@@ -19,12 +19,12 @@
 - (IBAction)pressTOP:(id)sender;
 - (IBAction)pressSSK:(id)sender;
 - (void)addTopImage:(NSDictionary *)dic;
+- (void)removeImageIndex:(NSInteger)n;
 
 @end
 
 
 @interface MyTopSskCell : NSImageView {
 }
-
 
 @end

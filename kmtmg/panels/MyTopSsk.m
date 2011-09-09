@@ -9,7 +9,7 @@
 #import "MyTopSsk.h"
 #import "../MyDefines.h"
 #import "MyTopImage.h"
-
+#import "MyTopSskView.h"
 
 @implementation MyTopSsk
 
@@ -52,15 +52,23 @@
 {
     [arrayController addObject:dic];
     
+    /*
     NSImage *img = [[images lastObject] objectForKey:@"image"];
     MyLog(@"%@, size:%@", [img name], NSStringFromSize( [img size] ));
-    /*
+    
     NSSavePanel *p = [NSSavePanel savePanel];
     if( [p runModal] )
     {
         [[img TIFFRepresentation] writeToURL:[p URL] atomically:NO];
     }*/
 }
+
+- (void)removeImageIndex:(NSInteger)n
+{
+    NSDictionary *dic = [images objectAtIndex:n];
+    [arrayController removeObject:dic];
+}
+
 
 - (IBAction)pressTOP:(id)sender
 {
@@ -82,15 +90,21 @@
     return YES;
 }
 
-- (void)mouseDown:(NSEvent *)theEvent
+- (NSMenu *)menuForEvent:(NSEvent *)event
 {
-    NSPoint po = [self convertPoint:[theEvent locationInWindow] fromView:Nil];
-    // MyLog( @"> %d, %@", myTag, NSStringFromPoint(po) );
-}
-
-- (void)drawRect:(NSRect)dirtyRect
-{
-    [super drawRect:dirtyRect];
+    MyTopSskView *tsv = [[self superview] superview];
+    NSArray *a = [tsv subviews];
+    NSView *v;
+    tsv.selected = 0;
+    for( v in a )
+    {
+        if ( [v isEqual:[self superview]] == YES ) {
+            break;
+        }
+        tsv.selected++;
+    }
+    
+    return [tsv topMenu];
 }
 
 
