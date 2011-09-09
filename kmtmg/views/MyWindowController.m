@@ -14,6 +14,7 @@
 #import "../panels/MyPalette.h"
 #import "../panels/MyInfo.h"
 #import "../funcs/MyDrawingManager.h"
+#import "../funcs/MyEditingManager.h"
 #import "MyColorData.h"
 #import "MyLayerWindow.h"
 #import "MyLayerView.h"
@@ -253,8 +254,11 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 {
     palette = [MyPalette sharedManager];
     info = [MyInfo sharedManager];
+    
     draw = [MyDrawingManager sharedManager];
     if( [draw isEnabled] == NO ) draw = nil;
+    edit = [MyEditingManager sharedManager];
+    if( [edit isEnabled] == NO ) edit = nil;
     
     if( [[self window] isEqual:palette.currentWindow] == NO )
     {
@@ -297,6 +301,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     info.scroll.keyWindow = nil;
     info = nil;
     draw = nil;
+    edit = nil;
     
     MyLog( @":%@ ",[self className] );
 }
@@ -539,16 +544,16 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 
 - (void) topSskCommand:(char *)cmd
 {
-    cmd += 3;
-    NSInteger n = atoi( cmd +7 );
-    if( MY_CMP(cmd, "RESIZE_" ) )
-    {
-        
-    }
-    else if( MY_CMP(cmd, "REMOVE_" ) )
+    NSInteger n = atoi( cmd +10 );
+
+    if( MY_CMP(cmd, "TS_REMOVE_" ) )
     {
         [mvd removeBackgroundImage:n];
         [self checkUpdateData];
+    }
+    else
+    {
+        [edit setCommand:cmd data:mvd rubber:oRubberView];
     }
 }
 
@@ -629,6 +634,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     else if( MY_CMP(cmd, "A_Cancel") )
     {
         if( draw != nil ) [draw cancel];
+        else if( edit != nil ) [edit cancel];
+        
         return;
     }
     else if( MY_CMP(cmd, "A_TEST") )
@@ -639,6 +646,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     draw = [MyDrawingManager sharedManager];
     [draw disabled];
+    edit = [MyEditingManager sharedManager];
+    [edit disabled];
     
     if( MY_CMP(cmd, "M_" ) )
     {
@@ -664,6 +673,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     }
     
     if( [draw isEnabled] == NO ) draw = nil;
+    if( [edit isEnabled] == NO ) edit = nil;
 }
 
 #pragma mark - Keyboard
@@ -672,6 +682,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 {
     if( draw != nil )
         [draw cancel];
+    if( edit != nil )
+        [edit cancel];
 }
 
 - (void)keyCharactor:(NSString *)str
@@ -744,6 +756,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     if( draw != nil )
         [draw mouseDown:po];
+    else if( edit != nil )
+        [edit mouseDown:po];
 }
 
 - (void)mouseUp:(NSEvent *)e
@@ -752,6 +766,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     if( draw != nil )
         [draw mouseUp:po];
+    else if( edit != nil )
+        [edit mouseUp:po];
 }
 
 - (void)mouseDragged:(NSEvent *)e
@@ -760,6 +776,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     if( draw != nil )
         [draw mouseDragged:po];
+    else if( edit != nil )
+        [edit mouseDragged:po];
     
     [self setPositionInfo:po];
     
@@ -776,6 +794,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     if( draw != nil )
         [draw rightMouseDown:po];
+    else if( edit != nil )
+        [edit rightMouseDown:po];
 }
 
 - (void)rightMouseUp:(NSEvent *)e
@@ -783,6 +803,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     NSPoint po = [self convertFromViewToImage:[e locationInWindow]];
     
     if( draw != nil )
+        [draw rightMouseUp:po];
+    else if( edit != nil )
         [draw rightMouseUp:po];
 }
 
@@ -794,6 +816,11 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     {
         oRubberView.scrollStart = oScrollView.startPosition;
         [draw mouseMoved:po];
+    }
+    else if( edit != nil )
+    {
+        oRubberView.scrollStart = oScrollView.startPosition;
+        [edit mouseMoved:po];
     }
     
     [self setPositionInfo:po];

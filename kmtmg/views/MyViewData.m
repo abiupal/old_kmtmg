@@ -579,15 +579,23 @@
     
     MyOS *myos = [MyOS sharedManager];
     NSArray *btns = [NSArray arrayWithObjects:@"Remove", @"Cancel", nil];
-    NSString *info = [NSString stringWithFormat:@"Background Image No.%d / %d", n +1, [topImages count]];
+    NSString *info = [NSString stringWithFormat:@"Background Image No.%d / %d",
+                      n +1, [topImages count]];
     if( [myos alertButtons:btns
                    message:@"Remove the original Picture ?"
                       info:info] == NSAlertSecondButtonReturn )
             return;
-      
     
     [topImages removeObjectAtIndex:n];
     [topSsk removeImageIndex:n];
+}
+
+- (void)changeRectPosition:(NSRect)r backgroundImage:(NSInteger)n
+{
+    if ( n < 0 || [topImages count] <= n ) return;
+    
+    MyTopImage *tImg = [topImages objectAtIndex:n];
+    [tImg setDispPosition:r];
 }
 
 #pragma mark - Position

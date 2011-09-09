@@ -34,4 +34,6 @@
 - (BOOL)isEnabled;
 - (void)disabled;
 
+- (NSRect)rectFromPosition;
+
 @end

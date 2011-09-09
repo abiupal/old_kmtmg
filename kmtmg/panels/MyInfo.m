@@ -24,7 +24,11 @@ static MyInfo *sharedMyInfoManager = NULL;
 
 - (id)getObjectName:(char *)name tag:(int)n
 {
+    if( scroll == nil ) return nil;
+    
 	NSArray *a = [scroll subviews];
+    NSArray *a2 = [[a objectAtIndex:0] subviews];
+    a = [[a2 objectAtIndex:0] subviews];
 	NSString *s;
 	id obj;
 	int i;
@@ -236,14 +240,13 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
 	[obj setStringValue:[NSString stringWithFormat:@"%d",(int)ratio.x]];
 	obj = [self getObjectName:"NSTextField" tag:22];
 	[obj setStringValue:[NSString stringWithFormat:@"%d",(int)ratio.y]];
-	// 31 Scale
     obj = [self getObjectName:"NSTextField" tag:31];
-    if( 0.0f < scale && scale < 1.0f )
+    if( 0.0f < scaleValue && scaleValue < 1.0f )
     {
-        [obj setStringValue:[NSString stringWithFormat:@"1/%d",(int)(1.0f / scale)]];
+        [obj setStringValue:[NSString stringWithFormat:@"1/%d",(int)(1.0f / scaleValue)]];
     }
 	else
-        [obj setStringValue:[NSString stringWithFormat:@"%d",(int)scale]];
+        [obj setStringValue:[NSString stringWithFormat:@"%d",(int)scaleValue]];
     
     [currentWindow update];
 }
@@ -279,7 +282,9 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
 
 - (void)setScale:(CGFloat)n
 {
-    scale = n;
+    if( !n ) return;
+    
+    scaleValue = n;
     [self updateInfo];
 }
 

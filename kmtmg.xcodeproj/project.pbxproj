@@ -40,6 +40,7 @@
 		BA7D2FDD13C6B56E00122C65 /* MyDrawingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA7D2FDC13C6B56E00122C65 /* MyDrawingManager.m */; };
 		BA7D2FE013C6B59A00122C65 /* MyfuncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA7D2FDF13C6B59A00122C65 /* MyfuncManager.m */; };
 		BA89B23D1419DADA00883415 /* MyTopSskView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B23C1419DADA00883415 /* MyTopSskView.m */; };
+		BA8BD1491419EF670025BBC6 /* MyEditingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8BD1481419EF670025BBC6 /* MyEditingManager.m */; };
 		BA92462013BBFFC300FDA346 /* IoCGS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA92461F13BBFFC300FDA346 /* IoCGS.framework */; };
 		BA9519A713EFDEC5007D36AB /* MyColorData.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9519A613EFDEC5007D36AB /* MyColorData.m */; };
 		BAA6F487141602E70042D66F /* MyTopSsk.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6F486141602E60042D66F /* MyTopSsk.m */; };
@@ -135,6 +136,8 @@
 		BA7D2FDF13C6B59A00122C65 /* MyfuncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyfuncManager.m; path = funcs/MyfuncManager.m; sourceTree = "<group>"; };
 		BA89B23B1419DADA00883415 /* MyTopSskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTopSskView.h; path = panels/MyTopSskView.h; sourceTree = "<group>"; };
 		BA89B23C1419DADA00883415 /* MyTopSskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTopSskView.m; path = panels/MyTopSskView.m; sourceTree = "<group>"; };
+		BA8BD1471419EF670025BBC6 /* MyEditingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyEditingManager.h; path = funcs/MyEditingManager.h; sourceTree = "<group>"; };
+		BA8BD1481419EF670025BBC6 /* MyEditingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyEditingManager.m; path = funcs/MyEditingManager.m; sourceTree = "<group>"; };
 		BA8D724D13D65D79008C0C3A /* skyIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = skyIndex.h; path = io/skyIndex.h; sourceTree = "<group>"; };
 		BA92461F13BBFFC300FDA346 /* IoCGS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IoCGS.framework; path = ../../../../../../../../Library/Frameworks/IoCGS.framework; sourceTree = "<group>"; };
 		BA9519A513EFDEC5007D36AB /* MyColorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyColorData.h; path = views/MyColorData.h; sourceTree = "<group>"; };
@@ -360,6 +363,8 @@
 				BA5276B913E6A3A100B160DA /* myDrawing.c */,
 				BA7D2FDB13C6B56E00122C65 /* MyDrawingManager.h */,
 				BA7D2FDC13C6B56E00122C65 /* MyDrawingManager.m */,
+				BA8BD1471419EF670025BBC6 /* MyEditingManager.h */,
+				BA8BD1481419EF670025BBC6 /* MyEditingManager.m */,
 				BA7D2FDE13C6B59A00122C65 /* MyfuncManager.h */,
 				BA7D2FDF13C6B59A00122C65 /* MyfuncManager.m */,
 			);
@@ -558,6 +563,7 @@
 				BAA6F487141602E70042D66F /* MyTopSsk.m in Sources */,
 				BA1AB61D1418659000069105 /* MyTopImage.m in Sources */,
 				BA89B23D1419DADA00883415 /* MyTopSskView.m in Sources */,
+				BA8BD1491419EF670025BBC6 /* MyEditingManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

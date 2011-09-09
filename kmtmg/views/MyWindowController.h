@@ -17,6 +17,7 @@
 @class MyPalette;
 @class MyInfo;
 @class MyDrawingManager;
+@class MyEditingManager;
 @class MyLayerWindow;
 @class MyCursorView;
 @class MyRubberView;
@@ -35,7 +36,9 @@
     IBOutlet MyTopSsk *oTopSsk;
     
 @private
-    MyDrawingManager * draw;
+    MyDrawingManager *draw;
+    MyEditingManager *edit;
+    
     MyPalette *palette;
     MyInfo *info;
 

@@ -357,35 +357,6 @@ static MyDrawingManager *sharedMyDrawingManager = NULL;
     pos = ed;
 }
 
-- (NSRect)rectFromPosition
-{
-    NSPoint st,ed;
-    
-    if (pre.x <= pos.x )
-    {
-        st.x = pre.x;
-        ed.x = pos.x;
-    }
-    else
-    {
-        st.x = pos.x;
-        ed.x = pre.x;
-    }
-    
-    if( pre.y <= pos.y )
-    {
-        st.y = pre.y;
-        ed.y = pos.y;
-    }
-    else
-    {
-        st.y = pos.y;
-        ed.y = pre.y;
-    }
-    
-    return NSMakeRect(st.x, st.y, (ed.x -st.x +1), (ed.y -st.y +1));
-}
-
 - (void)fillRect
 {
     NSRect rect = [self rectFromPosition];

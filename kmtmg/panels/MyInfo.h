@@ -23,7 +23,7 @@
     
 @private
     NSPoint prePosition;
-    CGFloat alphaDisable, scale;
+    CGFloat alphaDisable, scaleValue;
     NSSize dotSize;
     NSPoint ratio;
     NSInteger prePosColor;

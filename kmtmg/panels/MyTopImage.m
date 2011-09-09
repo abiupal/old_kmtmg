@@ -31,17 +31,28 @@
 
 - (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img fraction:(CGFloat)f
 {
+    NSRect common = NSIntersectionRect( img, dstDispPosition );
+    if( NSEqualRects( common, NSZeroRect ) == YES ) return;
+    
     NSSize bkSize = [self size];
     CGFloat x, y, w, h;
-    x = bkSize.width * img.origin.x / parentImageSize.width;
-    y = bkSize.height * img.origin.y / parentImageSize.height;
-    w = bkSize.width * img.size.width / parentImageSize.width;
-    h = bkSize.height * img.size.height / parentImageSize.height;
+    x = bkSize.width * common.origin.x / parentImageSize.width;
+    y = bkSize.height * common.origin.y / parentImageSize.height;
+    w = bkSize.width * common.size.width / parentImageSize.width;
+    h = bkSize.height * common.size.height / parentImageSize.height;
+
+    if( NSEqualRects( img, common ) == YES )
+    {        
+        [self drawInRect:disp
+                fromRect:NSMakeRect( x, y, w, h )
+               operation:NSCompositeSourceOver 
+                fraction:f];
+    }
+    else
+    {
+        
+    }
     
-    [self drawInRect:disp
-          fromRect:NSMakeRect( x, y, w, h )
-         operation:NSCompositeSourceOver 
-          fraction:f];
 }
 
 @end

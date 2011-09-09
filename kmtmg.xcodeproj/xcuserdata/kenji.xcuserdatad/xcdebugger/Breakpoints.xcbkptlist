@@ -8,41 +8,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/panels/MyTopSsk.m"
-         timestampString = "337241555.500412"
+         filePath = "kmtmg/panels/MyTopImage.m"
+         timestampString = "337252257.395944"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "102"
-         endingLineNumber = "102"
-         landmarkName = "-menuForEvent:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/panels/MyTopSsk.m"
-         timestampString = "337241553.415965"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "68"
-         endingLineNumber = "68"
-         landmarkName = "-removeImageIndex:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/views/MyViewData.m"
-         timestampString = "337241982.868952"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "582"
-         endingLineNumber = "582"
-         landmarkName = "-removeBackgroundImage:"
+         startingLineNumber = "34"
+         endingLineNumber = "34"
+         landmarkName = "-drawDispRect:imageRect:fraction:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
