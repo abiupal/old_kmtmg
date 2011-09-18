@@ -125,7 +125,11 @@ MyEditingManager *sharedMyEditingManager = NULL;
     if( MY_CMP(funcCommand, "TS_RESIZE_") )
     {
         NSInteger n = atoi( funcCommand +10 );
-        [mvd changeRectPosition:[self rectFromPosition] backgroundImage:n];
+        NSRect rect = [self rectFromPosition];
+        rect.origin.x--;
+        rect.origin.y--;
+        [mvd changeRectPosition:rect backgroundImage:n];
+        [self updateWindow];
     }
     
     if( cancel ) 

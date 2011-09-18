@@ -12,11 +12,13 @@
 
     NSRect dstDispPosition;
     NSSize parentImageSize;
+    BOOL visible;
 }
 
 - (void)setDispPosition:(NSRect)r;
-- (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img fraction:(CGFloat)f;
+- (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img fraction:(CGFloat)f pixel:(NSPoint)pixel;
 
 @property NSSize parentImageSize;
+@property BOOL visible;
 
 @end

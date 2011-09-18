@@ -12,6 +12,7 @@
 {
     NSMutableArray *images;
     IBOutlet NSArrayController *arrayController;
+    IBOutlet NSCollectionView *collectionView;
 }
 
 - (NSMutableArray *)array;
@@ -20,11 +21,15 @@
 - (IBAction)pressSSK:(id)sender;
 - (void)addTopImage:(NSDictionary *)dic;
 - (void)removeImageIndex:(NSInteger)n;
+- (BOOL)changeVisible:(NSInteger)n;
 
 @end
 
 
 @interface MyTopSskCell : NSImageView {
+    BOOL unvisible;
 }
+
+@property BOOL unvisible;
 
 @end

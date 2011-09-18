@@ -71,6 +71,7 @@
 - (void)addBackgroundImageURL:(NSURL *)url;
 - (void)removeBackgroundImage:(NSInteger)n;
 - (void)changeRectPosition:(NSRect)r backgroundImage:(NSInteger)n;
+- (void)changeVisibleBackgroundImage:(NSInteger)n;
 
 - (BOOL)hasImage;
 - (void)setName:(NSString *)newName;

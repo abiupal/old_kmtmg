@@ -47,6 +47,13 @@
     return images;
 }
 
+- (MyTopSskCell *)cellAtIndex:(NSInteger)n
+{
+    NSArray *a = [[[collectionView subviews] objectAtIndex:n] subviews];
+    MyTopSskCell *cell = [a objectAtIndex:0];
+    
+    return cell;
+}
 
 - (void)addTopImage:(NSDictionary *)dic
 {
@@ -69,6 +76,17 @@
     [arrayController removeObject:dic];
 }
 
+- (BOOL)changeVisible:(NSInteger)n
+{
+    MyTopSskCell *cell = [self cellAtIndex:n];
+    
+    if( cell == nil ) return NO;
+    
+    cell.unvisible = (cell.unvisible ? NO : YES);
+    [cell setNeedsDisplay:YES];
+    
+    return YES;
+}
 
 - (IBAction)pressTOP:(id)sender
 {
@@ -84,6 +102,15 @@
 #pragma mark - MyTopSskCell
 
 @implementation MyTopSskCell
+
+@synthesize unvisible;
+
+- (id)init
+{
+    self = [super init];
+
+    return self;
+}
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
@@ -104,9 +131,30 @@
         tsv.selected++;
     }
     
-    return [tsv topMenu];
+    // NSDictionary *dic = [images objectAtIndex:tsv.selected];
+    
+    return [tsv topMenu:unvisible];
 }
 
+- (void)drawRect:(NSRect)dirtyRect
+{
+    [super drawRect:dirtyRect];
+    
+    
+    if( unvisible == YES )
+    {
+        [[NSColor colorWithCalibratedRed:0.3 green:0.3 blue:0.3 alpha:0.5] set];
+        [NSBezierPath fillRect:[self frame]];
+        [[NSColor redColor] set];
+        NSBezierPath *bp = [NSBezierPath bezierPath];
+        [bp setLineWidth:10.0f];
+        [bp moveToPoint:NSMakePoint(32, 32)];
+        [bp lineToPoint:NSMakePoint(96, 96)];
+        [bp moveToPoint:NSMakePoint(32, 96)];
+        [bp lineToPoint:NSMakePoint(96, 32)];
+        [bp stroke];
+    }
+}
 
 @end
 

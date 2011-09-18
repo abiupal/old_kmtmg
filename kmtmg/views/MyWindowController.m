@@ -544,11 +544,18 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 
 - (void) topSskCommand:(char *)cmd
 {
-    NSInteger n = atoi( cmd +10 );
+    NSInteger n = 0;
 
     if( MY_CMP(cmd, "TS_REMOVE_" ) )
     {
+        n = atoi( cmd +10 );
         [mvd removeBackgroundImage:n];
+        [self checkUpdateData];
+    }
+    else if( MY_CMP(cmd, "TS_VISIBLE_") )
+    {
+        n = atoi( cmd +11 );
+        [mvd changeVisibleBackgroundImage:n];
         [self checkUpdateData];
     }
     else

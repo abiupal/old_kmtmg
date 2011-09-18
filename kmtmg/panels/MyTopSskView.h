@@ -19,11 +19,12 @@
     char commandString[32];
 }
 
-- (NSMenu *)topMenu;
+- (NSMenu *)topMenu:(BOOL)unvisible;
 - (NSMenu *)sskMenu;
 
 - (IBAction)resizeArea:(id)sender;
 - (IBAction)removeImage:(id)sender;
+- (IBAction)changeVisible:(id)sender;
 
 @property NSInteger selected;
 

@@ -566,7 +566,8 @@
 
 - (void)addBackgroundImageURL:(NSURL *)url
 {
-    MyTopImage *tImage = [[[MyTopImage alloc] initWithContentsOfURL:url] autorelease];    
+    MyTopImage *tImage = [[[MyTopImage alloc] initWithContentsOfURL:url] autorelease];
+    tImage.visible = TRUE;
     [tImage setDispPosition:NSMakeRect(0, 0, size.width, size.height)];
     tImage.parentImageSize = size;
 
@@ -596,6 +597,17 @@
     
     MyTopImage *tImg = [topImages objectAtIndex:n];
     [tImg setDispPosition:r];
+}
+
+- (void)changeVisibleBackgroundImage:(NSInteger)n
+{
+    if ( n < 0 || [topImages count] <= n ) return;
+    
+    if( [topSsk changeVisible:n] == YES )
+    {
+        MyTopImage *tImage = [topImages objectAtIndex:n];
+        tImage.visible = (tImage.visible ? NO : YES);
+    }
 }
 
 #pragma mark - Position

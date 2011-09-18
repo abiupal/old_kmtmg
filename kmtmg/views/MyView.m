@@ -210,7 +210,7 @@
         MyTopImage *topImage;
         for( topImage in [mvd topImages] )
         {
-            [topImage drawDispRect:iUpdateDisp imageRect:iUpdateRect fraction:mvd.backgroundFraction];
+            [topImage drawDispRect:iUpdateDisp imageRect:iUpdateRect fraction:mvd.backgroundFraction pixel:mvd.pixel];
         }
         
         if ( keyScroll == YES )

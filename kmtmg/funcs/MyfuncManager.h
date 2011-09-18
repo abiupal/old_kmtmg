@@ -35,5 +35,6 @@
 - (void)disabled;
 
 - (NSRect)rectFromPosition;
+- (void)updateWindow;
 
 @end

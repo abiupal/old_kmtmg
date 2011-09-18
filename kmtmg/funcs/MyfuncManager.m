@@ -160,5 +160,13 @@
     return NSMakeRect(st.x, st.y, (ed.x -st.x +1), (ed.y -st.y +1));
 }
 
+- (void)updateWindow
+{
+    if( [NSApp mainWindow] != nil )
+    {
+        [[[NSApp mainWindow] windowController] checkUpdateData];
+    }
+}
+
 
 @end
