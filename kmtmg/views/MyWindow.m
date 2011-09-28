@@ -17,6 +17,11 @@
                                                  name:NSApplicationDidChangeScreenParametersNotification object:nil];
 }
 
+- (BOOL)allowsConcurrentViewDrawing
+{
+    return YES;
+}
+
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
     return YES;
