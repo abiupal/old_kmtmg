@@ -31,14 +31,22 @@
     return self;
 }
 
+- (char *)funcCommand
+{
+    return &funcCommand[0];
+}
+
 - (void)setCommand:(char *)cmd data:(MyViewData *)d rubber:(MyRubberView *)rv
 {
     if( locked == YES ) return;
     
     mvd = d;
     rubber = rv;
-    memset( funcCommand, 0, sizeof(funcCommand));
-    strcat( funcCommand, cmd );
+    if( cmd != &funcCommand[0] )
+    {
+        memset( funcCommand, 0, sizeof(funcCommand));
+        strcat( funcCommand, cmd );
+    }
     enabled = YES;
     locked = NO;
 }

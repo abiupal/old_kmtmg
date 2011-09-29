@@ -48,18 +48,34 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     [super dealloc];
 }
 
-NSString    *MWCCodeKeyTopSsk = @"topSsk";
+NSString    *MWCCodeKeyMyViewData = @"mvd";
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
+    
+    mvd = [decoder decodeObjectForKey:MWCCodeKeyMyViewData];
     
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
+    [encoder encodeObject:mvd forKey:MWCCodeKeyMyViewData];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)decoder
+{
+    [super restoreStateWithCoder:decoder];
     
+    [decoder decodeObjectForKey:MWCCodeKeyMyViewData];
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)encoder
+{
+    [super encodeRestorableStateWithCoder:encoder];
+    
+    [encoder encodeObject:mvd forKey:MWCCodeKeyMyViewData];
 }
 
 #pragma mark - View Data
@@ -265,14 +281,22 @@ NSString    *MWCCodeKeyTopSsk = @"topSsk";
 }
 
 - (void)windowDidBecomeMain:(NSNotification *)aNotification
-{
+{    
     palette = [MyPalette sharedManager];
     info = [MyInfo sharedManager];
     
     draw = [MyDrawingManager sharedManager];
     if( [draw isEnabled] == NO ) draw = nil;
+    else if( strlen( [draw funcCommand] ) )
+    {
+        draw.view = oView;
+        [draw setCommand:[draw funcCommand] data:mvd rubber:oRubberView];
+    }
     edit = [MyEditingManager sharedManager];
     if( [edit isEnabled] == NO ) edit = nil;
+    else if( strlen( [edit funcCommand] ) )
+        [edit setCommand:[edit funcCommand] data:mvd rubber:oRubberView];
+
     
     if( [[self window] isEqual:palette.currentWindow] == NO )
     {
@@ -299,10 +323,10 @@ NSString    *MWCCodeKeyTopSsk = @"topSsk";
         [self setPenColorFromPaletteNo:mvd.penColorNo];
     }
     
-    [self showWindow:nil];
+    // [self showWindow:nil];
 
         
-    MyLog( @":%@ ",[self className] );
+    MyLog( @":%@ %@",[self className], mvd.name );
 }
 
 - (void)windowDidResignMain:(NSNotification *)aNotification
@@ -317,8 +341,9 @@ NSString    *MWCCodeKeyTopSsk = @"topSsk";
     draw = nil;
     edit = nil;
     
-    MyLog( @":%@ ",[self className] );
+    MyLog( @":%@ %@",[self className], mvd.name );
 }
+
 
 - (void)windowWillClose:(NSNotification *)notification
 {
@@ -331,6 +356,7 @@ NSString    *MWCCodeKeyTopSsk = @"topSsk";
     
     [self autorelease];
 }
+ 
 
 #pragma mark - Setter
 

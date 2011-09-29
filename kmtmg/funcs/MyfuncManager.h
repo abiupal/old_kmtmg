@@ -33,6 +33,7 @@
 - (BOOL)rightMouseUp:(NSPoint)po;
 - (BOOL)isEnabled;
 - (void)disabled;
+- (char *)funcCommand;
 
 - (NSRect)rectFromPosition;
 - (void)updateWindow;

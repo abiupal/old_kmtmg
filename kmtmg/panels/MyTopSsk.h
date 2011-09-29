@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MyTopSsk : NSObject <NSCoding>
+@interface MyTopSsk : NSObject
 {
     NSMutableArray *images;
     IBOutlet NSArrayController *arrayController;
