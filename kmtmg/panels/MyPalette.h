@@ -12,7 +12,7 @@
 @class MyDrawButton;
 @class MyColorData;
 
-@interface MyPalette : NSObject {
+@interface MyPalette : NSObject <NSCoding> {
     NSMutableArray *images;
     IBOutlet NSArrayController *arrayController;
     IBOutlet NSPanel *palette;

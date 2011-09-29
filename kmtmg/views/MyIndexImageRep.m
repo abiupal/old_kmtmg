@@ -36,10 +36,11 @@
     // MyLog(@"Palette:%d", [palette count]);
     
     [self setSize:size];
+    NSInteger i, length;
+    length = size.width * size.height;
     
-    data = malloc( size.width * size.height );
-    NSInteger i;
-    for( i = 0; i < size.width * size.height; i++ )
+    data = malloc( length );
+    for( i = 0; i < length; i++ )
         data[i] = 255;
     /*
     
@@ -63,7 +64,46 @@
     [dispImage release];
     free(data);
     data = nil;
+    
     [super dealloc];
+}
+
+NSString    *MIICodeKeyData = @"data";
+NSString    *MIICodeKeyDispImage = @"dispImage";
+NSString    *MIICodeKeyPreDispImage = @"preDispImage";
+NSString    *MIICodeKeyPreImgRect = @"preImgRect";
+NSString    *MIICodeKeyScrollImg = @"scrollImg";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    
+    NSUInteger ret, length;
+    length = ([self size].width * [self size].height);
+    const uint8_t *p = [decoder decodeBytesForKey:MIICodeKeyData returnedLength:&ret];
+    
+    data = malloc( length );
+    if( ret < length ) length = ret;
+    
+    memcpy(data, p, length);
+    
+    dispImage = [decoder decodeObjectForKey:MIICodeKeyDispImage];
+    preDispImage = [decoder decodeObjectForKey:MIICodeKeyPreDispImage];
+    preImgRect = [decoder decodeRectForKey:MIICodeKeyPreImgRect];
+    scrollImg = [decoder decodeRectForKey:MIICodeKeyScrollImg];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+    
+    [encoder encodeBytes:data length:(NSUInteger)([self size].width * [self size].height) forKey:MIICodeKeyData];
+    [encoder encodeObject:dispImage forKey:MIICodeKeyDispImage];
+    [encoder encodeObject:preDispImage forKey:MIICodeKeyPreDispImage];
+    [encoder encodeRect:preImgRect forKey:MIICodeKeyPreImgRect];
+    [encoder encodeRect:scrollImg forKey:MIICodeKeyScrollImg];
 }
 
 #pragma mark - Convert

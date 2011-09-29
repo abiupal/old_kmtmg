@@ -26,6 +26,31 @@
     return self;
 }
 
+
+NSString    *MTICodeKeyDstDispPosition = @"dstDispPosition";
+NSString    *MTICodeKeyParentImageSize = @"parentImageSize";
+NSString    *MTICodeKeyVisible = @"visible";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    
+    dstDispPosition = [decoder decodeRectForKey:MTICodeKeyDstDispPosition];
+    parentImageSize = [decoder decodeSizeForKey:MTICodeKeyParentImageSize];
+    visible = [decoder decodeBoolForKey:MTICodeKeyVisible];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+    
+    [encoder encodeRect:dstDispPosition forKey:MTICodeKeyDstDispPosition];
+    [encoder encodeSize:parentImageSize forKey:MTICodeKeyParentImageSize];
+    [encoder encodeBool:visible forKey:MTICodeKeyVisible];
+}
+
 - (void)setDispPosition:(NSRect)r
 {
     dstDispPosition = r;

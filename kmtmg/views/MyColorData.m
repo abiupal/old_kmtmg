@@ -52,5 +52,40 @@
     return self;
 }
 
+NSString    *MCDCodeKeyRed = @"red";
+NSString    *MCDCodeKeyGreen = @"green";
+NSString    *MCDCodeKeyBlue = @"blue";
+NSString    *MCDCodeKeyAlpha = @"alpha";
+NSString    *MCDCodeKeyAllowFromSrc = @"allowFromSrc";
+NSString    *MCDCodeKeyAllowToDst = @"allowToDst";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    
+    r = [decoder decodeFloatForKey:MCDCodeKeyRed];
+    g = [decoder decodeFloatForKey:MCDCodeKeyBlue];
+    b = [decoder decodeFloatForKey:MCDCodeKeyGreen];
+    a = [decoder decodeFloatForKey:MCDCodeKeyAlpha];
+    
+    int i = [decoder decodeIntForKey:MCDCodeKeyAllowFromSrc];
+    allowFromSrc = i;
+    i = [decoder decodeIntForKey:MCDCodeKeyAllowToDst];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeFloat:r forKey:MCDCodeKeyRed];
+    [encoder encodeFloat:g forKey:MCDCodeKeyGreen];
+    [encoder encodeFloat:b forKey:MCDCodeKeyBlue];
+    [encoder encodeFloat:a forKey:MCDCodeKeyAlpha];
+    
+    int i = allowFromSrc;
+    [encoder encodeInt:i forKey:MCDCodeKeyAllowFromSrc];
+    i = allowToDst;
+    [encoder encodeInt:i forKey:MCDCodeKeyAllowToDst];
+}
 
 @end

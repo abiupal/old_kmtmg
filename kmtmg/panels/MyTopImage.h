@@ -8,8 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
-@interface MyTopImage : NSImage {
-
+@interface MyTopImage : NSImage
+{
     NSRect dstDispPosition;
     NSSize parentImageSize;
     BOOL visible;

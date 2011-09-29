@@ -10,7 +10,7 @@
 #import "../funcs/myImageData.h"
 
 @interface MyIndexImageRep : NSCustomImageRep {
-    NSMutableArray *palette;
+    NSMutableArray *palette; // substi
     unsigned char *data;
     
 @private

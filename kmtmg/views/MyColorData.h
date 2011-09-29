@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface MyColorData : NSObject {
+@interface MyColorData : NSObject <NSCoding> {
 
 @public
     CGFloat r, g, b, a;

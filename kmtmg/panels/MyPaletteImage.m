@@ -28,6 +28,31 @@
     [super dealloc];
 }
 
+NSString    *MPICodeKeySType = @"sType";
+NSString    *MPICodeKeyDType = @"dType";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    
+    int i = 99;
+    i = [decoder decodeIntForKey:MPICodeKeySType];
+    sType = i;
+    i = [decoder decodeIntForKey:MPICodeKeyDType];
+    dType = i;
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+    int i = sType;
+    [encoder encodeInt:i forKey:MPICodeKeySType];
+    i = dType;
+    [encoder encodeInt:i forKey:MPICodeKeyDType];
+}
+
 - (void)drawColorAndIndex:(NSColor *)color index:(NSInteger)n
 {
     NSColor *stringColor = nil;

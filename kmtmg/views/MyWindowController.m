@@ -48,6 +48,20 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     [super dealloc];
 }
 
+NSString    *MWCCodeKeyTopSsk = @"topSsk";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    
+}
+
 #pragma mark - View Data
 
 - (void)resizeWithoutData:(BOOL)enabled

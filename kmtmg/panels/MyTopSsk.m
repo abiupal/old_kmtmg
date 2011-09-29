@@ -42,6 +42,25 @@
     [super dealloc];
 }
 
+NSString    *MTSCodeKeyImages = @"images";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    
+    images = [decoder decodeObjectForKey:MTSCodeKeyImages];
+    [images retain];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:images forKey:MTSCodeKeyImages];
+}
+
+#pragma mark - func
+
 - (NSMutableArray *)array
 {
     return images;

@@ -11,7 +11,8 @@
 #import "MyViewDataDefines.h"
 #import "../panels/MyTopSsk.h"
 
-@interface MyViewData : NSObject {
+@interface MyViewData : NSObject <NSCoding>
+{
        
 @private
 	NSSize size, frameSize, penDot;

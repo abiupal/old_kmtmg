@@ -139,6 +139,30 @@ static char *funcName[2] = { "M_PALETTE_OPEN", "M_PALETTE_CLOSE"};
     return YES;
 }
 
+NSString    *MPCodeKeyImages = @"images";
+NSString    *MPCodeKeyAlphaDisable = @"alphaDisable";
+NSString    *MPCodeKeyFuncId = @"funcId";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    
+    images = [decoder decodeObjectForKey:MPCodeKeyImages];
+    [images retain];
+    
+    alphaDisable = [decoder decodeFloatForKey:MPCodeKeyAlphaDisable];
+    funcId = [decoder decodeIntForKey:MPCodeKeyFuncId];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:images forKey:MPCodeKeyImages];
+    [encoder encodeFloat:alphaDisable forKey:MPCodeKeyAlphaDisable];
+    [encoder encodeInt:funcId forKey:MPCodeKeyFuncId];
+}
+
 #pragma mark - notification
 
 - (void)willClosePalette:(NSNotification*)notification

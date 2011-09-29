@@ -114,6 +114,103 @@
     [super dealloc];
 }
 
+// NSSize
+NSString    *MVDCodeKeySize = @"size";
+NSString    *MVDCodeKeyFrameSize = @"frameSize";
+NSString    *MVDCodeKeyPenDot = @"penDot";
+// NSPoint
+NSString    *MVDCodeKeyScale = @"scale";
+NSString    *MVDCodeKeyRaito = @"ratio";
+NSString    *MVDCodeKeyPixel = @"pixel";
+NSString    *MVDCodeKeyNoSpace = @"noSpace";
+NSString    *MVDCodeKeyStartPosition = @"startposition";
+NSString    *MVDCodeKeyStartPositionIsNoSpace = @"startPositionIsNoSpace";
+NSString    *MVDCodeKeyGridBoldFat = @"gridBoldFat";
+// NSColor
+NSString    *MVDCodeKeyBackgroundColor = @"backgroundColor";
+NSString    *MVDCodeKeyGridColor = @"gridColor";
+NSString    *MVDCodeKeyPenColor = @"penColor";
+// NSInteger
+NSString    *MVDCodeKeyOriginType = @"originType";
+NSString    *MVDCodeKeyGridType = @"gridType";
+NSString    *MVDCodeKeyIndex = @"index";
+NSString    *MVDCodeKeyPenColorNo = @"penColorNo";
+NSString    *MVDCodeKeySutekake = @"sutekake";
+// BOOL
+NSString    *MVDCodeKeybReverseLR = @"bReverseLR";
+NSString    *MVDCodeKeybEnabled = @"bEnabled";
+// float
+NSString    *MVDCodeKeyBackgroundFraction = @"backgroundFraction";
+// NSString
+NSString    *MVDCodeKeyName = @"name";
+// char
+NSString    *MVDCodeKeyAllowFromSrc = @"allowFromSrc";
+NSString    *MVDCodeKeyAllowToDst = @"allowToDst";
+NSString    *MVDCodeKeyEffectIgnoreType = @"effectIgnoreType";
+// NSArray
+NSString    *MVDCodeKeyPalette = @"palette";
+NSString    *MVDCodeKeyTopImages = @"topImages";
+// MyIndexImageRep
+NSString    *MVDCodeKeyIndexImage = @"indexImage";
+// MyTopSsk
+NSString    *MVDCodeKeyTopSsk = @"topSsk";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeSize:size forKey:MVDCodeKeySize];
+    [encoder encodeSize:frameSize forKey:MVDCodeKeyFrameSize];
+    [encoder encodeSize:penDot forKey:MVDCodeKeyPenDot];
+    
+    [encoder encodePoint:scale forKey:MVDCodeKeyScale];
+    [encoder encodePoint:ratio forKey:MVDCodeKeyRaito];
+    [encoder encodePoint:pixel forKey:MVDCodeKeyPixel];
+    [encoder encodePoint:noSpace forKey:MVDCodeKeyNoSpace];
+    [encoder encodePoint:startPosition forKey:MVDCodeKeyStartPosition];
+    [encoder encodePoint:startPositionIsNoSpace forKey:MVDCodeKeyStartPositionIsNoSpace];
+    [encoder encodePoint:gridBoldFat forKey:MVDCodeKeyGridBoldFat];
+
+    [encoder encodeInteger:originType forKey:MVDCodeKeyOriginType];
+    [encoder encodeInteger:gridType forKey:MVDCodeKeyGridType];
+    [encoder encodeInteger:index forKey:MVDCodeKeyIndex];
+    [encoder encodeInteger:penColorNo forKey:MVDCodeKeyPenColorNo];
+    [encoder encodeInteger:sutekake forKey:MVDCodeKeySutekake];
+        
+    [encoder encodeObject:name forKey:MVDCodeKeyName];
+    [encoder encodeBool:bReverseLR forKey:MVDCodeKeybReverseLR];
+    [encoder encodeBool:bEnabled forKey:MVDCodeKeybEnabled];
+    [encoder encodeFloat:backgroundFraction forKey:MVDCodeKeyBackgroundFraction];
+    
+    NSInteger i = effectIgnoreType;
+    [encoder encodeInteger:i forKey:MVDCodeKeyEffectIgnoreType];
+    [encoder encodeBytes:(const uint8_t *)&allowFromSrc[0] length:512 forKey:MVDCodeKeyAllowFromSrc];
+    [encoder encodeBytes:(const uint8_t *)&allowToDst[0] length:512 forKey:MVDCodeKeyAllowToDst];
+    
+    [encoder encodeObject:backgroundColor forKey:MVDCodeKeyBackgroundColor];
+    [encoder encodeObject:gridColor forKey:MVDCodeKeyGridColor];
+    [encoder encodeObject:penColor forKey:MVDCodeKeyPenColor];
+    [backgroundColor retain];
+    [gridColor retain];
+    [penColor retain];
+
+    [encoder encodeObject:palette forKey:MVDCodeKeyPalette];
+    [encoder encodeObject:indexImage forKey:MVDCodeKeyIndexImage];
+    // [encoder encodeObject:topSsk forKey:MVDCodeKeyTopSsk];
+    [encoder encodeObject:topImages forKey:MVDCodeKeyTopImages];
+    [palette retain];
+    [indexImage retain];
+    [topImages retain];
+    
+    topSsk = nil;
+}
+
+
 #pragma mark - Origin
 
 /*
