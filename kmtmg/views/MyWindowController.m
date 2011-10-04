@@ -48,36 +48,6 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     [super dealloc];
 }
 
-NSString    *MWCCodeKeyMyViewData = @"mvd";
-
-- (id)initWithCoder:(NSCoder *)decoder
-{
-    self = [super init];
-    
-    mvd = [decoder decodeObjectForKey:MWCCodeKeyMyViewData];
-    
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder
-{
-    [encoder encodeObject:mvd forKey:MWCCodeKeyMyViewData];
-}
-
-- (void)restoreStateWithCoder:(NSCoder *)decoder
-{
-    [super restoreStateWithCoder:decoder];
-    
-    [decoder decodeObjectForKey:MWCCodeKeyMyViewData];
-}
-
-- (void)encodeRestorableStateWithCoder:(NSCoder *)encoder
-{
-    [super encodeRestorableStateWithCoder:encoder];
-    
-    [encoder encodeObject:mvd forKey:MWCCodeKeyMyViewData];
-}
-
 #pragma mark - View Data
 
 - (void)resizeWithoutData:(BOOL)enabled

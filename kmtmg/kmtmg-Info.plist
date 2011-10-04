@@ -90,6 +90,18 @@
 			<key>NSPersistentStoreTypeKey</key>
 			<string>XML</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>kmtmg</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>KmtmgDocumentType</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>NSDocumentClass</key>
+			<string>MyDocument</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>

@@ -60,6 +60,7 @@
 }
 
 #pragma mark - SKY
+
 - (BOOL) loadSKY:(NSURL *)url
 {
     IoSKY *io = [[IoSKY alloc] init];
@@ -116,7 +117,22 @@
 	{
 		MyLog( @"read JTS-SKY Image" );
         readSuccess = [self loadSKY:inAbsoluteURL];
-	}/*
+	}
+    else if( [inTypeName isEqualToString:@"KmtmgDocumentType"] == YES )
+    {
+        MyLog( @"read kmtmg Document" );
+        NSData *data = [NSData dataWithContentsOfURL:inAbsoluteURL];
+        if( data != nil )
+        {
+            MyViewData *readMvd = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            if( readMvd != nil )
+            {
+                [mvd release];
+                mvd = [readMvd retain];
+                readSuccess = YES;
+            }
+        }
+    }/*
 	else if( [typeName isEqualToString:@"JTSMayerImageDocumentType"] == YES )
 	{
 		MyLog( @"read Mayer-SU/EJ Image" );
@@ -152,9 +168,18 @@
     
     if( [inTypeName isEqualToString:@"JTSSKYImageDocumentType"] == YES )
 	{
-		MyLog( @"read JTS-SKY Image" );
+		MyLog( @"write JTS-SKY Image" );
         writeSuccess = [self saveSKY:inAbsoluteURL];
 	}
+    else if( [inTypeName isEqualToString:@"KmtmgDocumentType"] == YES )
+    {
+        MyLog( @"write kmtmg Document" );
+        NSData *data = [NSData dataWithContentsOfURL:inAbsoluteURL];
+        if( data != nil )
+        {
+            [NSKeyedArchiver unarchiveObjectWithData:data];
+        }
+    }
 
     return writeSuccess;
 }

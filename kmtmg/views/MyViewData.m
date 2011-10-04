@@ -36,6 +36,7 @@
 {
     self = [super init];
     if (self) {
+        version = 1.00;
 		size = NSMakeSize( 800, 600 );
 		scale = NSMakePoint( 1, 1 );
 		ratio = NSMakePoint( 1, 1 );
@@ -140,6 +141,7 @@ NSString    *MVDCodeKeySutekake = @"sutekake";
 NSString    *MVDCodeKeybReverseLR = @"bReverseLR";
 NSString    *MVDCodeKeybEnabled = @"bEnabled";
 // float
+NSString    *MVDCodeKeyVersion = @"version";
 NSString    *MVDCodeKeyBackgroundFraction = @"backgroundFraction";
 // NSString
 NSString    *MVDCodeKeyName = @"name";
@@ -163,7 +165,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder
-{
+{    
     [encoder encodeSize:size forKey:MVDCodeKeySize];
     [encoder encodeSize:frameSize forKey:MVDCodeKeyFrameSize];
     [encoder encodeSize:penDot forKey:MVDCodeKeyPenDot];
@@ -185,6 +187,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [encoder encodeObject:name forKey:MVDCodeKeyName];
     [encoder encodeBool:bReverseLR forKey:MVDCodeKeybReverseLR];
     [encoder encodeBool:bEnabled forKey:MVDCodeKeybEnabled];
+    [encoder encodeFloat:version forKey:MVDCodeKeyVersion];
     [encoder encodeFloat:backgroundFraction forKey:MVDCodeKeyBackgroundFraction];
     
     NSInteger i = effectIgnoreType;

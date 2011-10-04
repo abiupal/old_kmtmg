@@ -21,6 +21,7 @@
     MyDrawButton *currentButton;
     
 @private
+    CGFloat version;
     CGFloat alphaDisable;
     int funcId;
 }

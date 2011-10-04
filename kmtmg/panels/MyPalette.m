@@ -100,6 +100,7 @@ static char *funcName[2] = { "M_PALETTE_OPEN", "M_PALETTE_CLOSE"};
         currentWindow = nil;
         currentButton = nil;
         funcId = 0;
+        version = 1.00;
     }
     
     return self;
@@ -142,10 +143,13 @@ static char *funcName[2] = { "M_PALETTE_OPEN", "M_PALETTE_CLOSE"};
 NSString    *MPCodeKeyImages = @"images";
 NSString    *MPCodeKeyAlphaDisable = @"alphaDisable";
 NSString    *MPCodeKeyFuncId = @"funcId";
+NSString    *MPCodeKeyVersion = @"version";
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
+    
+    version = [decoder decodeFloatForKey:MPCodeKeyVersion];
     
     images = [decoder decodeObjectForKey:MPCodeKeyImages];
     [images retain];
@@ -158,6 +162,7 @@ NSString    *MPCodeKeyFuncId = @"funcId";
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
+    [encoder encodeFloat:version forKey:MPCodeKeyVersion];
     [encoder encodeObject:images forKey:MPCodeKeyImages];
     [encoder encodeFloat:alphaDisable forKey:MPCodeKeyAlphaDisable];
     [encoder encodeInt:funcId forKey:MPCodeKeyFuncId];

@@ -15,6 +15,7 @@
 {
        
 @private
+    CGFloat version;
 	NSSize size, frameSize, penDot;
 	NSPoint scale, ratio, pixel;
 	NSPoint noSpace, startPosition, startPositionIsNoSpace;

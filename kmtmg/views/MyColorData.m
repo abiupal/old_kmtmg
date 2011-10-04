@@ -12,6 +12,7 @@
 
 @synthesize allowFromSrc, allowToDst;
 
+#define CURRENT_VERSION 1.00f
 
 - (id)initWithFloatRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue
 {
@@ -19,6 +20,7 @@
     {
         r = red; g = green; b = blue; a = 1.0f;
         allowFromSrc = allowToDst = 0;
+        version = CURRENT_VERSION;
     }
     
     return self;
@@ -33,6 +35,7 @@
         b = blue; b /= 255;
         a = 1.0f;
         allowFromSrc = allowToDst = 0;
+        version = CURRENT_VERSION;
     }
     
     return self;
@@ -47,6 +50,7 @@
         b = data[2]; b /= 255;
         a = 1.0f;
         allowFromSrc = allowToDst = 0;
+        version = CURRENT_VERSION;
     }
     
     return self;
@@ -58,10 +62,13 @@ NSString    *MCDCodeKeyBlue = @"blue";
 NSString    *MCDCodeKeyAlpha = @"alpha";
 NSString    *MCDCodeKeyAllowFromSrc = @"allowFromSrc";
 NSString    *MCDCodeKeyAllowToDst = @"allowToDst";
+NSString    *MCDCodeKeyVersion = @"version";
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
+    
+    version = [decoder decodeFloatForKey:MCDCodeKeyVersion];
     
     r = [decoder decodeFloatForKey:MCDCodeKeyRed];
     g = [decoder decodeFloatForKey:MCDCodeKeyBlue];
@@ -77,6 +84,8 @@ NSString    *MCDCodeKeyAllowToDst = @"allowToDst";
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
+    [encoder encodeFloat:version forKey:MCDCodeKeyVersion];
+    
     [encoder encodeFloat:r forKey:MCDCodeKeyRed];
     [encoder encodeFloat:g forKey:MCDCodeKeyGreen];
     [encoder encodeFloat:b forKey:MCDCodeKeyBlue];

@@ -17,6 +17,8 @@
     //  0: normal
     //  1: Effect
     char allowFromSrc, allowToDst;
+@private
+    CGFloat version;
 }
 
 - (id)initWithFloatRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue;
