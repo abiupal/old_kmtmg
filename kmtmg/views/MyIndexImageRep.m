@@ -25,13 +25,16 @@
         // Initialization code here.
         palette = nil;
         data = nil;
+        bAccepted = NO;
     }
     
     return self;
 }
 
 - (id)initWithPaletteArray:(NSMutableArray *)array size:(NSSize)size;
-{    
+{
+    bAccepted = NO;
+    
     palette = array;
     // MyLog(@"Palette:%d", [palette count]);
     
@@ -91,6 +94,10 @@ NSString    *MIICodeKeyScrollImg = @"scrollImg";
     preDispImage = [decoder decodeObjectForKey:MIICodeKeyPreDispImage];
     preImgRect = [decoder decodeRectForKey:MIICodeKeyPreImgRect];
     scrollImg = [decoder decodeRectForKey:MIICodeKeyScrollImg];
+    [dispImage retain];
+    [preDispImage retain];
+    
+    bAccepted = YES;
     
     return self;
 }
@@ -104,6 +111,13 @@ NSString    *MIICodeKeyScrollImg = @"scrollImg";
     [encoder encodeObject:preDispImage forKey:MIICodeKeyPreDispImage];
     [encoder encodeRect:preImgRect forKey:MIICodeKeyPreImgRect];
     [encoder encodeRect:scrollImg forKey:MIICodeKeyScrollImg];
+}
+
+- (void)setPaletteArray:(NSMutableArray *)array
+{
+    if( bAccepted == NO ) return;
+    
+    palette = array;
 }
 
 #pragma mark - Convert

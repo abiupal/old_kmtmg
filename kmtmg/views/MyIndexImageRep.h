@@ -16,6 +16,7 @@
 @private
     NSImage *dispImage, *preDispImage;
     NSRect preImgRect, scrollImg;
+    BOOL bAccepted;
 }
 
 - (id)initWithPaletteArray:(NSMutableArray *)array size:(NSSize)size;
@@ -29,6 +30,7 @@
 - (void)setInfoColorFromDataPosition:(NSPoint)pos;
 - (MYID)myIdSrc;
 - (MYID)myIdDst;
+- (void)setPaletteArray:(NSMutableArray *)array;
 
 @property(readonly,assign) NSMutableArray *palette;
 @property(readonly) unsigned char *data;

@@ -71,13 +71,14 @@ NSString    *MCDCodeKeyVersion = @"version";
     version = [decoder decodeFloatForKey:MCDCodeKeyVersion];
     
     r = [decoder decodeFloatForKey:MCDCodeKeyRed];
-    g = [decoder decodeFloatForKey:MCDCodeKeyBlue];
-    b = [decoder decodeFloatForKey:MCDCodeKeyGreen];
+    g = [decoder decodeFloatForKey:MCDCodeKeyGreen];
+    b = [decoder decodeFloatForKey:MCDCodeKeyBlue];
     a = [decoder decodeFloatForKey:MCDCodeKeyAlpha];
     
     int i = [decoder decodeIntForKey:MCDCodeKeyAllowFromSrc];
     allowFromSrc = i;
     i = [decoder decodeIntForKey:MCDCodeKeyAllowToDst];
+    allowToDst = i;
     
     return self;
 }

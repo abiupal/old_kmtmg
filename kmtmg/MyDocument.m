@@ -174,10 +174,11 @@
     else if( [inTypeName isEqualToString:@"KmtmgDocumentType"] == YES )
     {
         MyLog( @"write kmtmg Document" );
-        NSData *data = [NSData dataWithContentsOfURL:inAbsoluteURL];
+        
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:mvd];
         if( data != nil )
         {
-            [NSKeyedArchiver unarchiveObjectWithData:data];
+            writeSuccess = [data writeToURL:inAbsoluteURL options:NSDataWritingAtomic error:[[MyOS sharedManager] error]];
         }
     }
 
@@ -223,7 +224,7 @@
     [[MyPalette sharedManager] close];
     
     // Temporary
-    [self setFileType:@"JTSSKYImageDocumentType"];
+    // [self setFileType:@"JTSSKYImageDocumentType"];
     [super saveDocument:sender];
 }
 

@@ -161,6 +161,60 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 {
     self = [super init];
     
+    size = [decoder decodeSizeForKey:MVDCodeKeySize];
+    frameSize = [decoder decodeSizeForKey:MVDCodeKeyFrameSize];
+    penDot = [decoder decodeSizeForKey:MVDCodeKeyPenDot];
+    
+    scale = [decoder decodePointForKey:MVDCodeKeyScale];
+    ratio = [decoder decodePointForKey:MVDCodeKeyRaito];
+    pixel = [decoder decodePointForKey:MVDCodeKeyPixel];
+    noSpace = [decoder decodePointForKey:MVDCodeKeyNoSpace];
+    startPosition = [decoder decodePointForKey:MVDCodeKeyStartPosition];
+    startPositionIsNoSpace = [decoder decodePointForKey:MVDCodeKeyStartPositionIsNoSpace];
+    gridBoldFat = [decoder decodePointForKey:MVDCodeKeyGridBoldFat];
+    
+    originType = [decoder decodeIntegerForKey:MVDCodeKeyOriginType];
+    gridType = [decoder decodeIntegerForKey:MVDCodeKeyGridType];
+    index = [decoder decodeIntegerForKey:MVDCodeKeyIndex];
+    penColorNo = [decoder decodeIntegerForKey:MVDCodeKeyPenColorNo];
+    sutekake = [decoder decodeIntegerForKey:MVDCodeKeySutekake];
+    
+    name = [decoder decodeObjectForKey:MVDCodeKeyName];
+    [name retain];
+    bReverseLR = [decoder decodeBoolForKey:MVDCodeKeybReverseLR];
+    bEnabled = [decoder decodeBoolForKey:MVDCodeKeybEnabled];
+    version = [decoder decodeFloatForKey:MVDCodeKeyVersion];
+    backgroundFraction = [decoder decodeFloatForKey:MVDCodeKeyBackgroundFraction];
+    
+    NSInteger i = [decoder decodeIntegerForKey:MVDCodeKeyEffectIgnoreType];
+    effectIgnoreType = i;
+    NSUInteger length;
+    const uint8_t *p = [decoder decodeBytesForKey:MVDCodeKeyAllowFromSrc returnedLength:&length];
+    if( 512 < length ) length = 512;
+    memcpy(&allowFromSrc[0], p, length);
+    p = [decoder decodeBytesForKey:MVDCodeKeyAllowToDst returnedLength:&length];
+    if( 512 < length ) length = 512;
+    memcpy(&allowToDst[0], p, length);
+    
+    backgroundColor = [decoder decodeObjectForKey:MVDCodeKeyBackgroundColor];
+    gridColor = [decoder decodeObjectForKey:MVDCodeKeyGridColor];
+    penColor = [decoder decodeObjectForKey:MVDCodeKeyPenColor];
+    [backgroundColor retain];
+    [gridColor retain];
+    [penColor retain];
+    
+    palette = [decoder decodeObjectForKey:MVDCodeKeyPalette];
+    indexImage = [decoder decodeObjectForKey:MVDCodeKeyIndexImage];
+    topImages = [decoder decodeObjectForKey:MVDCodeKeyTopImages];
+    [palette retain];
+    [indexImage retain];
+    [topImages retain];
+    
+    [indexImage setPaletteArray:palette];
+    
+    topSsk = nil;
+
+
     return self;
 }
 
@@ -198,17 +252,11 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [encoder encodeObject:backgroundColor forKey:MVDCodeKeyBackgroundColor];
     [encoder encodeObject:gridColor forKey:MVDCodeKeyGridColor];
     [encoder encodeObject:penColor forKey:MVDCodeKeyPenColor];
-    [backgroundColor retain];
-    [gridColor retain];
-    [penColor retain];
 
     [encoder encodeObject:palette forKey:MVDCodeKeyPalette];
     [encoder encodeObject:indexImage forKey:MVDCodeKeyIndexImage];
     // [encoder encodeObject:topSsk forKey:MVDCodeKeyTopSsk];
     [encoder encodeObject:topImages forKey:MVDCodeKeyTopImages];
-    [palette retain];
-    [indexImage retain];
-    [topImages retain];
     
     topSsk = nil;
 }
@@ -372,11 +420,6 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     NSColor *color = [NSColor colorWithDeviceRed:rgba->r green:rgba->g blue:rgba->b alpha:rgba->a];
     [self setPen:color];
     penColorNo = palNo;
-}
-
-- (void)setTopSsk:(MyTopSsk *)mts
-{
-    topSsk = mts;
 }
 
 #pragma mark - Effect / Ignore
@@ -646,9 +689,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 }
 
 - (void)addTopImage:(MyTopImage *)tImg
-{
-    [topImages addObject:tImg];
-    
+{    
     if ( topSsk == nil ) return;
     
     if( [tImg isValid] == NO )
@@ -664,6 +705,19 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [topSsk addTopImage:dic];
 }
 
+- (void)setTopSsk:(MyTopSsk *)mts
+{
+    topSsk = mts;
+    
+    if ( [topImages count] == 0 ) return;
+    
+    MyTopImage *tImage = nil;
+    for( tImage in topImages )
+    {
+        [self addTopImage:tImage];
+    }
+}
+
 - (void)addBackgroundImageURL:(NSURL *)url
 {
     MyTopImage *tImage = [[[MyTopImage alloc] initWithContentsOfURL:url] autorelease];
@@ -671,6 +725,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [tImage setDispPosition:NSMakeRect(0, 0, size.width, size.height)];
     tImage.parentImageSize = size;
 
+    [topImages addObject:tImage];
     [self addTopImage:tImage];
 }
 
