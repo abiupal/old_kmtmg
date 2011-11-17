@@ -43,16 +43,11 @@
     frame.origin.x = (screen.size.width - frame.size.width) / 2;
     frame.origin.y = (screen.size.height - frame.size.height) / 2;
     [self setFrameOrigin:frame.origin];
-    
-    MyLog( @"");
-
 }
 
 - (void)windowWillClose:(NSNotification *)aNotification
 {
 	[NSApp stopModalWithCode:tag];
-	
-	MyLog( @"" );
 }
 
 - (void)setTag:(NSInteger)n
@@ -62,5 +57,23 @@
 }
 
 
+- (id)getObjectName:(char *)name tag:(int)n
+{
+	NSArray *a = [[self contentView] subviews];
+	NSString *s;
+	id obj;
+	int i;
+	for( i = 0; i < [a count]; ++i )
+	{
+		s = [[a objectAtIndex:i] className];
+		if( !strncmp( [s UTF8String], name, strlen(name) ) )
+		{
+			obj = [a objectAtIndex:i];
+			if( [obj tag] == n ) return obj;
+		}
+	}
+	
+	return Nil;
+}
 
 @end

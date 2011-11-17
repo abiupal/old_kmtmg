@@ -332,7 +332,20 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)name
 {
-    return [super windowTitleForDocumentDisplayName:[mvd name]];
+    NSSize size = [mvd size];
+    if ( name != nil ) {
+        NSArray *a = [name componentsSeparatedByString:@"."];
+        NSString *newName = [a objectAtIndex:0];
+        if( mvd.name == nil || (mvd.bSaved == YES && [mvd.name isEqualToString:newName] == NO) )
+        {
+            mvd.name = newName;
+            mvd.bSaved = NO;
+        }
+        
+    }
+
+    NSString *string = [NSString stringWithFormat:@"%@ - %.0f x %.0f", [mvd name], size.width, size.height];
+    return [super windowTitleForDocumentDisplayName:string];
 }
 
 - (void)setCenterViewFromImagePosition:(NSPoint)center

@@ -235,7 +235,10 @@ NSString    *MIICodeKeyScrollImg = @"scrollImg";
 
 enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIGIN_MAX };
 
-- (void)drawImage:(NSRect)img origin:(NSInteger)originType backgroundColor:(NSInteger)ignoreColor
+- (void)drawImage:(NSRect)img 
+           origin:(NSInteger)originType 
+  backgroundColor:(NSInteger)ignoreColor 
+     drawFraction:(CGFloat)fraction
 {
     [[NSGraphicsContext currentContext] saveGraphicsState];
     CGContextRef cg = [[NSGraphicsContext currentContext] graphicsPort];
@@ -316,7 +319,7 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
                 if( 0 <= d && d <= 255 && d != ignoreColor )
                 {
                     col = [palette objectAtIndex:d];
-                    CGContextSetRGBFillColor( cg, col->r, col->g, col->b, col->a );
+                    CGContextSetRGBFillColor( cg, col->r, col->g, col->b, fraction );
                     CGContextFillRect( cg, rect );
                 }
                 rect.origin.x += rect.size.width;
@@ -338,7 +341,7 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
                 if( 0 <= d && d <= 255 && d != ignoreColor )
                 {
                     col = [palette objectAtIndex:d];
-                    CGContextSetRGBFillColor( cg, col->r, col->g, col->b, col->a );
+                    CGContextSetRGBFillColor( cg, col->r, col->g, col->b, fraction );
                     CGContextFillRect( cg, rect );
                 }
                 rect.origin.x += rect.size.width;
@@ -349,7 +352,7 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
         if( 1 <= rect.size.width && 0 <= d && d <= 255 && d != ignoreColor )
         {
             col = [palette objectAtIndex:d];
-            CGContextSetRGBFillColor( cg, col->r, col->g, col->b, col->a );
+            CGContextSetRGBFillColor( cg, col->r, col->g, col->b, fraction );
             CGContextFillRect( cg, rect );
         }
         rect.origin.y++;
@@ -378,7 +381,11 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     }
 }
 
-- (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img origin:(NSInteger)originType background:(BOOL)bkImage;
+- (void)drawDispRect:(NSRect)disp 
+           imageRect:(NSRect)img 
+              origin:(NSInteger)originType 
+          background:(BOOL)bkImage
+        drawFraction:(CGFloat)fraction
 {
     [self checkDispRect:&disp imageRect:&img];
     scrollImg = NSZeroRect;
@@ -392,7 +399,7 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     int ignoreColor = -1;
     if( bkImage == YES ) ignoreColor = 255;
     
-    [self drawImage:img origin:originType backgroundColor:ignoreColor];
+    [self drawImage:img origin:originType backgroundColor:ignoreColor drawFraction:fraction];
     
     [dispImage unlockFocus];
     
@@ -406,7 +413,11 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     dispImage = nil;
 }
 
-- (void)drawScrollDispRect:(NSRect)disp imageRect:(NSRect)img origin:(NSInteger)originType background:(BOOL)bkImage
+- (void)drawScrollDispRect:(NSRect)disp
+                 imageRect:(NSRect)img 
+                    origin:(NSInteger)originType
+                background:(BOOL)bkImage
+              drawFraction:(CGFloat)fraction
 {
     NSRect d, i;
     d = disp, i = img;
@@ -414,7 +425,7 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
 
     if( NSIntersectsRect( preImgRect, img ) == NO )
     {
-        [self drawDispRect:d imageRect:i origin:originType background:bkImage];
+        [self drawDispRect:d imageRect:i origin:originType background:bkImage drawFraction:fraction];
         return;
     }
 
@@ -450,7 +461,7 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
 
     [dispImage unlockFocus];
     
-    [dispImage drawInRect:disp fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    [dispImage drawInRect:disp fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:fraction];
     
     [preDispImage release];
     preDispImage = [dispImage retain];

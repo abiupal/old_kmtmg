@@ -17,7 +17,7 @@
     IBOutlet MyPaletteView *penView, *posView;
     IBOutlet NSTextField *posX, *posY;
     IBOutlet MyTrackAreaScrollView *scroll;
-    IBOutlet NSSlider *fraction;
+    IBOutlet NSSlider *fractionSketch, *fractionDrawing;
     IBOutlet MyDrawButton *currentFunction;
     NSWindow *currentWindow;
     
@@ -44,6 +44,8 @@
 - (void)posColor:(NSColor *)color palNo:(NSInteger)no;
 - (void)setImageFraction:(CGFloat)f;
 - (CGFloat)imageFraction;
+- (void)setDrawFraction:(CGFloat)f;
+- (CGFloat)drawFraction;
 - (void)setScale:(CGFloat)n;
 - (void)updateInfo;
 - (void)setFunction:(char *)cmd;

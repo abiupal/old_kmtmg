@@ -258,15 +258,15 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
     
     f *= 100.0f;
     int n = (int)f;
-    [fraction setIntValue:n];
+    [fractionSketch setIntValue:n];
     
     if( currentWindow != nil )
     {
         MyWindowController *mwc = [currentWindow windowController];
         if( 0 < [mwc.mvd.topImages count] )
-            [fraction setEnabled:YES];
+            [fractionSketch setEnabled:YES];
         else
-            [fraction setEnabled:NO];
+            [fractionSketch setEnabled:NO];
     }
     
     [self updateInfo];
@@ -274,11 +274,31 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
 
 - (CGFloat)imageFraction
 {
-    CGFloat f = [fraction floatValue];
+    CGFloat f = [fractionSketch floatValue];
     f /= 100.0f;
     
     return f;
 }
+
+- (void)setDrawFraction:(CGFloat)f
+{
+    if( f < 0.0f ) f = 0.0f;
+    if( 1.0f < f ) f = 1.0f;
+    
+    f *= 100.0f;
+    int n = (int)f;
+    [fractionDrawing setIntValue:n];
+    
+    [self updateInfo];
+}
+- (CGFloat)drawFraction
+{
+    CGFloat f = [fractionDrawing floatValue];
+    f /= 100.0f;
+    
+    return f;
+}
+
 
 - (void)setScale:(CGFloat)n
 {
@@ -315,6 +335,7 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
     
     MyWindowController *mwc = [currentWindow windowController];
     mwc.mvd.backgroundFraction = [self imageFraction];
+    mwc.mvd.drawFraction = [self drawFraction];
     [mwc.oView checkUpdateData];
 }
 

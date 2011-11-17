@@ -43,7 +43,7 @@
 	*/
 }
 
-
+/*
 - (id)getObjectName:(char *)name tag:(int)n
 {
 	NSArray *a = [[self contentView] subviews];
@@ -61,7 +61,7 @@
 	}
 	
 	return Nil;
-}
+}*/
 
 -(void) updatePageNumber:(int)i max:(int)m
 {

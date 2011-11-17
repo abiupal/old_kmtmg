@@ -12,6 +12,7 @@
 #import "MyDefines.h"
 #import <IoCGS/MyOS.h>
 #import "funcs/myDrawing.h"
+#import "Preference.h"
 
 @implementation MyAppDelegate
 
@@ -19,7 +20,6 @@
     if ((self = [super init])) {
         // Initialization code here.
         // cntlCfg = [ConfigController sharedManager];
-
     }
     
     return self;
@@ -66,6 +66,14 @@
 	MyLog( @"applicationWillTerminate:%@ ",[self className] );
     
     myDraw_init();
+}
+
+#pragma mark - Menu
+
+- (IBAction)openPreference:(id)sender
+{
+    Preference *pref = [Preference sharedManager];
+    [pref open];
 }
 
 @end

@@ -26,10 +26,10 @@
 	NSString *name;
 	NSInteger originType, gridType, index;
     NSInteger penColorNo, sutekake;
-	BOOL bReverseLR, bEnabled;
+	BOOL bReverseLR, bEnabled, bSaved;
     
     MyIndexImageRep *indexImage;
-    CGFloat backgroundFraction;
+    CGFloat backgroundFraction, drawFraction;
     NSMutableArray *topImages;
     MyTopSsk *topSsk;
     
@@ -44,10 +44,12 @@
 }
 
 - (void)setOriginType:(int)n;
+- (NSInteger)originType;
 - (BOOL)originUp;
 - (BOOL)originRight;
 // - (void)setSize:(NSSize)newSize;
 - (void)setGridType:(int)n;
+- (NSInteger)gridType;
 - (void)setScale:(NSPoint)newRatio;
 - (void)setRatio:(NSPoint)newRatio;
 - (void)setStartX:(CGFloat)startx isNoSpace:(int)n;
@@ -66,7 +68,7 @@
 
 // - (void)makeReverseLR;
 - (void)setPaletteFromData:(unsigned char *)data colorNum:(int)n;
-- (void)setImageFromStandard:(NSImage *)img;
+- (BOOL)setImageFromURL:(NSURL *)url;
 - (void)setImageWithData:(unsigned char *)indexData size:(NSSize)imageSize palette:(unsigned char *)palData colorNum:(int)n;
 - (void)setImageWithSize:(NSSize)imageSize;
 
@@ -98,10 +100,10 @@
 @property(retain) NSColor *backgroundColor, *gridColor, *penColor;
 // @property(retain) NSBitmapImageRep *bitmap;
 @property(copy) NSString *name;
-@property(readonly) NSInteger originType, gridType, index, penColorNo;
+@property(readonly) NSInteger index, penColorNo;
 @property(readonly) BOOL bReverseLR;
-@property BOOL bEnabled;
-@property CGFloat backgroundFraction;
+@property BOOL bEnabled, bSaved;
+@property CGFloat backgroundFraction, drawFraction;
 @property NSInteger sutekake;
 @property(readonly, assign) MyIndexImageRep *indexImage;
 @property(readonly, assign) NSMutableArray *palette, *topImages;

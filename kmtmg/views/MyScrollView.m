@@ -2,6 +2,7 @@
 #import "MyScrollView.h"
 #import "MyViewData.h"
 #import "../panels/MyInfo.h"
+#import "NSMutableAttributedString+MyModify.h"
 
 @implementation MyScrollView
 
@@ -88,17 +89,7 @@
 			autorelease];
 	}
 
-	[string beginEditing];
- 
-	[string addAttribute:NSFontAttributeName
-               value:iFont
-               range:NSMakeRange(0, [string length])];
-	[string addAttribute:NSForegroundColorAttributeName
-               value:iColor
-               range:NSMakeRange(0, [string length])];
-			   
-	
-	[string endEditing];
+    [string changeStringColor:iColor withFont:iFont];
 	
 	size = [string size];
     /*

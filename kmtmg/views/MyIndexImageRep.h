@@ -23,8 +23,8 @@
 - (void)convertImageFromBitmapRep:(NSBitmapImageRep *)bitmap;
 - (void)setIndexData:(unsigned char *)index;
 - (void)testpattern;
-- (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img origin:(NSInteger)originType background:(BOOL)bkImage;
-- (void)drawScrollDispRect:(NSRect)disp imageRect:(NSRect)img origin:(NSInteger)originType background:(BOOL)bkImage;
+- (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img origin:(NSInteger)originType background:(BOOL)bkImage drawFraction:(CGFloat)fraction;
+- (void)drawScrollDispRect:(NSRect)disp imageRect:(NSRect)img origin:(NSInteger)originType background:(BOOL)bkImage drawFraction:(CGFloat)fraction;
 - (BOOL)drawPlot:(NSPoint)po paletteIndex:(NSInteger)no;
 - (NSInteger)indexAtPosition:(NSPoint)pos;
 - (void)setInfoColorFromDataPosition:(NSPoint)pos;

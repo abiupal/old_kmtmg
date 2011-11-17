@@ -37,6 +37,10 @@
 		BA4A96B9130260D700A4A0EC /* MyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4A96B3130260D600A4A0EC /* MyWindow.m */; };
 		BA50EA3913CD87200020753A /* MyTrackAreaScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA50EA3813CD87200020753A /* MyTrackAreaScrollView.m */; };
 		BA5276BA13E6A3A100B160DA /* myDrawing.c in Sources */ = {isa = PBXBuildFile; fileRef = BA5276B913E6A3A100B160DA /* myDrawing.c */; };
+		BA673089145900F20057A0B4 /* Preference.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA673087145900F20057A0B4 /* Preference.xib */; };
+		BA673091145909B70057A0B4 /* Preference.m in Sources */ = {isa = PBXBuildFile; fileRef = BA673090145909B70057A0B4 /* Preference.m */; };
+		BA673096145917580057A0B4 /* NSMutableAttributedString+MyModify.m in Sources */ = {isa = PBXBuildFile; fileRef = BA673095145917580057A0B4 /* NSMutableAttributedString+MyModify.m */; };
+		BA67309914591CC60057A0B4 /* NSMatrix+MyModify.m in Sources */ = {isa = PBXBuildFile; fileRef = BA67309814591CC60057A0B4 /* NSMatrix+MyModify.m */; };
 		BA7D2FDD13C6B56E00122C65 /* MyDrawingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA7D2FDC13C6B56E00122C65 /* MyDrawingManager.m */; };
 		BA7D2FE013C6B59A00122C65 /* MyfuncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA7D2FDF13C6B59A00122C65 /* MyfuncManager.m */; };
 		BA89B23D1419DADA00883415 /* MyTopSskView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B23C1419DADA00883415 /* MyTopSskView.m */; };
@@ -130,6 +134,13 @@
 		BA5276B913E6A3A100B160DA /* myDrawing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = myDrawing.c; path = funcs/myDrawing.c; sourceTree = "<group>"; };
 		BA5276BC13E6A3B500B160DA /* myDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = myDrawing.h; path = funcs/myDrawing.h; sourceTree = "<group>"; };
 		BA663F2413FE32E6007BC917 /* MyViewDataDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyViewDataDefines.h; path = views/MyViewDataDefines.h; sourceTree = "<group>"; };
+		BA673088145900F20057A0B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Preference.xib; sourceTree = "<group>"; };
+		BA67308F145909B70057A0B4 /* Preference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preference.h; sourceTree = "<group>"; };
+		BA673090145909B70057A0B4 /* Preference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preference.m; sourceTree = "<group>"; };
+		BA673094145917580057A0B4 /* NSMutableAttributedString+MyModify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableAttributedString+MyModify.h"; path = "lib/NSMutableAttributedString+MyModify.h"; sourceTree = "<group>"; };
+		BA673095145917580057A0B4 /* NSMutableAttributedString+MyModify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+MyModify.m"; path = "lib/NSMutableAttributedString+MyModify.m"; sourceTree = "<group>"; };
+		BA67309714591CC60057A0B4 /* NSMatrix+MyModify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMatrix+MyModify.h"; path = "lib/NSMatrix+MyModify.h"; sourceTree = "<group>"; };
+		BA67309814591CC60057A0B4 /* NSMatrix+MyModify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMatrix+MyModify.m"; path = "lib/NSMatrix+MyModify.m"; sourceTree = "<group>"; };
 		BA7D2FDB13C6B56E00122C65 /* MyDrawingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDrawingManager.h; path = funcs/MyDrawingManager.h; sourceTree = "<group>"; };
 		BA7D2FDC13C6B56E00122C65 /* MyDrawingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyDrawingManager.m; path = funcs/MyDrawingManager.m; sourceTree = "<group>"; };
 		BA7D2FDE13C6B59A00122C65 /* MyfuncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyfuncManager.h; path = funcs/MyfuncManager.h; sourceTree = "<group>"; };
@@ -236,6 +247,7 @@
 		BA4A962613022F4A00A4A0EC /* kmtmg */ = {
 			isa = PBXGroup;
 			children = (
+				BA673092145912D80057A0B4 /* lib */,
 				BA4A96671302500200A4A0EC /* MyAppDelegate.h */,
 				BA4A96681302500200A4A0EC /* MyAppDelegete.m */,
 				BAD5D1EB1325EA9F009452E3 /* MyDefines.h */,
@@ -334,6 +346,9 @@
 				BA06976D13E8CA8500EE9915 /* MySelect4.h */,
 				BA06976E13E8CA8500EE9915 /* MySelect4.m */,
 				BA06977113E8CF5700EE9915 /* Select4.xib */,
+				BA67308F145909B70057A0B4 /* Preference.h */,
+				BA673090145909B70057A0B4 /* Preference.m */,
+				BA673087145900F20057A0B4 /* Preference.xib */,
 			);
 			name = panels;
 			sourceTree = "<group>";
@@ -353,6 +368,17 @@
 				BA4A96AD130260D400A4A0EC /* MyScrollwithOtherView.m */,
 			);
 			name = scroll;
+			sourceTree = "<group>";
+		};
+		BA673092145912D80057A0B4 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				BA673094145917580057A0B4 /* NSMutableAttributedString+MyModify.h */,
+				BA673095145917580057A0B4 /* NSMutableAttributedString+MyModify.m */,
+				BA67309714591CC60057A0B4 /* NSMatrix+MyModify.h */,
+				BA67309814591CC60057A0B4 /* NSMatrix+MyModify.m */,
+			);
+			name = lib;
 			sourceTree = "<group>";
 		};
 		BA7D2FD613C6A5B200122C65 /* funcs */ = {
@@ -490,6 +516,7 @@
 				BAC2496E131384A600B6A2B0 /* MyDocument.xib in Resources */,
 				BA2F04ED131C6C7C00282E62 /* menuconfig.config in Resources */,
 				BA06977313E8CF5700EE9915 /* Select4.xib in Resources */,
+				BA673089145900F20057A0B4 /* Preference.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +591,9 @@
 				BA1AB61D1418659000069105 /* MyTopImage.m in Sources */,
 				BA89B23D1419DADA00883415 /* MyTopSskView.m in Sources */,
 				BA8BD1491419EF670025BBC6 /* MyEditingManager.m in Sources */,
+				BA673091145909B70057A0B4 /* Preference.m in Sources */,
+				BA673096145917580057A0B4 /* NSMutableAttributedString+MyModify.m in Sources */,
+				BA67309914591CC60057A0B4 /* NSMatrix+MyModify.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +662,14 @@
 				BA4A964B13022F4A00A4A0EC /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BA673087145900F20057A0B4 /* Preference.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA673088145900F20057A0B4 /* en */,
+			);
+			name = Preference.xib;
 			sourceTree = "<group>";
 		};
 		BAC2496C131384A600B6A2B0 /* MyDocument.xib */ = {

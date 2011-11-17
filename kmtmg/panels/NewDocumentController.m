@@ -1,6 +1,7 @@
 #import "NewDocumentController.h"
 #import "MyDocument.h"
 #import "../MyDefines.h"
+#import "NSMatrix+MyModify.h"
 
 @implementation NewDocumentController
 
@@ -68,32 +69,13 @@ static NewDocumentController *sharedNewDocumentControllerManager = NULL;
 	return self;
 }
 
-- (id)getObjectName:(char *)name tag:(int)n
-{
-	NSArray *a = [[oPanel contentView] subviews];
-	NSString *s;
-	id obj;
-	int i;
-	for( i = 0; i < [a count]; ++i )
-	{
-		s = [[a objectAtIndex:i] className];
-		if( !strncmp( [s UTF8String], name, strlen(name) ) )
-		{
-			obj = [a objectAtIndex:i];
-			if( [obj tag] == n ) return obj;
-		}
-	}
-	
-	return Nil;
-}
-
 #define MAX_WIDTH 40000
 #define MAX_HEIGHT 40000
 enum { TYPE_HEIGHT = 1, TYPE_NAME = 2, TYPE_WIDTH };
 
 - (void)checkSetData:(NSInteger)type
 {
-	NSButton *btn = [self getObjectName:"NSButton" tag:10];
+	NSButton *btn = [oPanel getObjectName:"NSButton" tag:10];
 	
 	if( 1.0 <= iWidth &&  iWidth <= MAX_WIDTH &&
         1.0 <= iHeight && iHeight <= MAX_HEIGHT &&
@@ -151,10 +133,6 @@ enum { TYPE_HEIGHT = 1, TYPE_NAME = 2, TYPE_WIDTH };
 	// [self checkSetData];
 }
 
-- (IBAction)disclogure:(id)sender
-{
-}
-
 - (IBAction)height:(id)sender
 {
 	iHeight = [sender floatValue];
@@ -184,10 +162,10 @@ enum { TYPE_HEIGHT = 1, TYPE_NAME = 2, TYPE_WIDTH };
 
 - (IBAction)set:(id)sender
 {
-	[self name:[self getObjectName:"NSTextField" tag:1000]];
-	[self width:[self getObjectName:"NSTextField" tag:1001]];
-	[self height:[self getObjectName:"NSTextField" tag:1002]];
-	[self background:[self getObjectName:"NSColorWell" tag:1003]];
+	[self name:[oPanel getObjectName:"NSTextField" tag:1000]];
+	[self width:[oPanel getObjectName:"NSTextField" tag:1001]];
+	[self height:[oPanel getObjectName:"NSTextField" tag:1002]];
+	[self background:[oPanel getObjectName:"NSColorWell" tag:1003]];
 	
     [oPanel setTag:YES];
 }
@@ -225,7 +203,9 @@ enum { TYPE_HEIGHT = 1, TYPE_NAME = 2, TYPE_WIDTH };
 
 
 - (BOOL) open
-{    
+{
+    [selectedPalette changeColorString:[NSColor whiteColor]];
+
     bNewDocument = [NSApp runModalForWindow:oPanel];
     
     return bNewDocument;

@@ -103,15 +103,8 @@
 	if( [inTypeName isEqualToString:@"STDImageDocumentType"] == YES )
 	{
 		MyLog( @"read Standard Image" );
-		image = [[NSImage alloc] initWithContentsOfURL:inAbsoluteURL];
-        if( image != nil )
-        {
-            [image setCacheMode:NSImageCacheNever];
-            mvd = [[MyViewData alloc] init];
-            [mvd setImageFromStandard:image];
-            [image release];
-            readSuccess = YES;
-        }
+        mvd = [[MyViewData alloc] init];
+        readSuccess = [mvd setImageFromURL:inAbsoluteURL];
 	}
 	else if( [inTypeName isEqualToString:@"JTSSKYImageDocumentType"] == YES )
 	{
@@ -178,7 +171,10 @@
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:mvd];
         if( data != nil )
         {
-            writeSuccess = [data writeToURL:inAbsoluteURL options:NSDataWritingAtomic error:[[MyOS sharedManager] error]];
+            writeSuccess = [data writeToURL:inAbsoluteURL 
+                                    options:NSDataWritingAtomic 
+                                      error:[[MyOS sharedManager] error]];
+            mvd.bSaved = writeSuccess;
         }
     }
 
@@ -221,11 +217,20 @@
 
 - (void)saveDocument:(id)sender
 {
+    NSURL *url = [self fileURL];
+    if( url == nil )
+    {
+        [[MyPalette sharedManager] close];
+    }
+        
+    [super saveDocument:sender];
+}
+
+- (void)saveDocumentAs:(id)sender
+{
     [[MyPalette sharedManager] close];
     
-    // Temporary
-    // [self setFileType:@"JTSSKYImageDocumentType"];
-    [super saveDocument:sender];
+    [super saveDocumentAs:sender];
 }
 
 @end

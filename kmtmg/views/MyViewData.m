@@ -22,10 +22,10 @@
 @synthesize gridBoldFat;
 @synthesize backgroundColor, gridColor, penColor;
 @synthesize name;
-@synthesize originType, gridType, index;
-@synthesize bReverseLR, bEnabled;
+@synthesize index;
+@synthesize bReverseLR, bEnabled, bSaved;
 @synthesize penColorNo;
-@synthesize backgroundFraction;
+@synthesize backgroundFraction, drawFraction;
 @synthesize sutekake;
 @synthesize indexImage;
 @synthesize palette, topImages;
@@ -58,6 +58,7 @@
 		name = nil;
 		bReverseLR = NO;
         bEnabled = NO;
+        bSaved = NO;
         backgroundFraction = 0.3f;
         sutekake = 0;
         penDot = NSMakeSize(1, 1);
@@ -143,6 +144,7 @@ NSString    *MVDCodeKeybEnabled = @"bEnabled";
 // float
 NSString    *MVDCodeKeyVersion = @"version";
 NSString    *MVDCodeKeyBackgroundFraction = @"backgroundFraction";
+NSString    *MVDCodeKeyDrawFraction = @"drawFraction";
 // NSString
 NSString    *MVDCodeKeyName = @"name";
 // char
@@ -183,8 +185,12 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [name retain];
     bReverseLR = [decoder decodeBoolForKey:MVDCodeKeybReverseLR];
     bEnabled = [decoder decodeBoolForKey:MVDCodeKeybEnabled];
+    bSaved = NO;
     version = [decoder decodeFloatForKey:MVDCodeKeyVersion];
     backgroundFraction = [decoder decodeFloatForKey:MVDCodeKeyBackgroundFraction];
+    drawFraction = [decoder decodeFloatForKey:MVDCodeKeyDrawFraction];
+    if( drawFraction < 0.1f )
+        drawFraction = 1.0f;
     
     NSInteger i = [decoder decodeIntegerForKey:MVDCodeKeyEffectIgnoreType];
     effectIgnoreType = i;
@@ -243,6 +249,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [encoder encodeBool:bEnabled forKey:MVDCodeKeybEnabled];
     [encoder encodeFloat:version forKey:MVDCodeKeyVersion];
     [encoder encodeFloat:backgroundFraction forKey:MVDCodeKeyBackgroundFraction];
+    [encoder encodeFloat:drawFraction forKey:MVDCodeKeyDrawFraction];
     
     NSInteger i = effectIgnoreType;
     [encoder encodeInteger:i forKey:MVDCodeKeyEffectIgnoreType];
@@ -344,6 +351,11 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 	originType = n;
 }
 
+- (NSInteger)originType
+{
+    return originType;
+}
+
 - (BOOL)originUp
 {
 	if( originType == MVD_ORIGIN_LU || originType == MVD_ORIGIN_RU )
@@ -367,6 +379,11 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 	if( n < 0 || MVD_GRID_MAX <= n ) return;
 	
 	gridType = n;
+}
+
+- (NSInteger)gridType
+{
+    return gridType;
 }
 
 - (void)setScale:(NSPoint)newScale
@@ -571,12 +588,15 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 #pragma mark - Image
 
 
-- (void)setImageFromStandard:(NSImage *)img
+- (BOOL)setImageFromURL:(NSURL *)url
 {
+    BOOL ret = NO;
+    
+    /*
     NSBitmapImageRep *bitmap = [NSBitmapImageRep imageRepWithData:[img TIFFRepresentation]];
     
     size = NSMakeSize([bitmap pixelsWide], [bitmap pixelsHigh]);
-    
+    */
     /* Bitmap Format changed to 32 bit RGBA 
     NSBitmapImageRep *bitmapWhoseFormatIKnow = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
                                                                                        pixelsWide:size.width pixelsHigh:size.height
@@ -595,10 +615,17 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [bitmapWhoseFormatIKnow release];
     */
     
+    size = NSZeroSize;
     /* background topImages */
-    [self addBackgroundImage:img];
+    [self addBackgroundImageURL:url];
     
-    [self setImageWithSize:size];
+    if( NSEqualSizes(size, NSZeroSize) == NO )
+    {
+        [self setImageWithSize:size];
+        ret = YES;
+    }
+    
+    return ret;
 }
 
 - (void)setPaletteFromData:(unsigned char *)data colorNum:(int)n
@@ -655,9 +682,9 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 - (void)drawDispRect:(NSRect)disp imageRect:(NSRect)img
 {
     if( 0 < [topImages count] && 0.0f < backgroundFraction )
-        [indexImage drawDispRect:disp imageRect:img origin:originType background:YES];
+        [indexImage drawDispRect:disp imageRect:img origin:originType background:YES drawFraction:drawFraction];
     else
-        [indexImage drawDispRect:disp imageRect:img origin:originType background:NO];
+        [indexImage drawDispRect:disp imageRect:img origin:originType background:NO drawFraction:drawFraction];
 }
 
 - (void)drawScrollDispRect:(NSRect)disp imageRect:(NSRect)img
@@ -667,9 +694,9 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
         bk = YES;
 
     if( pixel.x < 3 && pixel.y < 3 )
-        [indexImage drawScrollDispRect:disp imageRect:img origin:originType background:bk];
+        [indexImage drawScrollDispRect:disp imageRect:img origin:originType background:bk drawFraction:drawFraction];
     else
-        [indexImage drawDispRect:disp imageRect:img origin:originType background:bk];
+        [indexImage drawDispRect:disp imageRect:img origin:originType background:bk drawFraction:drawFraction];
 }
 
 - (void)setMyDrawSrc:(MYDRAW *)myd
@@ -721,6 +748,10 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 - (void)addBackgroundImageURL:(NSURL *)url
 {
     MyTopImage *tImage = [[[MyTopImage alloc] initWithContentsOfURL:url] autorelease];
+    if( tImage != nil && NSEqualSizes(size, NSZeroSize) )
+    {
+        size = [tImage size];
+    }
     tImage.visible = TRUE;
     [tImage setDispPosition:NSMakeRect(0, 0, size.width, size.height)];
     tImage.parentImageSize = size;

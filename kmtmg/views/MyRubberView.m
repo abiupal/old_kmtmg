@@ -11,6 +11,7 @@
 #import "../MyDefines.h"
 #import "../panels/MyInfo.h"
 #import "../funcs/myDrawing.h"
+#import "NSMutableAttributedString+MyModify.h"
 
 @implementation MyRubberView
 
@@ -123,20 +124,6 @@
 
 #pragma mark - Draw
 
-- (void)setAttributeString:(NSMutableAttributedString *)str
-{
-	[str beginEditing];
-    
-	[str addAttribute:NSFontAttributeName
-                 value:[NSFont boldSystemFontOfSize:14]
-                 range:NSMakeRange(0, [str length])];
-	[str addAttribute:NSForegroundColorAttributeName
-                 value:iColor
-                 range:NSMakeRange(0, [str length])];
-    
-	[str endEditing];
-}
-
 - (void)drawInfo
 {
     NSPoint st = [self viewPointFromImagePoint:rect.origin];
@@ -167,9 +154,9 @@
             [NSString stringWithFormat:@"x:%d y:%d on Zero",
              (NSInteger)(ed.x), (NSInteger)(ed.y)]];
     
-    [self setAttributeString:str1];
-    [self setAttributeString:str2];
-    [self setAttributeString:str3];
+    [str1 changeStringColor:iColor withFont:[NSFont boldSystemFontOfSize:14]];
+    [str2 changeStringColor:iColor withFont:[NSFont boldSystemFontOfSize:14]];
+    [str3 changeStringColor:iColor withFont:[NSFont boldSystemFontOfSize:14]];
     	
 	NSSize size = [str1 size];
     

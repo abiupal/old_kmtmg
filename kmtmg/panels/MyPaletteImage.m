@@ -8,6 +8,7 @@
 
 #import "MyPaletteImage.h"
 #import "MyDefines.h"
+#import "NSMutableAttributedString+MyModify.h"
 
 @implementation MyPaletteImage
 
@@ -72,22 +73,11 @@ NSString    *MPICodeKeyDType = @"dType";
     NSMutableAttributedString *string = nil;
     if( -1 < n )
     {
-        NSFont *font = [[NSFont fontWithName:@"Courier" size:12] retain];
         string = [[[NSMutableAttributedString alloc] 
                                               initWithString:[NSString stringWithFormat:@"%d", (int)n]]
                                              autorelease];
     
-        [string beginEditing];
-        
-        [string addAttribute:NSFontAttributeName
-                       value:font
-                       range:NSMakeRange(0, [string length])];
-        [string addAttribute:NSForegroundColorAttributeName
-                       value:stringColor
-                       range:NSMakeRange(0, [string length])];
-    
-	
-        [string endEditing];
+        [string changeStringColor:stringColor withFont:[NSFont fontWithName:@"Courier" size:12]];
 	
         NSSize ss = [string size];
         NSSize is = [self size];

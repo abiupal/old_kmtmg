@@ -7,6 +7,7 @@
 @interface NewDocumentController : NSObject
 {
     IBOutlet MyPanel *oPanel;
+    IBOutlet NSMatrix *selectedPalette;
 	NSString *iName;
 	CGFloat iWidth, iHeight;
 	NSColor *iBackground;
@@ -18,7 +19,6 @@
 + (NewDocumentController *)sharedManager;
 
 - (IBAction)background:(id)sender;
-- (IBAction)disclogure:(id)sender;
 - (IBAction)height:(id)sender;
 - (IBAction)width:(id)sender;
 - (IBAction)name:(id)sender;

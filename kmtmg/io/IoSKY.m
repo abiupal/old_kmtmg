@@ -309,7 +309,7 @@ const unsigned char colorLevel[4][4] = {
     {
         NSMutableData *buf = [[NSMutableData alloc] initWithCapacity:(NSInteger)(imageSize.width * imageSize.height)];
         int i;
-        unsigned char *p = [tmp bytes];
+        unsigned char *p = (unsigned char *)[tmp bytes];
         if( carpet == NO )
         {
             for( i = 0; i < imageSize.height; i++ )
@@ -330,7 +330,7 @@ const unsigned char colorLevel[4][4] = {
         des = [[NSData dataWithData:buf] retain];
         [buf release];
         buf = [[NSMutableData alloc] initWithCapacity:(NSInteger)(meterSize.width * meterSize.height)];
-        p = [tmp bytes];
+        p = (unsigned char *)[tmp bytes];
         if( carpet == NO )
         {
             p += (NSInteger)imageSize.width;
@@ -353,7 +353,7 @@ const unsigned char colorLevel[4][4] = {
     }
     else
     {
-        des = [tmp retain];
+        des = [[NSMutableData dataWithData:tmp] retain];
     }
     
     if( [extension isEqualToString:@"idx"] )

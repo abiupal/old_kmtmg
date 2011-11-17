@@ -13,4 +13,6 @@
 
 }
 
+- (IBAction)openPreference:(id)sender;
+
 @end
