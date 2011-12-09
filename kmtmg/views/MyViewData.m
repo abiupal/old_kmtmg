@@ -60,6 +60,7 @@
         bEnabled = NO;
         bSaved = NO;
         backgroundFraction = 0.3f;
+        drawFraction = 1.0f;
         sutekake = 0;
         penDot = NSMakeSize(1, 1);
         

@@ -37,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "kmtmg/views/MyViewData.m"
-         timestampString = "342340435.70791"
+         timestampString = "345108353.473478"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "215"
-         endingLineNumber = "215"
+         startingLineNumber = "216"
+         endingLineNumber = "216"
          landmarkName = "-initWithCoder:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -65,11 +65,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "kmtmg/panels/MyPalette.m"
-         timestampString = "340766055.69737"
+         timestampString = "345020535.544547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "220"
-         endingLineNumber = "220"
+         startingLineNumber = "219"
+         endingLineNumber = "219"
          landmarkName = "-setPaletteArray:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -93,11 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "kmtmg/Views/MyWindowController.m"
-         timestampString = "341551933.407575"
+         timestampString = "345105968.276808"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "335"
-         endingLineNumber = "335"
+         startingLineNumber = "339"
+         endingLineNumber = "339"
          landmarkName = "-windowTitleForDocumentDisplayName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,8 +112,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "335"
          endingLineNumber = "335"
-         landmarkName = "-windowTitleForDocumentDisplayName:"
-         landmarkType = "5">
+         landmarkName = "@implementation MyWindowController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -121,12 +121,26 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "kmtmg/views/MyViewData.m"
-         timestampString = "342340496.126819"
+         timestampString = "345108353.473478"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "191"
-         endingLineNumber = "191"
+         startingLineNumber = "192"
+         endingLineNumber = "192"
          landmarkName = "-initWithCoder:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "kmtmg/views/MyInfoView.m"
+         timestampString = "345106980.710669"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "70"
+         endingLineNumber = "70"
+         landmarkName = "-setDrawEnabled:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

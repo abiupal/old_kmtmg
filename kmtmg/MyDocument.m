@@ -99,7 +99,7 @@
 {
 	BOOL readSuccess = NO;
 	
-	NSImage *image = nil;
+	// NSImage *image = nil;
 	if( [inTypeName isEqualToString:@"STDImageDocumentType"] == YES )
 	{
 		MyLog( @"read Standard Image" );
@@ -222,7 +222,7 @@
     {
         [[MyPalette sharedManager] close];
     }
-        
+    
     [super saveDocument:sender];
 }
 

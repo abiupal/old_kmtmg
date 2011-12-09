@@ -9,16 +9,22 @@
 #import "MyPaletteImage.h"
 #import "../MyDefines.h"
 #import "../menuTool/ToolBarController.h"
+#import "../views/MyInfoView.h"
 
 static MyInfo *sharedMyInfoManager = NULL;
 
 @implementation MyInfo
 @synthesize scroll;
 @synthesize currentWindow;
+@synthesize currentButton;
+@synthesize currentInfoView;
 @synthesize dotSize;
 @synthesize ratio;
 @synthesize currentFunction;
 @synthesize prePosition;
+
+static char *funcName[2] = { "M_INFO_OPEN", "M_INFO_CLOSE"};
+
 
 #pragma mark - search Object from Tag
 
@@ -115,12 +121,15 @@ static MyInfo *sharedMyInfoManager = NULL;
         alphaDisable = 0.9f;
         prePosition = NSMakePoint(-999.99, -999.99);
         currentWindow = nil;
+        currentButton = nil;
+        currentInfoView = nil;
         prePosColor = -1;
         scrollerFont = [[NSFont fontWithName:@"Courier" size:12] retain];
         rubberFont = [[NSFont boldSystemFontOfSize:10] retain];
         // [[NSFont fontWithName:@"Courier" size:14] retain];
         dotSize = NSMakeSize(1, 1);
         ratio = NSMakePoint(1, 1);
+        funcId = 0;
     }
     
     return self;
@@ -149,6 +158,11 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
                                              selector:@selector(displayProfileChanged:)
                                                  name:NSApplicationDidChangeScreenParametersNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willClosePalette:)
+                                                 name:NSWindowWillCloseNotification
+                                               object:information];
+    
     [currentFunction setFuncName:defaultFunc menuName:@""];
 
 }
@@ -176,6 +190,12 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
 
 #pragma mark - notification
 
+- (void)willClosePalette:(NSNotification*)notification
+{    
+    funcId = 1;
+    [self drawIcon];
+}
+
 - (void)displayProfileChanged:(NSNotification*)notification
 {
     NSScreen *screen = [information screen];
@@ -197,7 +217,40 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
 
 - (void)open
 {
-    [information orderFront:nil];
+    if( currentWindow != nil )
+    {
+        [information orderFront:nil];
+        funcId = 0;
+        [self drawIcon];
+    }
+}
+
+- (void)close
+{
+    if( currentWindow != nil )
+    {
+        [information performClose:nil];
+    }
+}
+
+- (void)drawIcon
+{
+    if( currentButton != nil )
+    {
+        if( funcId )
+        {
+            if( currentInfoView != nil )
+                [currentInfoView setDrawEnabled:YES];
+            [currentButton setFuncName:funcName[funcId] menuName:@"Info"];
+        }
+        else
+        {
+            if( currentInfoView != nil )
+                [currentInfoView setDrawEnabled:NO];
+            [currentButton setFuncName:funcName[funcId] menuName:@""];
+        }
+        [currentButton display];
+    }
 }
 
 - (void)textPosition:(NSPoint)pos
@@ -206,8 +259,13 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
     
     NSString *str = [NSString stringWithFormat:@"%d",(int)pos.x];
     [posX setStringValue:str];
+    if( currentInfoView != nil )
+        [currentInfoView.posX setStringValue:str];
+    
     str = [NSString stringWithFormat:@"%d",(int)pos.y];
     [posY setStringValue:str];
+    if( currentInfoView != nil )
+        [currentInfoView.posY setStringValue:str];
     
     prePosition = pos;
 }
@@ -216,6 +274,13 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
 {
     [penView.palImage drawColorAndIndex:color index:no];
     [penView setNeedsDisplay:YES];
+    
+    if( currentInfoView != nil )
+    {
+        [currentInfoView.penView.palImage drawColorAndIndex:color index:no];
+        [currentInfoView.penView setNeedsDisplay:YES];
+    }
+
 }
 
 - (void)posColor:(NSColor *)color palNo:(NSInteger)no
@@ -225,6 +290,11 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
         prePosColor = no;
         [posView.palImage drawColorAndIndex:color index:no];
         [posView setNeedsDisplay:YES];
+        if( currentInfoView != nil )
+        {
+            [currentInfoView.posView.palImage drawColorAndIndex:color index:no];
+            [currentInfoView.posView setNeedsDisplay:YES];
+        }
     }
 }
 
@@ -240,15 +310,18 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
 	[obj setStringValue:[NSString stringWithFormat:@"%d",(int)ratio.x]];
 	obj = [self getObjectName:"NSTextField" tag:22];
 	[obj setStringValue:[NSString stringWithFormat:@"%d",(int)ratio.y]];
-    obj = [self getObjectName:"NSTextField" tag:31];
-    if( 0.0f < scaleValue && scaleValue < 1.0f )
-    {
-        [obj setStringValue:[NSString stringWithFormat:@"1/%d",(int)(1.0f / scaleValue)]];
-    }
-	else
-        [obj setStringValue:[NSString stringWithFormat:@"%d",(int)scaleValue]];
-    
     [currentWindow update];
+    
+    // 31 scale
+    obj = [self getObjectName:"NSTextField" tag:31];
+    NSString *str = nil;
+    if( 0.0f < scaleValue && scaleValue < 1.0f )
+        str = [NSString stringWithFormat:@"1/%d",(int)(1.0f / scaleValue)];
+	else
+        str = [NSString stringWithFormat:@"%d",(int)scaleValue];
+    [obj setStringValue:str];
+    if( currentInfoView != nil )
+        [currentInfoView.scale setStringValue:str];
 }
 
 - (void)setImageFraction:(CGFloat)f
@@ -298,7 +371,6 @@ static char *defaultFunc = "M_TOOLBAR_PRESS";
     
     return f;
 }
-
 
 - (void)setScale:(CGFloat)n
 {

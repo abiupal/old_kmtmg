@@ -22,6 +22,7 @@
 @class MyCursorView;
 @class MyRubberView;
 @class MyTopSsk;
+@class MyInfoView;
 
 @interface MyWindowController : NSWindowController {
     IBOutlet MyHScrollView *oHSview;
@@ -29,11 +30,12 @@
     IBOutlet MyView *oView;
     IBOutlet MyVScrollView *oVSview; 
     IBOutlet NSSplitView *oLRSplit, *oUDSplit;
-    IBOutlet MyDrawButton *oOrigin, *oKakeSute, *oPalette, *oEffectIgnoreSrc, *oEffectIgnoreDst;
+    IBOutlet MyDrawButton *oOrigin, *oKakeSute, *oPalette, *oEffectIgnoreSrc, *oEffectIgnoreDst, *oInfo;
     IBOutlet MyLayerWindow *oCursorWindow, *oRubberWindow;
     IBOutlet MyCursorView *oCursorView;
     IBOutlet MyRubberView   *oRubberView;
     IBOutlet MyTopSsk *oTopSsk;
+    IBOutlet MyInfoView *oInfoView;
     
 @private
     MyDrawingManager *draw;
@@ -50,6 +52,10 @@
 - (IBAction)pKakeSute:(id)sender;
 - (IBAction)pEffectIgnoreSrc:(id)sender;
 - (IBAction)pEffectIgnoreDst:(id)sender;
+- (IBAction)pInfo:(id)sender;
+- (IBAction)pSelectAreaAll:(id)sender;
+- (IBAction)pSelectAreaOrg:(id)sender;
+- (IBAction)pSelectAreaEnd:(id)sender;
 
 - (void)setMyViewData;
 - (void)setScale:(CGFloat)f autoPosition:(BOOL)flag;

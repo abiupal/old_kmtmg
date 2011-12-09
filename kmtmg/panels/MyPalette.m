@@ -212,7 +212,6 @@ NSString    *MPCodeKeyVersion = @"version";
         [palette performClose:nil];
         [self drawIcon];
     }
-
 }
 
 - (void)setPaletteArray:(NSArray *)array
@@ -272,7 +271,10 @@ NSString    *MPCodeKeyVersion = @"version";
 {
     if( currentButton != nil )
     {
-        [currentButton setFuncName:funcName[funcId] menuName:@""];
+        if( funcId )
+            [currentButton setFuncName:funcName[funcId] menuName:@"Pal"];
+        else
+            [currentButton setFuncName:funcName[funcId] menuName:@""];
         [currentButton display];
     }
 }

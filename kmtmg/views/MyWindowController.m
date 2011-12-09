@@ -283,6 +283,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     if( [[self window] isEqual:info.currentWindow] == NO )
     {
+        info.currentButton = oInfo;
+        info.currentInfoView = oInfoView;
         info.currentWindow = [self window];
         info.scroll.keyWindow = [self window];
         [info setImageFraction:mvd.backgroundFraction];
@@ -291,6 +293,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
         [info setScale:mvd.scale.x];
         
         [self setPenColorFromPaletteNo:mvd.penColorNo];
+        
+        [info drawIcon];
     }
     
     // [self showWindow:nil];
@@ -474,6 +478,13 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     if( palette == nil ) return;
     
     [palette open];
+}
+
+- (IBAction)pInfo:(id)sender
+{
+    if( info == nil ) return;
+    
+    [info open];
 }
 
 - (IBAction)pKakeSute:(id)sender

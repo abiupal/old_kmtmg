@@ -11,6 +11,7 @@
 
 @class MyPaletteView;
 @class MyDrawButton;
+@class MyInfoView;
 
 @interface MyInfo : NSObject {
     IBOutlet NSPanel *information;
@@ -20,6 +21,8 @@
     IBOutlet NSSlider *fractionSketch, *fractionDrawing;
     IBOutlet MyDrawButton *currentFunction;
     NSWindow *currentWindow;
+    MyDrawButton *currentButton;
+    MyInfoView *currentInfoView;
     
 @private
     NSPoint prePosition;
@@ -29,9 +32,13 @@
     NSInteger prePosColor;
     NSFont *scrollerFont;
     NSFont *rubberFont;
+    int funcId;
 }
+
 @property (assign) MyTrackAreaScrollView *scroll;
-@property (assign) NSWindow *currentWindow;
+@property (readwrite, assign) NSWindow *currentWindow;  
+@property (readwrite, assign) MyDrawButton *currentButton;
+@property (readwrite, assign) MyInfoView *currentInfoView;
 @property (readonly) NSPoint prePosition;
 @property NSSize dotSize;
 @property NSPoint ratio;
@@ -51,6 +58,8 @@
 - (void)setFunction:(char *)cmd;
 - (NSFont *)scrollerFont;
 - (NSFont *)rubberFont;
+- (void)drawIcon;
+- (BOOL)isClosed;
 
 - (IBAction)changeFraction:(id)sender;
 - (IBAction)changeDotX:(id)sender;

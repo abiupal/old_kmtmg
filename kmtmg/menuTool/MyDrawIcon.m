@@ -154,7 +154,6 @@ static NSShadow *gShadow = NULL;
 {
     NSBezierPath *path = [NSBezierPath bezierPath];
     
-    int i;
     CGFloat p[4] = { 1, 1, 4, 0 };
     p[3] = iPenWidth;
  /*   if( 1 <= NSWidth(iRect) )
@@ -716,7 +715,6 @@ static NSShadow *gShadow = NULL;
 {
 	NSBezierPath *path = [NSBezierPath bezierPath];
 	BOOL ret = YES;
-    float value[4] = { 0.0f, 0.47f, 0.753f, 1.0f };
 	int a, b, x, y, w, n;
 	a = 5; b = 15;
 	f += 2;
@@ -771,30 +769,11 @@ static NSShadow *gShadow = NULL;
 	}
     else if( MY_CMP( f, "PALETTE_OPEN" ) )
     {
-    	[[NSColor colorWithCalibratedWhite:0.8 alpha:0.8] set];
-		NSRectFill( NSMakeRect(1,11,30,16) );
+    	[[NSColor darkGrayColor] set];
+		NSRectFill( NSMakeRect(0,0,33,26) );
     }
     else if( MY_CMP( f, "PALETTE_CLOSE" ) )
     {
-        x = 1; y = 11; w = 8;
-        for( a = 0; a < 3; a++ )
-        {
-            [[NSColor colorWithCalibratedRed:value[a] green:0 blue:0 alpha:0.8] set];
-            NSRectFill( NSMakeRect(x,y,w,w) );
-            x += w;
-        }
-        [[NSColor colorWithCalibratedRed:value[a] green:0 blue:0 alpha:0.8] set];
-        NSRectFill( NSMakeRect(x,y,6,w) );
-
-        x = 1; y += w;
-        for( a = 0; a < 3; a++ )
-        {
-            [[NSColor colorWithCalibratedRed:value[a] green:0 blue:value[1] alpha:0.8] set];
-            NSRectFill( NSMakeRect(x,y,w,w) );
-            x += w;
-        }
-        [[NSColor colorWithCalibratedRed:value[a] green:0 blue:value[1] alpha:0.8] set];
-        NSRectFill( NSMakeRect(x,y,6,w) );
     }
     else if( MY_CMP( f, "SUTEKAKE_SUTE" ) )
     {
@@ -861,7 +840,7 @@ static NSShadow *gShadow = NULL;
     }
     else if( MY_CMP( f, "EFFECTIGNORE_IGNORE") )
     {
-        [[NSColor colorWithCalibratedRed:0.8 green:0.0 blue:0.0 alpha:0.8] set];
+        [[NSColor darkGrayColor] set];
         [path setLineWidth:2];
         [path moveToPoint:NSMakePoint(12,4)];
         [path lineToPoint:NSMakePoint(21,13)];
@@ -870,11 +849,21 @@ static NSShadow *gShadow = NULL;
         [path stroke];
 
     }
+    else if( MY_CMP( f, "INFO_OPEN" ) )
+    {
+    	[[NSColor darkGrayColor] set];
+		NSRectFill( NSMakeRect(0,0,33,26) );
+    }
+    else if( MY_CMP( f, "INFO_CLOSE" ) )
+    {
+    }
     else
         ret = NO;
     
     return ret;
 }
+
+#pragma mark - func
 
 - (void)drawRect:(NSRect)r func:(char *)f
 {

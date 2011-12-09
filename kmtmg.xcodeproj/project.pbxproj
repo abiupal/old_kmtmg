@@ -48,6 +48,7 @@
 		BA92462013BBFFC300FDA346 /* IoCGS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA92461F13BBFFC300FDA346 /* IoCGS.framework */; };
 		BA9519A713EFDEC5007D36AB /* MyColorData.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9519A613EFDEC5007D36AB /* MyColorData.m */; };
 		BAA6F487141602E70042D66F /* MyTopSsk.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6F486141602E60042D66F /* MyTopSsk.m */; };
+		BAA8235E1490A5520094C313 /* MyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA8235D1490A5520094C313 /* MyInfoView.m */; };
 		BAB02C9E13D50EB8008F0187 /* IoSKY.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB02C9D13D50EB7008F0187 /* IoSKY.m */; };
 		BAC2496E131384A600B6A2B0 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC2496C131384A600B6A2B0 /* MyDocument.xib */; };
 		BAC2EFAB13DD893900ED6CF4 /* MyRubberView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC2EFAA13DD893800ED6CF4 /* MyRubberView.m */; };
@@ -155,6 +156,8 @@
 		BA9519A613EFDEC5007D36AB /* MyColorData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyColorData.m; path = views/MyColorData.m; sourceTree = "<group>"; };
 		BAA6F485141602E60042D66F /* MyTopSsk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTopSsk.h; path = panels/MyTopSsk.h; sourceTree = "<group>"; };
 		BAA6F486141602E60042D66F /* MyTopSsk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTopSsk.m; path = panels/MyTopSsk.m; sourceTree = "<group>"; };
+		BAA8235C1490A5520094C313 /* MyInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyInfoView.h; path = views/MyInfoView.h; sourceTree = "<group>"; };
+		BAA8235D1490A5520094C313 /* MyInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyInfoView.m; path = views/MyInfoView.m; sourceTree = "<group>"; };
 		BAB02C9C13D50EB7008F0187 /* IoSKY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoSKY.h; path = io/IoSKY.h; sourceTree = "<group>"; };
 		BAB02C9D13D50EB7008F0187 /* IoSKY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IoSKY.m; path = io/IoSKY.m; sourceTree = "<group>"; };
 		BAC2496D131384A600B6A2B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MyDocument.xib; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 				BA4A96BA1302619300A4A0EC /* scroll */,
 				BA9519A513EFDEC5007D36AB /* MyColorData.h */,
 				BA9519A613EFDEC5007D36AB /* MyColorData.m */,
+				BAA8235C1490A5520094C313 /* MyInfoView.h */,
+				BAA8235D1490A5520094C313 /* MyInfoView.m */,
 				BA4A96AE130260D400A4A0EC /* MyView.h */,
 				BA4A96AF130260D400A4A0EC /* MyView.m */,
 				BA4A96B2130260D500A4A0EC /* MyWindow.h */,
@@ -594,6 +599,7 @@
 				BA673091145909B70057A0B4 /* Preference.m in Sources */,
 				BA673096145917580057A0B4 /* NSMutableAttributedString+MyModify.m in Sources */,
 				BA67309914591CC60057A0B4 /* NSMatrix+MyModify.m in Sources */,
+				BAA8235E1490A5520094C313 /* MyInfoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

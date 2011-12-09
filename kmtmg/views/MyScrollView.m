@@ -39,10 +39,6 @@
 - (void)setBaseData:(CGFloat)base inc:(CGFloat)inc;
 {
 	iBase = base;
-    if( inc == 0 )
-    {
-        NSLog(@"");
-    }
 	iInc = inc;
 	[self checkUpdateData];
 }
