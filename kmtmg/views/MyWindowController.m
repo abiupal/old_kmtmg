@@ -262,6 +262,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
         draw.view = oView;
         [draw setCommand:[draw funcCommand] data:mvd rubber:oRubberView];
     }
+    
     edit = [MyEditingManager sharedManager];
     if( [edit isEnabled] == NO ) edit = nil;
     else if( strlen( [edit funcCommand] ) )

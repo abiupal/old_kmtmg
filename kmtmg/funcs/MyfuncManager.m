@@ -176,5 +176,24 @@
     }
 }
 
+- (NSInteger)checkPositionSelectedType
+{
+    NSInteger type = PositionSelectedType_INVALID;
+    
+    if( pre.x < pos.x )
+    {
+        if( pre.y < pos.y )
+            type = PositionSelectedType_LD2RU;
+        else
+            type = PositionSelectedType_LU2RD;
+    }
+    else if( pre.y < pos.y )
+        type = PositionSelectedType_RD2LU;
+    else
+        type = PositionSelectedType_RU2LD;
+    
+    return type;
+}
+
 
 @end

@@ -93,11 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "kmtmg/Views/MyWindowController.m"
-         timestampString = "345105968.276808"
+         timestampString = "345356125.260243"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "339"
-         endingLineNumber = "339"
+         startingLineNumber = "340"
+         endingLineNumber = "340"
          landmarkName = "-windowTitleForDocumentDisplayName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -141,6 +141,34 @@
          startingLineNumber = "70"
          endingLineNumber = "70"
          landmarkName = "-setDrawEnabled:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "kmtmg/funcs/MyDrawingManager.m"
+         timestampString = "345364716.271637"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "911"
+         endingLineNumber = "911"
+         landmarkName = "@implementation MyDrawingManager"
+         landmarkType = "3">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "kmtmg/funcs/MyDrawingManager.m"
+         timestampString = "345364716.271637"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "798"
+         endingLineNumber = "798"
+         landmarkName = "-setRubberMode"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

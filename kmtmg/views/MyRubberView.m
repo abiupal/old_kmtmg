@@ -126,15 +126,6 @@
 
 - (void)drawInfo
 {
-    NSPoint st = [self viewPointFromImagePoint:rect.origin];
-    NSPoint ed = [self viewPointFromImagePoint:end];
-    int w = abs( ed.x - st.x );
-    int h = abs( ed.y - st.y );
-    ed = NSZeroPoint;
-    if( w < h )
-        ed.y = h -w;
-    else
-        ed.x = w -h;
     NSInteger numOfString = 3;
 	NSMutableAttributedString *str1, *str2, *str3;
     
@@ -148,11 +139,15 @@
               [NSString stringWithFormat:@"W:%d H:%d px",
                (NSInteger)rect.size.width, (NSInteger)rect.size.height]];
     
-    
+    NSPoint po = NSZeroPoint;
+    if( rect.size.width < rect.size.height )
+        po.y = rect.size.height - rect.size.width;
+    else
+        po.x = rect.size.width - rect.size.height;
     str3 = [[NSMutableAttributedString alloc] 
             initWithString:
             [NSString stringWithFormat:@"x:%d y:%d on Zero",
-             (NSInteger)(ed.x), (NSInteger)(ed.y)]];
+             (NSInteger)(po.x), (NSInteger)(po.y)]];
     
     [str1 changeStringColor:iColor withFont:[NSFont boldSystemFontOfSize:14]];
     [str2 changeStringColor:iColor withFont:[NSFont boldSystemFontOfSize:14]];
@@ -318,31 +313,45 @@
             CGContextSetRGBStrokeColor(cg, 0, 0, 0, 1.0);
         else
             CGContextSetRGBStrokeColor(cg, 1, 1, 1, 1.0);
-
         CGContextSetLineWidth(cg, 1.0);
-        
         CGContextSetLineDash(cg, 0.0, dashStyle, 1); 
-        
         CGContextStrokeRect(cg, selected);
         
         if( type & RUBBER_CIRCLE )
         {
-            CGContextStrokeEllipseInRect(cg, selected );
+            CGContextStrokeEllipseInRect(cg, selected);
         }
-        
+        else if( type & RUBBER_HISI )
+        {
+            CGContextMoveToPoint(cg, x + w /2, y);
+            CGContextAddLineToPoint(cg, x + w, y + h /2);
+            CGContextAddLineToPoint(cg, x + w /2, y + h);
+            CGContextAddLineToPoint(cg, x, y + h /2);
+            CGContextAddLineToPoint(cg, x + w /2, y);
+            CGContextStrokePath(cg);
+        }
+
         if( flag == YES )
             CGContextSetRGBStrokeColor(cg, 0, 0, 0, 1.0);
         else
             CGContextSetRGBStrokeColor(cg, 1, 1, 1, 1.0);
-        
         CGContextSetLineDash(cg, 3.0, dashStyle, 1);  
-        
         CGContextStrokeRect(cg, selected );
         
         if( type & RUBBER_CIRCLE )
         {
-            CGContextStrokeEllipseInRect(cg, selected );
+            CGContextStrokeEllipseInRect(cg, selected);
         }
+        else if( type & RUBBER_HISI )
+        {
+            CGContextMoveToPoint(cg, x + w /2, y);
+            CGContextAddLineToPoint(cg, x + w, y + h /2);
+            CGContextAddLineToPoint(cg, x + w /2, y + h);
+            CGContextAddLineToPoint(cg, x, y + h /2);
+            CGContextAddLineToPoint(cg, x + w /2, y);
+            CGContextStrokePath(cg);
+        }
+
         
         // [gc setShouldAntialias:YES];
         

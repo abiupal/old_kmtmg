@@ -17,6 +17,7 @@ enum {
     RUBBER_CIRCLE = 0x200,
     RUBBER_RECT = 0x400,
     RUBBER_XSAGON = 0x800,
+    RUBBER_HISI = 0x1000,
     RUBBER_MAX = 0x9999 };
 
 @interface MyRubberView : MyCursorView

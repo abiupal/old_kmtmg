@@ -37,5 +37,6 @@
 
 - (NSRect)rectFromPosition;
 - (void)updateWindow;
+- (NSInteger)checkPositionSelectedType;
 
 @end

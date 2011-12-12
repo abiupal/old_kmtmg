@@ -554,10 +554,12 @@ NSInteger circle_cx, circle_cy, circle_sw;
     }
 }
 
+#pragma mark - Special Drawing
+
 - (void)allLine
 {
     NSSize size = mvd.size;
-    NSRect r;
+    
     switch (funcCommand[9]) {
         case 'X':
             pre.x = 1;
@@ -570,29 +572,64 @@ NSInteger circle_cx, circle_cy, circle_sw;
             pre.x = pos.x;
             break;
             
-        case 'M':
-            r = NSMakeRect(pre.x, pre.y, (pos.x -pre.x +1), (pos.y -pre.y +1));
-            if( r.size.width < 1 ) r.size.width -= 2;
-            if( r.size.height < 1 ) r.size.height -= 2;
-            
-            pos = r.origin;
-            for( ; pos.x <= size.width && pos.y <= size.height; )
+        case 'M': {
+            NSInteger type = [super checkPositionSelectedType];
+            NSRect rect;
+            NSPoint l, r;
+            switch (type)
             {
-                pos.x += r.size.width;
-                pos.y += r.size.height;
+                case PositionSelectedType_LU2RD:
+                    l = pre; r = pos; break;
+                case PositionSelectedType_RD2LU:
+                    l = pos; r = pre; break;
+                case PositionSelectedType_RU2LD:
+                    l = pos; r = pre; break;
+                case PositionSelectedType_LD2RU:
+                    l = pre; r = pos; break;
             }
-            if( 0 < r.size.width ) pos.x--;
-            if( 0 < r.size.height ) pos.y--;
-            
-            pre = r.origin;
-            for( ; 1 <= pre.x && 1 <= pre.y; )
+            switch (type)
             {
-                pre.x -= r.size.width;
-                pre.y -= r.size.height;
+                case PositionSelectedType_RU2LD:
+                case PositionSelectedType_LD2RU:
+                    rect = NSMakeRect(l.x, l.y, (r.x -l.x +1), (r.y -l.y +1));            
+                    for( ; r.x < size.width && r.y < size.height; )
+                    {
+                        r.x += rect.size.width;
+                        r.y += rect.size.height;
+                    }            
+                    for( ; 1 <= l.x && 1 <= l.y; )
+                    {
+                        l.x -= rect.size.width;
+                        l.y -= rect.size.height;
+                    }            
+                    break;
+                    
+                default:
+                    rect = NSMakeRect(l.x, r.y, (r.x -l.x +1), (l.y -r.y +1));            
+                    for( ; 1 <= l.x && l.y < size.height; )
+                    {
+                        l.x -= rect.size.width;
+                        l.y += rect.size.height;
+                    }            
+                    for( ; r.x < size.width && 1 <= r.y; )
+                    {
+                        r.x += rect.size.width;
+                        r.y -= rect.size.height;
+                    }            
+                    break;
             }
-            if( r.size.width < 1 ) pos.x++;
-            if( r.size.height < 1 ) pos.y++;
-            break;
+            switch (type)
+            {
+                case PositionSelectedType_LU2RD:
+                    pre = l; pos = r; break;
+                case PositionSelectedType_RD2LU:
+                    pos = l; pre = r; break;
+                case PositionSelectedType_RU2LD:
+                    pos = l; pre = r; break;
+                case PositionSelectedType_LD2RU:
+                    pre = l; pos = r; break;
+            }
+        }break;
             
         default:
             return;
@@ -622,6 +659,72 @@ NSInteger circle_cx, circle_cy, circle_sw;
 	}
     pos = keep[1];
     [self line];
+    pre = keep[0];
+    pos = keep[1];
+}
+
+- (void)hisi
+{
+    NSPoint keep[2];
+    keep[0] = pre;
+    keep[1] = pos;
+    
+    CGFloat x, y, w, h;
+    int swX, swY;
+    swX = swY = 0;
+    if( pre.x <= pos.x )
+    {
+        x = pre.x;
+        w = (pos.x -pre.x +1);
+    }
+    else
+    {
+        x = pos.x;
+        w = (pre.x -pos.x +1);
+    }
+    if( pre.y <= pos.y )
+    {
+        y = pre.y;
+        h = (pos.y -pre.y +1);
+    }
+    else
+    {
+        y = pos.y;
+        h = (pre.y -pos.y +1);
+    }
+    if( !((int)w % 2) ) swX = 1;
+    if( !((int)h % 2) ) swY = 1;
+    
+    pre = NSMakePoint(x + w /2, y);
+    if( swY )
+        pos = NSMakePoint(x + w -1, y + h /2 -1);
+    else
+        pos = NSMakePoint(x + w -1, y + h /2);
+    [self line];
+    MyLog(@"%@ -> %@\n", NSStringFromPoint(pre), NSStringFromPoint(pos));
+    
+    pre = pos;
+    if( swY ) pre.y++;
+    pos = NSMakePoint(x + w /2, y + h -1);
+    [self line];
+    MyLog(@"%@ -> %@\n", NSStringFromPoint(pre), NSStringFromPoint(pos));
+    
+    pre = pos;
+    if( swX ) pre.x--;
+    pos = NSMakePoint(x, y + h /2);
+    [self line];
+    MyLog(@"%@ -> %@\n", NSStringFromPoint(pre), NSStringFromPoint(pos));
+    
+    pre = pos;
+    if( swY ) pre.y--;
+    if( swX )
+        pos = NSMakePoint(x + w /2 -1, y);
+    else
+        pos = NSMakePoint(x + w /2, y);
+    [self line];
+    MyLog(@"%@ -> %@\n", NSStringFromPoint(pre), NSStringFromPoint(pos));
+    pre = keep[0];
+    pos = keep[1];
 }
 
 #pragma mark - func
@@ -634,7 +737,7 @@ NSInteger circle_cx, circle_cy, circle_sw;
     NSMutableArray *a = nil;
     MyDrawButtonFuncMenu *dbfm = nil;
     
-    if( MY_CMP(cmd, "D_AllLine") )
+    if( strlen(cmd) == strlen("D_AllLine") && MY_CMP(cmd, "D_AllLine") )
     {
         a = [[NSMutableArray alloc] initWithCapacity:4];
         [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"D_AllLineX" menu:"All X direction"]];
@@ -668,6 +771,8 @@ NSInteger circle_cx, circle_cy, circle_sw;
     [a release];
 }
 
+#pragma mark - funcstions for Draw Mode
+
 - (void)setRubberMode
 {
     if ( MY_CMP(funcCommand, "D_Trace") ||
@@ -700,6 +805,10 @@ NSInteger circle_cx, circle_cy, circle_sw;
     else if( MY_CMP(funcCommand, "D_Hexi" ) )
     {
         [rubber setRubberType:RUBBER_LINE | RUBBER_XSAGON + 6];
+    }
+    else if( MY_CMP(funcCommand, "D_Hisi" ) )
+    {
+        [rubber setRubberType:RUBBER_RECT | RUBBER_HISI];
     }
     else
         [rubber setRubberType:RUBBER_NONE];
@@ -738,6 +847,8 @@ NSInteger circle_cx, circle_cy, circle_sw;
     else if( MY_CMP(funcCommand, "D_Pent" ) )
         ret = YES;
     else if( MY_CMP(funcCommand, "D_Hexi" ) )
+        ret = YES;
+    else if( MY_CMP(funcCommand, "D_Hisi" ) )
         ret = YES;
     
     return ret;
@@ -780,6 +891,10 @@ NSInteger circle_cx, circle_cy, circle_sw;
              MY_CMP(funcCommand, "D_Hexi" ) )
     {
         [self xsagon:[rubber typeMask]];
+    }
+    else if( MY_CMP(funcCommand, "D_Hisi" ) )
+    {
+        [self hisi];
     }
 
     if( cancel ) 

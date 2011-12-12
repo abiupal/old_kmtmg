@@ -35,3 +35,14 @@
 #endif
 
 #define MY_CMP( A, B ) ( !strncmp( A, B, strlen(B)) ? 1 : 0 )
+
+
+typedef enum {
+    PositionSelectedType_INVALID = 0,
+    PositionSelectedType_LD2RU,
+    PositionSelectedType_RU2LD,
+    PositionSelectedType_LU2RD,
+    PositionSelectedType_RD2LU,
+    PositionSelectedType_MAX
+} POSITION_SELECTED_TYPE;
+
