@@ -103,6 +103,8 @@ static MySelect4 *sharedMySelect4Manager = NULL;
         }
     }
     
+    panel.tag = -1;
+    
     return [NSApp runModalForWindow:panel];
 }
 

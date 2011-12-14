@@ -11,6 +11,8 @@
 
 @implementation MyPanel
 
+@synthesize tag;
+
 - (id)init
 {
     self = [super init];
@@ -19,6 +21,13 @@
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super dealloc];
 }
 
 - (void)awakeFromNib
@@ -56,6 +65,22 @@
     [self close];
 }
 
+#pragma mark - search Object from Tag
+
+- (id)getObjectFromTag:(int)n
+{
+    
+	NSArray *a = [[self contentView] subviews];
+	id obj;
+	int i;
+	for( i = 0; i < [a count]; ++i )
+	{
+        obj = [a objectAtIndex:i];
+        if( [obj tag] == n ) return obj;
+	}
+	
+	return Nil;
+}
 
 - (id)getObjectName:(char *)name tag:(int)n
 {

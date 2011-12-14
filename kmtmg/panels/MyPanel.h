@@ -15,6 +15,9 @@
 }
 
 - (void)setTag:(NSInteger)n;
+- (id)getObjectFromTag:(int)n;
 - (id)getObjectName:(char *)name tag:(int)n;
+
+@property NSInteger tag;
 
 @end

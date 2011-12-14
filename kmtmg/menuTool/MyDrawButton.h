@@ -20,6 +20,7 @@
 	char *iFuncName;
 	NSString *iMenuName;
 	MyDrawIcon *iIcon;
+    NSImage *iImage;
 }
 
 -(void) setFuncName:(char *)func menuName:(NSString *)menu;

@@ -824,17 +824,17 @@ static NSShadow *gShadow = NULL;
     {
         [path setLineWidth:iPenWidth];
         [[NSColor colorWithCalibratedRed:0.0 green:0.0 blue:0.0 alpha:0.9] set];
-        NSRectFill( NSMakeRect(12,7,10,3) );
+        NSRectFill( NSMakeRect(12,11,10,3) );
 
     }
     else if( MY_CMP( f, "EFFECTIGNORE_EFFECT") )
     {
         [path setLineWidth:0];
-        [path moveToPoint:NSMakePoint(10, 8)];
-        [path lineToPoint:NSMakePoint(15,14)];
-        [path lineToPoint:NSMakePoint(26, 3)];
-        [path lineToPoint:NSMakePoint(15,12)];
-        [path lineToPoint:NSMakePoint(12, 7)];
+        [path moveToPoint:NSMakePoint(3,13)];
+        [path lineToPoint:NSMakePoint(9,9)];
+        [path lineToPoint:NSMakePoint(15,17)];
+        [path lineToPoint:NSMakePoint(31,4)];
+        [path lineToPoint:NSMakePoint(15,22)];
         [path closePath];
         [path fill];
     }
@@ -842,10 +842,10 @@ static NSShadow *gShadow = NULL;
     {
         [[NSColor darkGrayColor] set];
         [path setLineWidth:2];
-        [path moveToPoint:NSMakePoint(12,4)];
-        [path lineToPoint:NSMakePoint(21,13)];
-        [path moveToPoint:NSMakePoint(12,13)];
-        [path lineToPoint:NSMakePoint(21,4)];
+        [path moveToPoint:NSMakePoint(12, 8)];
+        [path lineToPoint:NSMakePoint(21,17)];
+        [path moveToPoint:NSMakePoint(12,17)];
+        [path lineToPoint:NSMakePoint(21, 8)];
         [path stroke];
 
     }
@@ -859,6 +859,73 @@ static NSShadow *gShadow = NULL;
     }
     else
         ret = NO;
+    
+    return ret;
+}
+
+#pragma mark - Number Input Icon
+
+/* 64 x 64 */
+/*
+ [mdb setFuncName:"NumberInput_RT" menuName:@"RT"];
+ mdb = [self getObjectFromTag:NI_NumberUp];
+ [mdb setFuncName:"NumberInput_Up" menuName:@"Up"];
+ mdb = [self getObjectFromTag:NI_NumberDown];
+ [mdb setFuncName:"NumberInput_Down" menuName:@"Down"];
+ mdb = [self getObjectFromTag:NI_Minus];
+ [mdb setFuncName:"NumberInput_Minus" menuName:@"Minus"];
+ mdb = [self getObjectFromTag:NI_Minus];
+ [mdb setFuncName:"NumberInput_Minus" menuName:@"Minus"];
+ mdb = [self getObjectFromTag:NI_BackSpace];
+ [mdb setFuncName:"NumberInput_BS" menuName:@"BS"];
+ mdb = [self getObjectFromTag:NI_AllClear];
+ [mdb setFuncName:"NumberInput_AC" menuName:@"AC"];
+ mdb = [self getObjectFromTag:NI_ZeroZero];
+ [mdb setFuncName:"NumberInput_ZZ" menuName:@"00"];
+
+ */
+- (BOOL)drawNumberInput:(char *)f
+{
+    BOOL ret = YES;
+    f += 12;
+    
+	NSBezierPath *path = [NSBezierPath bezierPath];
+	
+    [NSBezierPath setDefaultLineCapStyle:NSButtLineCapStyle];
+    [NSBezierPath setDefaultLineJoinStyle:NSMiterLineJoinStyle];
+	[[NSColor orangeColor] set];
+
+    if( MY_CMP(f, "RT") )
+    {
+        [[NSColor colorWithCalibratedRed:0.0 green:0.8 blue:0.8 alpha:0.8] set];
+        [path setLineWidth:0];
+        [path moveToPoint:NSMakePoint(38,27)];
+        [path lineToPoint:NSMakePoint(49,20)];
+        [path lineToPoint:NSMakePoint(62,36)];
+        [path lineToPoint:NSMakePoint(93,8)];
+        [path lineToPoint:NSMakePoint(62,46)];
+        [path closePath];
+        [path fill];
+    }
+    else if( MY_CMP(f, "Up") )
+    {
+        [path setLineWidth:0];
+        [path moveToPoint:NSMakePoint(9,73)];
+        [path lineToPoint:NSMakePoint(29,26)];
+        [path lineToPoint:NSMakePoint(49,73)];
+        [path closePath];
+        [path fill];
+    }
+    else if( MY_CMP(f, "Down") )
+    {
+        [path setLineWidth:0];
+        [path moveToPoint:NSMakePoint(9,36)];
+        [path lineToPoint:NSMakePoint(29,83)];
+        [path lineToPoint:NSMakePoint(49,36)];
+        [path closePath];
+        [path fill];
+    }
+    else ret = NO;
     
     return ret;
 }
@@ -895,6 +962,10 @@ static NSShadow *gShadow = NULL;
 		[self drawSimulate:f]; break;
 	case 'M':
 		[self drawMainMenu:f]; break;
+        default:
+            if( MY_CMP(f, "NumberInput_") )
+                [self drawNumberInput:f];
+            break;
 	}
     [gc restoreGraphicsState];
 }

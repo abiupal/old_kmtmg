@@ -21,6 +21,7 @@
 #import "MyRubberView.h"
 #import "../panels/MySelect4.h"
 #import "../panels/MyTopSsk.h"
+#import "../panels/MyNumberInput.h"
 
 @implementation MyWindowController
 
@@ -323,11 +324,15 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 - (void)windowWillClose:(NSNotification *)notification
 {
     [self windowDidResignMain:nil];
-    
+        
     [[self window] removeChildWindow:oCursorWindow];
     [[self window] removeChildWindow:oRubberWindow];
+    
     [oCursorWindow close];
     [oRubberWindow close];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:oCursorWindow];
+    [[NSNotificationCenter defaultCenter] removeObserver:oRubberWindow];
     
     [self autorelease];
 }
@@ -656,6 +661,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 
 - (void)testfunc
 {
+    /*
     MySelect4 *ms4 = [MySelect4 sharedManager];
     NSMutableArray *a = [NSMutableArray arrayWithCapacity:4];
     [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test1" menu:"menu1"]];
@@ -664,6 +670,11 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test4" menu:"menu4"]];
     
     [ms4 openWithArray:a];
+     */
+    MyNumberInput *mni = [MyNumberInput sharedManager];
+    NSInteger ret = [mni openWithMin:-10.0 max:100];
+    
+    MyLog(@"%d", ret);
 }
 
 - (void)functionCommand:(char *)cmd

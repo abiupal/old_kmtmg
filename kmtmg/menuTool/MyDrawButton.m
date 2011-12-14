@@ -1,5 +1,5 @@
 #import "MyDrawButton.h"
-
+#import "MyDefines.h"
 
 @implementation MyDrawButtonFuncMenu
 
@@ -33,6 +33,20 @@
 
 @implementation MyDrawButton
 
+- (BOOL)checkImageNumberInput
+{
+    char *f = iFuncName + 12;
+    NSString *imgName = nil;
+    
+    NSString *tag = [NSString stringWithFormat:@"%s",f];
+    imgName = [[NSBundle mainBundle] pathForResource:tag ofType:@"png"];
+    
+    if( imgName != nil )
+        iImage = [[[NSImage alloc] initWithContentsOfFile:imgName] retain];
+    
+    return (iImage ? YES : NO);
+}
+
 -(void) awakeFromNib
 {
 	iIcon = [MyDrawIcon sharedManager];
@@ -40,6 +54,7 @@
 
 -(void) dealloc
 {
+    [iImage release];
 	[iMenuName release];
 	[super dealloc];
 }
@@ -62,8 +77,20 @@
 
 -(void) drawIcon:(NSRect)rect
 {
-	[iIcon drawRect:rect func:iFuncName];
-	[self drawTextMenu:NSMakePoint( NSMidX(rect), NSHeight(rect))];
+    if( iImage != nil )
+    {
+        [iImage drawInRect:rect 
+                  fromRect:NSZeroRect
+                 operation:NSCompositeSourceOver
+                  fraction:1.0
+            respectFlipped:YES
+                     hints:nil];
+    }
+	else
+    {
+        [iIcon drawRect:rect func:iFuncName];
+        [self drawTextMenu:NSMakePoint( NSMidX(rect), NSHeight(rect))];
+    }
 }
 
 -(void) drawRect:(NSRect)rect
@@ -85,6 +112,14 @@
 -(void) setFuncName:(char *)func menuName:(NSString *)menu
 {
 	iFuncName = func;
+    
+    if( func != nil )
+    {
+        if( MY_CMP(iFuncName, "NumberInput_") )
+        {
+            [self checkImageNumberInput];
+        }
+    }
 	if( menu != Nil )
 	{
         if( [menu isEqualToString:iMenuName] == NO )
