@@ -64,5 +64,11 @@
     sprintf(commandString, "TS_VISIBLE_%d", selected );
     [winController functionCommand:commandString];
 }
+- (IBAction)putOnData:(id)sender
+{
+    memset(commandString, 0, sizeof(commandString));
+    sprintf(commandString, "TS_PUTON_%d", selected );
+    [winController functionCommand:commandString];
+}
 
 @end

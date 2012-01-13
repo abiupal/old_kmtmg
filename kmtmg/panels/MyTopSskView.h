@@ -25,6 +25,7 @@
 - (IBAction)resizeArea:(id)sender;
 - (IBAction)removeImage:(id)sender;
 - (IBAction)changeVisible:(id)sender;
+- (IBAction)putOnData:(id)sender;
 
 @property NSInteger selected;
 

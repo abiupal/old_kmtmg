@@ -45,9 +45,7 @@
 {
     if( self != nil )
     {
-        r = data[0]; r /= 255;
-        g = data[1]; g /= 255; 
-        b = data[2]; b /= 255;
+        [self changeDataWithUCharData:data];
         a = 1.0f;
         allowFromSrc = allowToDst = 0;
         version = CURRENT_VERSION;
@@ -96,6 +94,15 @@ NSString    *MCDCodeKeyVersion = @"version";
     [encoder encodeInt:i forKey:MCDCodeKeyAllowFromSrc];
     i = allowToDst;
     [encoder encodeInt:i forKey:MCDCodeKeyAllowToDst];
+}
+
+- (void)changeDataWithUCharData:(unsigned char *)data
+{
+    r = data[0]; r /= 255;
+    g = data[1]; g /= 255; 
+    b = data[2]; b /= 255;
+    
+    NSLog(@"MyColorData >> %.2f,%.2f,%.2f\n", r, g, b);
 }
 
 @end

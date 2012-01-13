@@ -207,6 +207,10 @@
     {
         [self addBackgroundImage];
     }
+    else if( MY_CMP(cmd, "M_LOADCGS2") )
+    {
+        
+    }
     else
     {
         NSString *str = [NSString stringWithFormat:@"func:%s", cmd];

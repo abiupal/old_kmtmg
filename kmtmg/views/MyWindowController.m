@@ -15,6 +15,7 @@
 #import "../panels/MyInfo.h"
 #import "../funcs/MyDrawingManager.h"
 #import "../funcs/MyEditingManager.h"
+#import "../funcs/MyColoringManager.h"
 #import "MyColorData.h"
 #import "MyLayerWindow.h"
 #import "MyLayerView.h"
@@ -598,6 +599,12 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
         [mvd changeVisibleBackgroundImage:n];
         [self checkUpdateData];
     }
+    else if( MY_CMP(cmd, "TS_PUTON_" ) )
+    {
+        n = atoi( cmd +9 );
+        [mvd putOnBackgroundImage:n];
+        [self checkUpdateData];
+    }
     else
     {
         [edit setCommand:cmd data:mvd rubber:oRubberView];
@@ -672,7 +679,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     [ms4 openWithArray:a];
      */
     MyNumberInput *mni = [MyNumberInput sharedManager];
-    NSInteger ret = [mni openWithMin:-10.0 max:100];
+    NSInteger ret = [mni openWithMin:-10.0 max:100 string:"Test Function"];
     
     MyLog(@"%d", ret);
 }
@@ -701,6 +708,8 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     [draw disabled];
     edit = [MyEditingManager sharedManager];
     [edit disabled];
+    color = [MyColoringManager sharedManager];
+    [color disabled];
     
     if( MY_CMP(cmd, "M_" ) )
     {
@@ -727,6 +736,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     if( [draw isEnabled] == NO ) draw = nil;
     if( [edit isEnabled] == NO ) edit = nil;
+    if( [color isEnabled] == NO ) color = nil;
 }
 
 #pragma mark - Keyboard

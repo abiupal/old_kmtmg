@@ -13,6 +13,7 @@
 #import "../io/IoSKY.h"
 #import "../panels/MyTopImage.h"
 #import <IoCGS/MyOS.h>
+#import "../funcs/MyColoringManager.h"
 
 @implementation MyViewData
 
@@ -52,7 +53,7 @@
 		index = -1;
         indexImage = nil;
         IoSKY *sky = [[IoSKY alloc] init];
-        [self setPaletteFromData:[sky l64] colorNum:256];
+        [self setPaletteFromData:[sky l64] colorNum:256 init:YES];
         [sky release];
         [self setPenFromPalette:0];
 		name = nil;
@@ -592,30 +593,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 - (BOOL)setImageFromURL:(NSURL *)url
 {
     BOOL ret = NO;
-    
-    /*
-    NSBitmapImageRep *bitmap = [NSBitmapImageRep imageRepWithData:[img TIFFRepresentation]];
-    
-    size = NSMakeSize([bitmap pixelsWide], [bitmap pixelsHigh]);
-    */
-    /* Bitmap Format changed to 32 bit RGBA 
-    NSBitmapImageRep *bitmapWhoseFormatIKnow = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                                                       pixelsWide:size.width pixelsHigh:size.height
-                                                                                    bitsPerSample:8
-                                                                                  samplesPerPixel:4
-                                                                                         hasAlpha:YES
-                                                                                         isPlanar:NO
-                                                                                   colorSpaceName:NSCalibratedRGBColorSpace
-                                                                                      bytesPerRow:0
-                                                                                     bitsPerPixel:0];
-    
-    [NSGraphicsContext saveGraphicsState];
-    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmapWhoseFormatIKnow]];
-    [bitmap draw];
-    [NSGraphicsContext restoreGraphicsState];
-    [bitmapWhoseFormatIKnow release];
-    */
-    
+
     size = NSZeroSize;
     /* background topImages */
     [self addBackgroundImageURL:url];
@@ -629,18 +607,29 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     return ret;
 }
 
-- (void)setPaletteFromData:(unsigned char *)data colorNum:(int)n
+- (void)setPaletteFromData:(unsigned char *)data colorNum:(int)n init:(BOOL)bInit
 {
-    [palette release];
-    palette = [[NSMutableArray alloc] init];
-    
 	int i;
     MyColorData *rgba;    
-    for( i = 0; i < n; i++ )
+    if( bInit == YES )
     {
-        rgba = [[MyColorData alloc] initWithUCharData:&data[i * 3]];
-        [palette addObject:rgba];
-        [rgba release];
+        [palette release];
+        palette = [[NSMutableArray alloc] init];
+
+        for( i = 0; i < n; i++ )
+        {
+            rgba = [[MyColorData alloc] initWithUCharData:&data[i * 3]];
+            [palette addObject:rgba];
+            [rgba release];
+        }
+    }
+    else
+    {
+        for( i = 0; i < n; i++ )
+        {
+            rgba = [palette objectAtIndex:i];
+            [rgba changeDataWithUCharData:&data[i * 3]];
+        }
     }
 }
 
@@ -659,7 +648,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
                  palette:(unsigned char *)palData
                 colorNum:(int)n
 {
-    [self setPaletteFromData:palData colorNum:n];
+    [self setPaletteFromData:palData colorNum:n init:YES];
     [self setImageWithSize:imageSize];
     [indexImage setIndexData:indexData];
 }
@@ -715,6 +704,8 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     myd->dst.effectIgnoreType = [self effectIgnoreDst];
     myd->pen = penColorNo;
 }
+
+#pragma mark - Background Image
 
 - (void)addTopImage:(MyTopImage *)tImg
 {    
@@ -795,6 +786,25 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
         MyTopImage *tImage = [topImages objectAtIndex:n];
         tImage.visible = (tImage.visible ? NO : YES);
     }
+}
+
+- (void)putOnBackgroundImage:(NSInteger)n
+{
+    if ( n < 0 || [topImages count] <= n ) return;
+    
+    MyTopImage *tImage = [topImages objectAtIndex:n];
+    MyColoringManager *mcm = [MyColoringManager sharedManager];
+    
+    
+    NSData *reduceData = [mcm reduceColorImage:tImage size:size];
+    if (reduceData == nil) 
+    {
+        MyLog(@"Can't reduce Color!!");
+        return;
+    }
+    [self setPaletteFromData:[mcm palette] colorNum:[mcm paletteNum] init:NO];
+    [indexImage setIndexData:(unsigned char *)[reduceData bytes]];
+    [reduceData release];
 }
 
 #pragma mark - Position

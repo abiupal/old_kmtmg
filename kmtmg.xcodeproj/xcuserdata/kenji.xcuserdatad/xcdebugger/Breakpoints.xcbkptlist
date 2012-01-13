@@ -8,13 +8,41 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/funcs/MyDrawingManager.m"
-         timestampString = "345540021.156416"
+         filePath = "kmtmg/views/MyViewData.m"
+         timestampString = "348121529.897576"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "753"
-         endingLineNumber = "753"
-         landmarkName = "-select4Command:"
+         startingLineNumber = "810"
+         endingLineNumber = "810"
+         landmarkName = "-putOnBackgroundImage:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "kmtmg/funcs/MyColoringManager.m"
+         timestampString = "348131979.750292"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "374"
+         endingLineNumber = "374"
+         landmarkName = "-reduceColorNumber:bwNumber:bitmapRep:reduced:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "kmtmg/funcs/MyColoringManager.m"
+         timestampString = "348131979.750292"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "392"
+         endingLineNumber = "392"
+         landmarkName = "-reduceColorNumber:bwNumber:bitmapRep:reduced:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

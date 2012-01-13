@@ -67,15 +67,17 @@
 - (BOOL)setEffectIgnoreFlagAtPaletteNo:(NSInteger)palNo src:(BOOL)b;
 
 // - (void)makeReverseLR;
-- (void)setPaletteFromData:(unsigned char *)data colorNum:(int)n;
+- (void)setPaletteFromData:(unsigned char *)data colorNum:(int)n init:(BOOL)bInit;
 - (BOOL)setImageFromURL:(NSURL *)url;
 - (void)setImageWithData:(unsigned char *)indexData size:(NSSize)imageSize palette:(unsigned char *)palData colorNum:(int)n;
 - (void)setImageWithSize:(NSSize)imageSize;
 
+// BackgroundImage
 - (void)addBackgroundImageURL:(NSURL *)url;
 - (void)removeBackgroundImage:(NSInteger)n;
 - (void)changeRectPosition:(NSRect)r backgroundImage:(NSInteger)n;
 - (void)changeVisibleBackgroundImage:(NSInteger)n;
+- (void)putOnBackgroundImage:(NSInteger)n;
 
 - (BOOL)hasImage;
 - (void)setName:(NSString *)newName;

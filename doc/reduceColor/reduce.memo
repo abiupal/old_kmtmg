@@ -1,0 +1,49 @@
+
+F2-1 ---- SKY-HR/V
+
+						if((i != sa_num[0])&&(i != sa_num[1]))
+						{
+							if( i < sa_num[0] ) sa = sabuf[i][sa_num[0]-i-1] ; 
+							else                sa = sabuf[sa_num[0]][i-sa_num[0]-1] ; 
+							
+							if( min_sa1 > sa )  min_sa1 = sa ;
+							
+							if( i < sa_num[0] ) sa = sabuf[i][sa_num[1]-i-1] ; 
+							else                sa = sabuf[sa_num[1]][i-sa_num[1]-1] ; 
+							
+							if( min_sa2 > sa )  min_sa2 = sa ;
+						}
+						
+F2-2 ---- Current
+						if((i != sa_num[0])&&(i != sa_num[1]))
+						{
+							if( i < sa_num[0] ) sa = sabuf[i][sa_num[0]-i-1]; 
+							else                sa = sabuf[sa_num[0]][i-sa_num[0]-1] ; 
+							
+							if( min_sa1 > sa )  min_sa1 = sa ;
+							
+							if( i < sa_num[1] ) sa = sabuf[i][sa_num[1]-i-1] ; 
+							else                sa = sabuf[sa_num[1]][i-sa_num[1]-1] ; 
+							
+							if( min_sa2 > sa )  min_sa2 = sa ;
+						}
+F2-3
+						if((i != sa_num[0])&&(i != sa_num[1]))
+						{
+							if( i < sa_num[1] ) sa = sabuf[i][sa_num[0]-i-1] ; 
+							else                sa = sabuf[sa_num[0]][i-sa_num[0]-1] ; 
+							
+							if( min_sa1 > sa )  min_sa1 = sa ;
+							
+							if( i < sa_num[1] ) sa = sabuf[i][sa_num[1]-i-1] ; 
+							else                sa = sabuf[sa_num[1]][i-sa_num[1]-1] ; 
+							
+							if( min_sa2 > sa )  min_sa2 = sa ;
+						}
+
+
+追加条件
+--------
+元データを、Height -1 -> 0 での読込み。
+元データを、面積順でのパレット作成。
+

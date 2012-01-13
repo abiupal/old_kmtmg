@@ -18,6 +18,7 @@
 @class MyInfo;
 @class MyDrawingManager;
 @class MyEditingManager;
+@class MyColoringManager;
 @class MyLayerWindow;
 @class MyCursorView;
 @class MyRubberView;
@@ -40,6 +41,7 @@
 @private
     MyDrawingManager *draw;
     MyEditingManager *edit;
+    MyColoringManager *color;
     
     MyPalette *palette;
     MyInfo *info;

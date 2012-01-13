@@ -8,13 +8,12 @@
 
 #import <AppKit/AppKit.h>
 
-@class MyDrawButton;
 @class MyPanel;
 
 @interface MyNumberInput : NSObject
 {
     IBOutlet MyPanel *panel;
-    IBOutlet NSTextField *range, *number, *prevLabel;
+    IBOutlet NSTextField *range, *number, *prevLabel, *message;
     
     IBOutlet NSNumberFormatter *formatter;
     
@@ -22,7 +21,7 @@
 }
 
 + (MyNumberInput *)sharedManager;
-- (NSInteger)openWithMin:(CGFloat)min max:(CGFloat)max;
+- (NSInteger)openWithMin:(CGFloat)min max:(CGFloat)max string:(const char *)msg;
 - (IBAction)press:(id)sender;
 - (IBAction)prev:(id)sender;
 

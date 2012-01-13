@@ -16,7 +16,7 @@
 enum { 
     NI_Return = 100, NI_RangeText,
     NI_NumberUp = 201, NI_NumberDown,
-    NI_Dot = 801, NI_Minus,
+    NI_PrevButton = 801, NI_Minus,
     NI_BackSpace = 901, NI_AllClear,
     NI_ZeroZero = 999,
     NI_0,NI_1,NI_2,NI_3,NI_4,
@@ -245,17 +245,25 @@ static MyNumberInput *sharedMyNumberInputManager = NULL;
 
 #pragma mark - Open
 
-- (NSInteger)openWithMin:(CGFloat)min max:(CGFloat)max
+- (NSInteger)openWithMin:(CGFloat)min max:(CGFloat)max string:(const char *)msg
 {
     NSString *str = [NSString stringWithFormat:@"%d 〜 %d",(int)min, (int)max];
     [range setStringValue:str];
+    [message setStringValue:[NSString stringWithUTF8String:msg]];
     
+    NSButton *btn = [panel getObjectFromTag:NI_PrevButton];
     if( prevValue != MNI_INIT_VALUE )
     {
         str = [NSString stringWithFormat:@"%d",(int)prevValue];
-        [prevLabel setStringValue:str];
+        [btn setEnabled:YES];
     }
-    
+    else
+    {
+        str = [NSString stringWithUTF8String:"No Value"];
+        [btn setEnabled:NO];
+    }
+    [prevLabel setStringValue:str];
+
     NSNumber *value = [NSNumber numberWithFloat:min];
     [formatter setMinimum:value];
     value = [NSNumber numberWithFloat:max];

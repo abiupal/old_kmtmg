@@ -25,6 +25,8 @@
 - (id)initWithIntRed:(int)red green:(int)green blue:(int)blue;
 - (id)initWithUCharData:(unsigned char *)data;
 
+- (void)changeDataWithUCharData:(unsigned char *)data;
+
 @property char allowFromSrc, allowToDst;
 
 @end
