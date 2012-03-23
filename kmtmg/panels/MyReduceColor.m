@@ -11,10 +11,22 @@
 #import "../MyDefines.h"
 #import "../menuTool/MyDrawButton.h"
 #import "MyPanel.h"
+#import "MyNumberInput.h"
+
+#define ZOOM_IN_FACTOR  1.414214
+#define ZOOM_OUT_FACTOR 0.7071068
+
+enum { 
+    RC_COLNUM = 200, RC_BWNUM, RC_REDUCE,
+    RC_SELECTIMG = 301, RC_SELECTED,
+    RC_ROUNDROTATE = 501, RC_ZOOM, RC_EDIT
+};
+
+static MyReduceColor *sharedMyReduceColorManager = NULL;
 
 @implementation MyReduceColor
 
-static MyReduceColor *sharedMyReduceColorManager = NULL;
+@synthesize colNum, bwNum;
 
 #pragma mark - Singleton
 
@@ -84,26 +96,14 @@ static MyReduceColor *sharedMyReduceColorManager = NULL;
     if (self)
     {
         [NSBundle loadNibNamed: @"ReduceColorPanel" owner:self];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(controlTextDidChange:)
-                                                     name: NSControlTextDidChangeNotification object:colNum];
     }
     
     return self;
 }
 
 - (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+{    
     [super dealloc];
-}
-
-#pragma mark - Notification
-
-- (void)controlTextDidChange:(NSNotification *)aNotification
-{
 }
 
 #pragma mark - Open
@@ -112,6 +112,10 @@ static MyReduceColor *sharedMyReduceColorManager = NULL;
 {
     [imgView setImage:[bitmap CGImage] imageProperties:imgProperties];
     
+    [imgView setHasHorizontalScroller:YES];
+    [imgView setHasVerticalScroller:YES];
+    panel.tag = MYPANEL_INIT;
+    
     return [NSApp runModalForWindow:panel];
 }
 
@@ -119,7 +123,31 @@ static MyReduceColor *sharedMyReduceColorManager = NULL;
 
 - (IBAction)doZoom: (id)sender
 {
+    NSInteger zoom;
+    CGFloat   zoomFactor;
+        
+    if ([sender isKindOfClass: [NSSegmentedControl class]])
+        zoom = [sender selectedSegment];
+    else
+        zoom = [sender tag];
     
+    switch (zoom)
+    {
+    case 0:
+        zoomFactor = [imgView zoomFactor];
+        [imgView setZoomFactor: zoomFactor * ZOOM_OUT_FACTOR];
+        break;
+    case 1:
+        zoomFactor = [imgView zoomFactor];
+        [imgView setZoomFactor: zoomFactor * ZOOM_IN_FACTOR];
+        break;
+    case 2:
+        [imgView zoomImageToActualSize: self];
+        break;
+    case 3:
+        [imgView zoomImageToFit: self];
+        break;
+    }
 }
 
 - (IBAction)switchToolMode: (id)sender
@@ -133,16 +161,16 @@ static MyReduceColor *sharedMyReduceColorManager = NULL;
     
     switch (newTool)
     {
-        case 0:
+        case 1:
             [imgView setCurrentToolMode: IKToolModeMove];
             break;
-        case 1:
+        case 0:
             [imgView setCurrentToolMode: IKToolModeSelect];
             break;
-        case 2:
+        case 3:
             [imgView setCurrentToolMode: IKToolModeCrop];
             break;
-        case 3:
+        case 2:
             [imgView setCurrentToolMode: IKToolModeRotate];
             break;
         case 4:
@@ -150,5 +178,51 @@ static MyReduceColor *sharedMyReduceColorManager = NULL;
             break;
     }
 }
+
+- (IBAction)setRotation: (id)sender
+{
+    [imgView setRotation:sender];
+}
+
+- (IBAction)selectedImage:(id)sender
+{
+    switch ([sender tag]) {
+        case 1: break;
+        case 2: break;
+        case 3: break;            
+        default:
+            break;
+    }
+}
+
+- (IBAction)colorNum:(id)sender
+{
+    MyNumberInput *mni = [MyNumberInput sharedManager];
+    NSButton *btn = nil;
+    
+    colNum = [mni openWithMin:2 max:255 string:"Reduced Total Color Number"];
+    if( colNum == MYPANEL_INIT )
+    {
+        btn = [panel getObjectFromTag:RC_BWNUM];
+        [btn setEnabled:NO];
+        btn = [panel getObjectFromTag:RC_REDUCE];
+        [btn setEnabled:NO];
+    }
+    else
+    {
+        btn = [panel getObjectFromTag:RC_BWNUM];
+        [btn setEnabled:YES];
+        btn = [panel getObjectFromTag:RC_REDUCE];
+        [btn setEnabled:YES];
+        btn = (NSButton *)sender;
+        [btn setTitle:[NSString stringWithFormat:@"Reduced %d",colNum]];
+    }
+}
+
+- (IBAction)blackWhiteNum:(id)sender
+{
+    
+}
+
 
 @end

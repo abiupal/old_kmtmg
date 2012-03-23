@@ -393,6 +393,7 @@ END_DRAWRECT:
     NSInteger n = [mvd indexFromDataPosition:po];
     if ( 0 <= n )
     {
+        MyLog(@":%d", [e clickCount]);
         switch ([e clickCount])
         {
             case 1:

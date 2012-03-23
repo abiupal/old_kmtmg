@@ -141,7 +141,15 @@ static ConfigController *sharedConfigControllerManager = NULL;
 	[item setAction:@selector( checkFunction: ) ];
 	[item setEnabled:iMenuEnabled];
 	// setKey
-	// [item setKeyEquivalent:[NSString stringWithFormat:@"%c",(char)[mm->d key]]];
+    if( [mm->d key] == CFGKEY_TOOLBAR )
+    {
+    }
+    else
+    {
+        [item setKeyEquivalent:[NSString stringWithFormat:@"%c",(char)[mm->d key]]];
+    }
+    if( !([mm->d key] & CFGKEY_CTRL) )
+        [item setKeyEquivalentModifierMask:0];
 	[mm->m addItem:item];
 	[item release];
     

@@ -17,7 +17,7 @@
 {
     self = [super init];
     if (self) {
-        tag = -1;
+        tag = MYPANEL_INIT;
     }
     
     return self;
@@ -33,7 +33,7 @@
 - (void)awakeFromNib
 {	
 	MyLog( @"");
-    tag = -1;
+    tag = MYPANEL_INIT;
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector: @selector(windowWillClose:)

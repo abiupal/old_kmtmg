@@ -28,7 +28,6 @@ char *funcTag[] = {
     "NumberInput_5","NumberInput_6","NumberInput_7","NumberInput_8","NumberInput_9",
 };
 
-#define MNI_INIT_VALUE -9999999
 #define MNI_MAX_VALUE 99999999
 #define MNI_INPUTED_MAX_VALUE 9999999
 
@@ -198,7 +197,7 @@ static MyNumberInput *sharedMyNumberInputManager = NULL;
             else
             {
                 prevValue = [number integerValue];
-                [panel setTag:prevValue];
+                [panel setTag:MYPANEL_NORMAL];
             }
             break;
         }
@@ -252,7 +251,7 @@ static MyNumberInput *sharedMyNumberInputManager = NULL;
     [message setStringValue:[NSString stringWithUTF8String:msg]];
     
     NSButton *btn = [panel getObjectFromTag:NI_PrevButton];
-    if( prevValue != MNI_INIT_VALUE )
+    if( prevValue != MYPANEL_INIT )
     {
         str = [NSString stringWithFormat:@"%d",(int)prevValue];
         [btn setEnabled:YES];
@@ -272,7 +271,7 @@ static MyNumberInput *sharedMyNumberInputManager = NULL;
     
     [self inputButton:'a'];
     
-    panel.tag = MNI_INIT_VALUE;
+    panel.tag = MYPANEL_INIT;
     return [NSApp runModalForWindow:panel];
 }
 

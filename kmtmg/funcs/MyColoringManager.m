@@ -132,6 +132,11 @@ MyColoringManager *sharedMyColoringManager = NULL;
     return buffer;
 }
 
+- (NSInteger)paletteNum
+{
+    return colNum;
+}
+
 #pragma  mark - funcs
 
 - (void)setRubberMode
@@ -320,7 +325,7 @@ END_MOUSEUP:
     unsigned char *p = [bitmap bitmapData];
     unsigned char baseNum = 0;
     unsigned char *rgb[2], *d;
-    
+    num_sa[0] = num_sa[1] = 0;
     ra = 33; ga = 32; ba = 35;
         
     /* ready to alloc */
@@ -543,16 +548,22 @@ END_MOUSEUP:
     // [[bitmapWhoseFormatIKnow representationUsingType:NSBMPFileType properties:nil] writeToFile:@"/tmp/kenji.bmp" atomically:YES];
     
     MyReduceColor *mrc = [MyReduceColor sharedManager];
-    [mrc openWithImage:bitmapWhoseFormatIKnow];
-    
+    if( [mrc openWithImage:bitmapWhoseFormatIKnow] == MYPANEL_INIT )
+        goto REDUCING_STOP;
+    /*
     MyNumberInput *mni = [MyNumberInput sharedManager];
     bwNum = [mni openWithMin:1 max:5 string:"Dividing Number of Black and White"];
+    if( bwNum == MYPANEL_INIT ) goto REDUCING_STOP;
     colNum = [mni openWithMin:2 max:255 string:"Reduced Total Color Number"];
-    if( bwNum == 2 ) bwNum = 0;
-
+    if( colNum == MYPANEL_INIT ) goto REDUCING_STOP;
+    */
+    colNum = mrc.colNum;
+    bwNum = mrc.bwNum;
+    if( bwNum < 2 ) bwNum = 0;
     
     if( [self reduceColorBitmapRep:bitmapWhoseFormatIKnow reduced:dst] == NO )
     {
+    REDUCING_STOP:
         // Error
         [dst release];
         dst = nil;

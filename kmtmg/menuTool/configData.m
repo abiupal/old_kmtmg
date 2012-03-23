@@ -55,11 +55,17 @@
 			iKey = CFGKEY_ESC;
 		else if( !strncmp( p, "TAB", 3 ) )
 			iKey = CFGKEY_TAB;
+		else if( !strncmp( p, "SPACE", 5 ) )
+			iKey = 0x20;
 		else if( !strncmp( p, "CTRL+", 5 ) )
 		{
-			iKey = CFGKEY_CTRL;
+            iKey += CFGKEY_CTRL;
 			iKey += *(p +5);
 		}
+        else if( 0 < strlen( p ) )
+        {
+            iKey += *p;
+        }
 		iAdded = FALSE;
 	}
 	

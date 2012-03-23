@@ -207,7 +207,7 @@ enum { TYPE_HEIGHT = 1, TYPE_NAME = 2, TYPE_WIDTH };
     [selectedPalette changeColorString:[NSColor whiteColor]];
 
     bNewDocument = [NSApp runModalForWindow:oPanel];
-    
+        
     return bNewDocument;
 }
 

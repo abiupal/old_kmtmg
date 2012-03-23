@@ -7,8 +7,7 @@
 //
 
 #import <AppKit/AppKit.h>
-
-@class MyPanel;
+#import "MyPanel.h"
 
 @interface MyNumberInput : NSObject
 {

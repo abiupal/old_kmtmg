@@ -8,6 +8,9 @@
 
 #import <AppKit/AppKit.h>
 
+#define MYPANEL_INIT -999999
+#define MYPANEL_NORMAL 0
+
 @interface MyPanel : NSPanel
 {
     NSInteger tag;

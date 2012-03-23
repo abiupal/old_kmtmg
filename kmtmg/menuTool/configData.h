@@ -41,4 +41,5 @@ typedef struct
 - (int)subPage;
 - (long)key;
 - (void)log;
+
 @end

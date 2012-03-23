@@ -659,9 +659,17 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
             [self setCenterFromInfoAutoCenter:NO];
         }
     }
+    else if( MY_CMP(cmd, "PosOrg" ) )
+    {
+        [self keyCharactor:[NSString stringWithUTF8String:"H"]];
+    }
+    else if( MY_CMP(cmd, "PosEnd" ) )
+    {
+        [self keyCharactor:[NSString stringWithUTF8String:"T"]];
+    }
     else
     {
-        NSString *str = [NSString stringWithFormat:@"func:%s", cmd];
+        NSString *str = [NSString stringWithFormat:@"viewCommand:%s", cmd];
         [[MyOS sharedManager] alertMessage:str info:[self className]];
     }
 }
@@ -686,7 +694,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 
 - (void)functionCommand:(char *)cmd
 {    
-    if( MY_CMP(cmd, "A_TOOLBAR" ) )
+    if( MY_CMP(cmd, "A_Toolbar" ) )
     {
         [[ToolBarController sharedManager] openToolBar];
         return;
@@ -755,7 +763,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     
     if( *p == 'H' || *p == 'h' )
         [self setCenterViewFromImagePosition:NSMakePoint(1, 1)];
-    else if( *p == 'E' || *p == 'e' )
+    else if( *p == 'T' || *p == 't' )
         [self setCenterViewFromImagePosition:NSMakePoint(mvd.size.width, mvd.size.height)];
 }
 
@@ -795,7 +803,7 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
       case VKEY_MINUS: MyLog( @"MINUS" ); break;
       */
         case VKEY_ESC: [self functionCommand:"A_Cancel"]; break;
-        case VKEY_SPACE: [self functionCommand:"A_TOOLBAR"]; break;
+        case VKEY_SPACE: [self functionCommand:"A_Toolbar"]; break;
         case VKEY_UP:    [oScrollView upScrollLine]; break;
         case VKEY_DOWN:  [oScrollView downScrollLine]; break;
         case VKEY_LEFT:  [oScrollView leftScrollLine]; break;
