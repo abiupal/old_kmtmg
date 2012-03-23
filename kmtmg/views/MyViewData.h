@@ -69,8 +69,10 @@
 // - (void)makeReverseLR;
 - (void)setPaletteFromData:(unsigned char *)data colorNum:(int)n init:(BOOL)bInit;
 - (BOOL)setImageFromURL:(NSURL *)url;
-- (void)setImageWithData:(unsigned char *)indexData size:(NSSize)imageSize palette:(unsigned char *)palData colorNum:(int)n;
 - (void)setImageWithSize:(NSSize)imageSize;
+- (void)setImageWithExtendByY:(NSUInteger)y cgs:(unsigned char *)line;
+- (void)setImageWithData:(unsigned char *)indexData;
+- (void)setImageWithData:(unsigned char *)indexData size:(NSSize)imageSize palette:(unsigned char *)palData colorNum:(int)n;
 
 // BackgroundImage
 - (void)addBackgroundImageURL:(NSURL *)url;

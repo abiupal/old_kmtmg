@@ -643,6 +643,16 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     indexImage = [[MyIndexImageRep alloc] initWithPaletteArray:palette size:size];
 }
 
+- (void)setImageWithExtendByY:(NSUInteger)y cgs:(unsigned char *)line
+{
+    [indexImage setCGSExtendByY:y cgs:line];
+}
+
+- (void)setImageWithData:(unsigned char *)indexData
+{
+    [indexImage setIndexData:indexData];
+}
+
 - (void)setImageWithData:(unsigned char *)indexData 
                     size:(NSSize)imageSize 
                  palette:(unsigned char *)palData
@@ -650,9 +660,8 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 {
     [self setPaletteFromData:palData colorNum:n init:YES];
     [self setImageWithSize:imageSize];
-    [indexImage setIndexData:indexData];
+    [self setImageWithData:indexData size:imageSize];
 }
-
 
 - (BOOL)hasImage
 {

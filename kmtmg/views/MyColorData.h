@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface MyColorData : NSObject <NSCoding> {
 
 @public

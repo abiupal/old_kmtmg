@@ -102,7 +102,7 @@ NSString    *MCDCodeKeyVersion = @"version";
     g = data[1]; g /= 255; 
     b = data[2]; b /= 255;
     
-    NSLog(@"MyColorData >> %.2f,%.2f,%.2f\n", r, g, b);
+    MyLog(@"%.2f,%.2f,%.2f\n", r, g, b);
 }
 
 @end

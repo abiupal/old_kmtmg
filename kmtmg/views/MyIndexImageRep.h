@@ -5,9 +5,27 @@
 //  Created by 武村 健二 on 11/07/02.
 //  Copyright 2011 wHITEgODDESS. All rights reserved.
 //
-
+#import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 #import "../funcs/myImageData.h"
+
+@interface MyIndexExtend : NSObject <NSCoding> {
+@private
+    unsigned char buf[16];
+}
+- (int)serial;
+- (int)koshi;
+- (int)ren;
+- (int)hi;
+- (NSString *)typeString;
+
+- (void)setSerial:(int)serial;
+- (void)setKoshi:(int)koshi;
+- (void)setRen:(int)ren;
+- (void)setHi:(int)hi;
+- (void)setTypeString:(char *)type;
+
+@end
 
 @interface MyIndexImageRep : NSCustomImageRep {
     NSMutableArray *palette; // substi
@@ -17,6 +35,8 @@
     NSImage *dispImage, *preDispImage;
     NSRect preImgRect, scrollImg;
     BOOL bAccepted;
+    
+    NSMutableArray *extend;
 }
 
 - (id)initWithPaletteArray:(NSMutableArray *)array size:(NSSize)size;
@@ -31,6 +51,9 @@
 - (MYID)myIdSrc;
 - (MYID)myIdDst;
 - (void)setPaletteArray:(NSMutableArray *)array;
+
+- (MyIndexExtend *)extendByY:(NSUInteger)y;
+- (void)setCGSExtendByY:(NSUInteger)y cgs:(unsigned char *)line;
 
 @property(readonly,assign) NSMutableArray *palette;
 @property(readonly) unsigned char *data;

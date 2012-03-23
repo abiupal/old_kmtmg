@@ -11,6 +11,115 @@
 #import "../MyDefines.h"
 #import "../panels/MyInfo.h"
 
+@implementation MyIndexExtend
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        // Initialization code here.
+        memset( buf, 0, sizeof(buf) );
+    }
+    
+    return self;
+}
+
+NSString    *MIECodeKeyBuf = @"buf";
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    
+    NSUInteger ret;
+    const uint8_t *p = [decoder decodeBytesForKey:MIECodeKeyBuf returnedLength:&ret];
+    
+    if( 16 < ret ) ret = 16;
+    memcpy( buf, p, ret );
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{    
+    [encoder encodeBytes:buf length:sizeof(buf) forKey:MIECodeKeyBuf];
+}
+
+#pragma mark - Getter
+
+- (int)serial
+{
+    int n = buf[0];
+    n += (buf[1] << 8);
+    n += (buf[2] << 16);
+    n += (buf[3] << 24);
+    
+    return n;
+}
+- (int)koshi
+{
+    int n = buf[4];
+    n += (buf[5] << 8);
+    n += (buf[6] << 16);
+    n += (buf[7] << 24);
+    
+    return n;
+}
+
+- (int)ren
+{
+    int n = buf[8];
+    
+    return n;
+}
+- (int)hi
+{
+    int n = buf[9];
+    
+    return n;
+}
+- (NSString *)typeString
+{
+    buf[13] = 0;
+    
+    return [NSString stringWithUTF8String:(const char *)&buf[10]];
+}
+
+#pragma mark - Setter
+
+- (void)setSerial:(int)serial
+{
+    buf[0] = serial & 0xff;
+    buf[1] = (serial >> 8) & 0xff;
+    buf[2] = (serial >> 16) & 0xff;
+    buf[3] = (serial >> 24) & 0xff;
+}
+- (void)setKoshi:(int)koshi
+{
+    buf[4] = koshi & 0xff;
+    buf[5] = (koshi >> 8) & 0xff;
+    buf[6] = (koshi >> 16) & 0xff;
+    buf[7] = (koshi >> 16) & 0xff;
+}
+- (void)setRen:(int)ren
+{
+    buf[8] = ren & 0xff;
+}
+- (void)setHi:(int)hi
+{
+    buf[9] = hi & 0xff;
+}
+- (void)setTypeString:(char *)type
+{
+    buf[10] = type[0];
+    buf[11] = type[1];
+    buf[12] = type[2];
+}
+
+@end
+
+#pragma mark -
+#pragma mark -
+
 @implementation MyIndexImageRep
 
 @synthesize palette;
@@ -57,14 +166,25 @@
     else
     */
     
+    MyIndexExtend *mie;
+    extend = [[NSMutableArray alloc] init];
+    for( i = 0; i < size.height; i++ )
+    {
+        mie = [[MyIndexExtend alloc] init];
+        [extend addObject:mie];
+    }
     
     return self;
 }
 
 - (void)dealloc
 {
+    for( id e in extend )
+    {
+        [e release];
+    }
+    [extend release];
     [preDispImage release];
-    [dispImage release];
     free(data);
     data = nil;
     
@@ -76,6 +196,7 @@ NSString    *MIICodeKeyDispImage = @"dispImage";
 NSString    *MIICodeKeyPreDispImage = @"preDispImage";
 NSString    *MIICodeKeyPreImgRect = @"preImgRect";
 NSString    *MIICodeKeyScrollImg = @"scrollImg";
+NSString    *MIICodeKeyExtendData = @"extendData";
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -84,20 +205,24 @@ NSString    *MIICodeKeyScrollImg = @"scrollImg";
     NSUInteger ret, length;
     length = ([self size].width * [self size].height);
     const uint8_t *p = [decoder decodeBytesForKey:MIICodeKeyData returnedLength:&ret];
-    
+
     data = malloc( length );
     if( ret < length ) length = ret;
     
     memcpy(data, p, length);
     
-    dispImage = [decoder decodeObjectForKey:MIICodeKeyDispImage];
-    preDispImage = [decoder decodeObjectForKey:MIICodeKeyPreDispImage];
+    // dispImage = [[decoder decodeObjectForKey:MIICodeKeyDispImage] retain];
+    preDispImage = [[decoder decodeObjectForKey:MIICodeKeyPreDispImage] retain];
+    extend = [[decoder decodeObjectForKey:MIICodeKeyExtendData] retain];
     preImgRect = [decoder decodeRectForKey:MIICodeKeyPreImgRect];
     scrollImg = [decoder decodeRectForKey:MIICodeKeyScrollImg];
-    [dispImage retain];
-    [preDispImage retain];
     
     bAccepted = YES;
+    
+    for( id e in extend )
+    {
+        MyLog(@"%d, %@\n", [e serial], [e typeString]);
+    }
     
     return self;
 }
@@ -107,8 +232,10 @@ NSString    *MIICodeKeyScrollImg = @"scrollImg";
     [super encodeWithCoder:encoder];
     
     [encoder encodeBytes:data length:(NSUInteger)([self size].width * [self size].height) forKey:MIICodeKeyData];
-    [encoder encodeObject:dispImage forKey:MIICodeKeyDispImage];
+    // [encoder encodeObject:dispImage forKey:MIICodeKeyDispImage];
     [encoder encodeObject:preDispImage forKey:MIICodeKeyPreDispImage];
+    [encoder encodeObject:extend forKey:MIICodeKeyExtendData];
+    
     [encoder encodeRect:preImgRect forKey:MIICodeKeyPreImgRect];
     [encoder encodeRect:scrollImg forKey:MIICodeKeyScrollImg];
 }
@@ -229,6 +356,33 @@ NSString    *MIICodeKeyScrollImg = @"scrollImg";
 - (MYID)myIdDst
 {
     return [self myIdWithType:kImage_Destinate];
+}
+
+#pragma mark - Extend
+
+- (MyIndexExtend *)extendByY:(NSUInteger)y
+{
+    assert( y <= [self size].height );
+    
+    return [extend objectAtIndex:y];
+}
+
+- (void)setCGSExtendByY:(NSUInteger)y cgs:(unsigned char *)line
+{
+    MyIndexExtend *mie = [extend objectAtIndex:y];
+    
+    int n = line[7];
+    n += (line[8] << 8);
+    n += (line[9] << 16);
+    n += (line[10] << 24);
+    [mie setSerial:n];
+    n = line[2];
+    n += (line[3] << 8);
+    n += (line[4] << 16);
+    [mie setKoshi:n];
+    [mie setRen:line[5]];
+    [mie setRen:line[6]];
+    [mie setTypeString:"CGS"];
 }
 
 #pragma mark - Drawing
@@ -457,7 +611,7 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     int ignoreColor = -1;
     if( bkImage == YES ) ignoreColor = 255;
     
-    [self drawImage:img origin:originType backgroundColor:ignoreColor];
+    [self drawImage:img origin:originType backgroundColor:ignoreColor drawFraction:fraction];
 
     [dispImage unlockFocus];
     

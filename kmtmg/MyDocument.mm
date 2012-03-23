@@ -7,6 +7,7 @@
 //
 
 #import <IoCGS/MyOS.h>
+#import <IoCGS/StorageCGS.h>
 #import "MyDocument.h"
 #import "panels/NewDocumentController.h"
 #import "panels/MyInfo.h"
@@ -92,6 +93,59 @@
     return ret;
 }
 
+#pragma mark - CGS
+
+/*
+// Alloc:mvd
+// mvd: setImageWithSize, setImageWithExtend, setImageWithData */
+- (BOOL) loadCGS:(NSURL *)url
+{
+    BOOL ret = FALSE;
+    
+    StorageCGS *storage = [[StorageCGS alloc] initWithCheckFddDrive:FALSE existFDD:FALSE parentWindow:nil];
+    if( [storage loadCgsII:url] )
+    {
+        NSSize s = [storage size];
+        unsigned char *p, *line, *data = (unsigned char *)malloc( s.width * s.height );
+        if( data == nil ) goto END_LOADCGS;
+        
+        if( mvd == nil )
+            mvd = [[MyViewData alloc] init];
+        [mvd setImageWithSize:s];
+        
+        p = data;
+        NSUInteger x, y;
+        for( y = 0; y < (NSUInteger)s.height; y++ )
+        {
+            line = [storage xlineByY:y];
+            if( 0xffff < y )
+            {
+                line[9] = (y >> 16) & 0xff;
+                line[10] = (y >> 24) & 0xff;
+            }
+            else line[9] = 0;
+            [mvd setImageWithExtendByY:y cgs:line];
+
+            line += 11;
+            for( x = 0; x < (int)s.width; x++ )
+            {
+                if( (line[x / 8]) & bitMask[x % 8] )
+                    p[x] = 0;
+                else
+                    p[x] = 63;
+            }
+            p += (int)s.width;
+        }
+        [mvd setImageWithData:data];
+        free( data );
+        ret = TRUE;
+    }
+END_LOADCGS:
+    [storage release];
+    
+    return ret;
+}
+
 #pragma mark - Load / Save
 
 
@@ -111,6 +165,11 @@
 		MyLog( @"read JTS-SKY Image" );
         readSuccess = [self loadSKY:inAbsoluteURL];
 	}
+    else if( [inTypeName isEqualToString:@"JTSCGSDataImage"] == YES )
+    {
+		MyLog( @"read JTS-CGS Image" );
+        readSuccess = [self loadCGS:inAbsoluteURL];
+    }
     else if( [inTypeName isEqualToString:@"KmtmgDocumentType"] == YES )
     {
         MyLog( @"read kmtmg Document" );
@@ -199,6 +258,21 @@
     }
 }
 
+- (void)addCGSDataImage
+{
+    NSArray *fileTypes = [NSArray arrayWithObject:@"cgs"];
+    NSOpenPanel *oPanel = [NSOpenPanel openPanel];
+    
+    [oPanel setAllowsMultipleSelection:NO];
+    [oPanel setAllowedFileTypes:fileTypes];
+    NSInteger result = [oPanel runModal];
+
+    if (result == NSOKButton)
+    {
+        [self loadCGS:[oPanel URL]];
+    }
+}
+
 - (void)functionCommand:(char *)cmd
 {
     MyLog(@"MyDocument func:%s", cmd );
@@ -209,7 +283,7 @@
     }
     else if( MY_CMP(cmd, "M_LOADCGS2") )
     {
-        
+        [self addCGSDataImage];
     }
     else
     {

@@ -32,7 +32,7 @@
 		BA4A962B13022F4A00A4A0EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BA4A962913022F4A00A4A0EC /* InfoPlist.strings */; };
 		BA4A962E13022F4A00A4A0EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4A962D13022F4A00A4A0EC /* main.m */; };
 		BA4A963113022F4A00A4A0EC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BA4A962F13022F4A00A4A0EC /* Credits.rtf */; };
-		BA4A963413022F4A00A4A0EC /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4A963313022F4A00A4A0EC /* MyDocument.m */; };
+		BA4A963413022F4A00A4A0EC /* MyDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = BA4A963313022F4A00A4A0EC /* MyDocument.mm */; };
 		BA4A963A13022F4A00A4A0EC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4A963813022F4A00A4A0EC /* MainMenu.xib */; };
 		BA4A963D13022F4A00A4A0EC /* MyDocument.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA4A963B13022F4A00A4A0EC /* MyDocument.xcdatamodeld */; };
 		BA4A964C13022F4A00A4A0EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BA4A964A13022F4A00A4A0EC /* InfoPlist.strings */; };
@@ -75,7 +75,7 @@
 		BA8A346E149729B600390EAD /* ZZ.png in Resources */ = {isa = PBXBuildFile; fileRef = BA8A3460149729B600390EAD /* ZZ.png */; };
 		BA8A349D1497326E00390EAD /* Minus.png in Resources */ = {isa = PBXBuildFile; fileRef = BA8A349C1497326E00390EAD /* Minus.png */; };
 		BA8BD1491419EF670025BBC6 /* MyEditingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8BD1481419EF670025BBC6 /* MyEditingManager.m */; };
-		BA92462013BBFFC300FDA346 /* IoCGS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA92461F13BBFFC300FDA346 /* IoCGS.framework */; };
+		BA8EEDDA151C186D005AFE99 /* IoCGS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8EEDD9151C186D005AFE99 /* IoCGS.framework */; };
 		BA9519A713EFDEC5007D36AB /* MyColorData.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9519A613EFDEC5007D36AB /* MyColorData.m */; };
 		BAA6F487141602E70042D66F /* MyTopSsk.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6F486141602E60042D66F /* MyTopSsk.m */; };
 		BAA8235E1490A5520094C313 /* MyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA8235D1490A5520094C313 /* MyInfoView.m */; };
@@ -146,7 +146,7 @@
 		BA4A962D13022F4A00A4A0EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BA4A963013022F4A00A4A0EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		BA4A963213022F4A00A4A0EC /* MyDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
-		BA4A963313022F4A00A4A0EC /* MyDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
+		BA4A963313022F4A00A4A0EC /* MyDocument.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyDocument.mm; sourceTree = "<group>"; };
 		BA4A963913022F4A00A4A0EC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		BA4A963C13022F4A00A4A0EC /* MyDocument.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyDocument.xcdatamodel; sourceTree = "<group>"; };
 		BA4A964313022F4A00A4A0EC /* kmtmgTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kmtmgTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,7 +214,7 @@
 		BA8BD1471419EF670025BBC6 /* MyEditingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyEditingManager.h; path = funcs/MyEditingManager.h; sourceTree = "<group>"; };
 		BA8BD1481419EF670025BBC6 /* MyEditingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyEditingManager.m; path = funcs/MyEditingManager.m; sourceTree = "<group>"; };
 		BA8D724D13D65D79008C0C3A /* skyIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = skyIndex.h; path = io/skyIndex.h; sourceTree = "<group>"; };
-		BA92461F13BBFFC300FDA346 /* IoCGS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IoCGS.framework; path = ../../../../../../../../Library/Frameworks/IoCGS.framework; sourceTree = "<group>"; };
+		BA8EEDD9151C186D005AFE99 /* IoCGS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IoCGS.framework; path = ../../../../../../../../Library/Frameworks/IoCGS.framework; sourceTree = "<group>"; };
 		BA9519A513EFDEC5007D36AB /* MyColorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyColorData.h; path = views/MyColorData.h; sourceTree = "<group>"; };
 		BA9519A613EFDEC5007D36AB /* MyColorData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyColorData.m; path = views/MyColorData.m; sourceTree = "<group>"; };
 		BAA6F485141602E60042D66F /* MyTopSsk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTopSsk.h; path = panels/MyTopSsk.h; sourceTree = "<group>"; };
@@ -256,10 +256,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA92462013BBFFC300FDA346 /* IoCGS.framework in Frameworks */,
 				BA04D10313CC3C8100C58B9B /* Cocoa.framework in Frameworks */,
 				BA30BD4014C0115700827CA8 /* Quartz.framework in Frameworks */,
 				BA30BD4114C0115700827CA8 /* QuartzCore.framework in Frameworks */,
+				BA8EEDDA151C186D005AFE99 /* IoCGS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,10 +295,10 @@
 		BA4A961F13022F4A00A4A0EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA8EEDD9151C186D005AFE99 /* IoCGS.framework */,
 				BA30BD3E14C0115700827CA8 /* Quartz.framework */,
 				BA30BD3F14C0115700827CA8 /* QuartzCore.framework */,
 				BA04D10213CC3C8100C58B9B /* Cocoa.framework */,
-				BA92461F13BBFFC300FDA346 /* IoCGS.framework */,
 				BA4A962213022F4A00A4A0EC /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -322,7 +322,7 @@
 				BA4A96681302500200A4A0EC /* MyAppDelegete.m */,
 				BAD5D1EB1325EA9F009452E3 /* MyDefines.h */,
 				BA4A963213022F4A00A4A0EC /* MyDocument.h */,
-				BA4A963313022F4A00A4A0EC /* MyDocument.m */,
+				BA4A963313022F4A00A4A0EC /* MyDocument.mm */,
 				BAB02CA313D54EE4008F0187 /* io */,
 				BA7D2FD613C6A5B200122C65 /* funcs */,
 				BAC620AB1314838500D81CED /* menuTool */,
@@ -689,7 +689,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA4A962E13022F4A00A4A0EC /* main.m in Sources */,
-				BA4A963413022F4A00A4A0EC /* MyDocument.m in Sources */,
+				BA4A963413022F4A00A4A0EC /* MyDocument.mm in Sources */,
 				BA4A963D13022F4A00A4A0EC /* MyDocument.xcdatamodeld in Sources */,
 				BA4A965F13024CC500A4A0EC /* MyWindowController.m in Sources */,
 				BA4A966513024F8300A4A0EC /* NewDocumentController.m in Sources */,
@@ -827,6 +827,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -838,7 +839,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
 		};
@@ -846,15 +847,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -862,11 +865,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../MyFrameworks\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../../XCode.Build/DerivedData/ControllCGS-hfudnrzeumyahbbyupvlhasmwbvj/Build/Products/Debug\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -884,12 +888,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../MyFrameworks\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../../XCode.Build/DerivedData/ControllCGS-hfudnrzeumyahbbyupvlhasmwbvj/Build/Products/Debug\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
