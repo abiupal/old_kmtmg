@@ -127,7 +127,25 @@ static ToolBarController *sharedToolBarControllerManager = NULL;
 {
 	[self pressMode:[cntlCfg mode]];
     
+    oTool.tc = self;
+    
 	[NSApp runModalForWindow:oTool];
+}
+
+- (void)changeNextMode
+{
+    NSInteger m = [cntlCfg mode];
+    m++;
+    for (;;m++)
+    {
+        if( m == [cntlCfg mode] ) break;
+        
+        if( CFGMODE_MAX <= m ) m = CFGMODE_DRAW;
+        if( [cntlCfg maxPage:m] )
+           break;
+    }
+    
+    [self pressMode:m];
 }
 
 - (IBAction)aPage:(id)sender

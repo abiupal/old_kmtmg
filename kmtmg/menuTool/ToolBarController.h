@@ -17,5 +17,6 @@
 - (IBAction)aMode:(id)sender;
 - (IBAction)aPage:(id)sender;
 - (void)openToolBar;
+- (void)changeNextMode;
 
 @end

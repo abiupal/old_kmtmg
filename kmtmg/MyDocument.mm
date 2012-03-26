@@ -270,6 +270,7 @@ END_LOADCGS:
     if (result == NSOKButton)
     {
         [self loadCGS:[oPanel URL]];
+        [mvc checkUpdateData];
     }
 }
 

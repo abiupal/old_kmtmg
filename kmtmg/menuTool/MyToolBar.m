@@ -2,8 +2,11 @@
 #import "configController.h"
 #import "MyDrawButton.h"
 #import "../MyDefines.h"
+#import "ToolBarController.h"
 
 @implementation MyToolBar
+
+@synthesize tc;
 
 - (void)dealloc
 {
@@ -157,9 +160,14 @@
 	[self updatePage];
 }
 
--(IBAction) pressSpace:(id)sender
+- (void)pressSpaceKey
 {
     [self pageChange];
+}
+
+- (void)pressTabKey
+{
+    [tc changeNextMode];
 }
 
 - (void)keyDown:(NSEvent *)e
@@ -170,7 +178,11 @@
 	}
 	else if( [e keyCode] == VKEY_SPACE )
 	{
-		[self pressSpace:nil];
+		[self pressSpaceKey];
+	}
+	else if( [e keyCode] == VKEY_TAB )
+	{
+		[self pressTabKey];
 	}
 
 }

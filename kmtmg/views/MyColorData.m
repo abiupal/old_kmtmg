@@ -7,6 +7,7 @@
 //
 
 #import "MyColorData.h"
+#import "MyDefines.h"
 
 @implementation MyColorData
 
