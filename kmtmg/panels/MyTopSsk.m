@@ -51,15 +51,22 @@
 
 - (MyTopSskCell *)cellAtIndex:(NSInteger)n
 {
-    NSArray *a = [[[collectionView subviews] objectAtIndex:n] subviews];
+    NSCollectionViewItem *item = [collectionView itemAtIndex:n];
+    NSArray *a = [[item view] subviews];
     MyTopSskCell *cell = [a objectAtIndex:0];
     
     return cell;
 }
 
-- (void)addTopImage:(NSDictionary *)dic
+- (void)addTopImage:(NSDictionary *)dic;
 {
     [arrayController addObject:dic];
+    
+    NSNumber *n = [dic objectForKey:@"index"];
+    MyTopSskCell *cell = [self cellAtIndex:[n unsignedIntegerValue]];
+    n = [dic objectForKey:@"visible"];
+    if ([n boolValue] == NO && cell.unvisible == NO)
+        cell.unvisible = YES;
     
     /*
     NSImage *img = [[images lastObject] objectForKey:@"image"];
@@ -107,11 +114,9 @@
 
 @synthesize unvisible;
 
-- (id)init
+-(void)awakeFromNib
 {
-    self = [super init];
-
-    return self;
+    NSLog(@"%@",[self class]);
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent

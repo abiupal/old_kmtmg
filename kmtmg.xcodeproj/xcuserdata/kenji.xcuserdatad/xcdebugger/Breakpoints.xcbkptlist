@@ -8,13 +8,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/views/MyIndexImageRep.m"
-         timestampString = "354183806.345574"
+         filePath = "kmtmg/panels/MyTopImage.m"
+         timestampString = "363601235.101933"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "558"
-         endingLineNumber = "558"
-         landmarkName = "-drawDispRect:imageRect:origin:background:drawFraction:"
+         startingLineNumber = "36"
+         endingLineNumber = "36"
+         landmarkName = "-initWithCoder:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -22,13 +22,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/views/MyViewData.m"
-         timestampString = "354182287.08798"
+         filePath = "kmtmg/panels/MyTopImage.m"
+         timestampString = "363601237.037683"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "728"
-         endingLineNumber = "728"
-         landmarkName = "-addTopImage:"
+         startingLineNumber = "38"
+         endingLineNumber = "38"
+         landmarkName = "-initWithCoder:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -36,13 +36,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/panels/MyPaletteImage.m"
-         timestampString = "354182292.892774"
+         filePath = "kmtmg/panels/MyTopSsk.m"
+         timestampString = "363658770.546806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "93"
-         endingLineNumber = "93"
-         landmarkName = "-drawColorAndIndex:index:"
+         startingLineNumber = "58"
+         endingLineNumber = "58"
+         landmarkName = "-cellAtIndex:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -50,13 +50,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/views/MyIndexImageRep.m"
-         timestampString = "354183806.345574"
+         filePath = "kmtmg/panels/MyTopSskView.m"
+         timestampString = "363601565.982942"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "616"
-         endingLineNumber = "616"
-         landmarkName = "-drawScrollDispRect:imageRect:origin:background:drawFraction:"
+         startingLineNumber = "69"
+         endingLineNumber = "69"
+         landmarkName = "-putOnData:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -64,41 +64,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/panels/MyPalette.m"
-         timestampString = "354182486.910553"
+         filePath = "kmtmg/panels/MyTopSsk.m"
+         timestampString = "363658770.546806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "236"
-         endingLineNumber = "236"
-         landmarkName = "-setPaletteArray:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/panels/MyPalette.m"
-         timestampString = "354182516.012378"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "237"
-         endingLineNumber = "237"
-         landmarkName = "-setPaletteArray:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/panels/MyPalette.m"
-         timestampString = "354182517.455466"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "235"
-         endingLineNumber = "235"
-         landmarkName = "-setPaletteArray:"
+         startingLineNumber = "90"
+         endingLineNumber = "90"
+         landmarkName = "-changeVisible:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -106,13 +78,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/views/MyIndexImageRep.m"
-         timestampString = "354183891.419967"
+         filePath = "kmtmg/panels/MyTopSsk.m"
+         timestampString = "363658770.546806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "237"
-         endingLineNumber = "237"
-         landmarkName = "-encodeWithCoder:"
+         startingLineNumber = "119"
+         endingLineNumber = "119"
+         landmarkName = "-awakeFromNib"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -120,27 +92,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "kmtmg/views/MyIndexImageRep.m"
-         timestampString = "354183902.162769"
+         filePath = "kmtmg/panels/MyTopSsk.m"
+         timestampString = "363658770.546806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "44"
-         endingLineNumber = "44"
-         landmarkName = "-encodeWithCoder:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "kmtmg/MyDocument.mm"
-         timestampString = "354412745.814029"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "272"
-         endingLineNumber = "272"
-         landmarkName = "-addCGSDataImage"
+         startingLineNumber = "63"
+         endingLineNumber = "63"
+         landmarkName = "-addTopImage:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

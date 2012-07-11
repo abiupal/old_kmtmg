@@ -59,7 +59,7 @@
 - (NSFont *)scrollerFont;
 - (NSFont *)rubberFont;
 - (void)drawIcon;
-- (BOOL)isClosed;
+// - (BOOL)isClosed;
 
 - (IBAction)changeFraction:(id)sender;
 - (IBAction)changeDotX:(id)sender;

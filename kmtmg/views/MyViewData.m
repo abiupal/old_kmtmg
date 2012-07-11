@@ -68,31 +68,31 @@
         memset( &allowFromSrc, 0, sizeof(allowFromSrc) );
         memset( &allowToDst, 0, sizeof(allowToDst) );
         /*
-        int i ;
-        for( i = 0; i < 256; i++ )
-        {
-            if( i % 3 == 0 ) continue;
-            else if( i % 3 == 1 )
-            {
-                allowToDst[i] = 1;
-            }
-            else
-            {
-                allowFromSrc[i] = 1;
-            }
-        }
-        for( i = 256; i < 512; i++ )
-        {
-            if( i % 3 == 0 ) continue;
-            else if( i % 3 == 1 )
-            {
-                allowFromSrc[i] = -1;
-            }
-            else
-            {
-                allowToDst[i] = -1;
-            }
-        }*/
+         int i ;
+         for( i = 0; i < 256; i++ )
+         {
+         if( i % 3 == 0 ) continue;
+         else if( i % 3 == 1 )
+         {
+         allowToDst[i] = 1;
+         }
+         else
+         {
+         allowFromSrc[i] = 1;
+         }
+         }
+         for( i = 256; i < 512; i++ )
+         {
+         if( i % 3 == 0 ) continue;
+         else if( i % 3 == 1 )
+         {
+         allowFromSrc[i] = -1;
+         }
+         else
+         {
+         allowToDst[i] = -1;
+         }
+         }*/
         
         topSsk = nil;
         topImages = [[NSMutableArray alloc] init];
@@ -221,8 +221,8 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [indexImage setPaletteArray:palette];
     
     topSsk = nil;
-
-
+    
+    
     return self;
 }
 
@@ -239,13 +239,13 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [encoder encodePoint:startPosition forKey:MVDCodeKeyStartPosition];
     [encoder encodePoint:startPositionIsNoSpace forKey:MVDCodeKeyStartPositionIsNoSpace];
     [encoder encodePoint:gridBoldFat forKey:MVDCodeKeyGridBoldFat];
-
+    
     [encoder encodeInteger:originType forKey:MVDCodeKeyOriginType];
     [encoder encodeInteger:gridType forKey:MVDCodeKeyGridType];
     [encoder encodeInteger:index forKey:MVDCodeKeyIndex];
     [encoder encodeInteger:penColorNo forKey:MVDCodeKeyPenColorNo];
     [encoder encodeInteger:sutekake forKey:MVDCodeKeySutekake];
-        
+    
     [encoder encodeObject:name forKey:MVDCodeKeyName];
     [encoder encodeBool:bReverseLR forKey:MVDCodeKeybReverseLR];
     [encoder encodeBool:bEnabled forKey:MVDCodeKeybEnabled];
@@ -261,7 +261,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [encoder encodeObject:backgroundColor forKey:MVDCodeKeyBackgroundColor];
     [encoder encodeObject:gridColor forKey:MVDCodeKeyGridColor];
     [encoder encodeObject:penColor forKey:MVDCodeKeyPenColor];
-
+    
     [encoder encodeObject:palette forKey:MVDCodeKeyPalette];
     [encoder encodeObject:indexImage forKey:MVDCodeKeyIndexImage];
     // [encoder encodeObject:topSsk forKey:MVDCodeKeyTopSsk];
@@ -274,77 +274,77 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 #pragma mark - Origin
 
 /*
-- (void)setImageUDLR
-{
-    NSBitmapImageRep *bitmap = [NSBitmapImageRep imageRepWithData:[image TIFFRepresentation]];
-    
-    NSRect r = NSMakeRect(0,0,[bitmap pixelsWide], [bitmap pixelsHigh]);
-    
-    NSBitmapImageRep *offScreen = nil;
-    
-    if( originType == MVD_ORIGIN_RD || originType == MVD_ORIGIN_LU )
-    {
-        offScreen = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                            pixelsWide:size.width * 2
-                                                            pixelsHigh:size.height
-                                                         bitsPerSample:8
-                                                       samplesPerPixel:4
-                                                              hasAlpha:YES
-                                                              isPlanar:NO
-                                                        colorSpaceName:NSCalibratedRGBColorSpace
-                                                           bytesPerRow:0
-                                                          bitsPerPixel:0];
-    }
-    else
-    {
-        offScreen = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                            pixelsWide:size.width
-                                                            pixelsHigh:size.height * 2
-                                                         bitsPerSample:8
-                                                       samplesPerPixel:4
-                                                              hasAlpha:YES
-                                                              isPlanar:NO
-                                                        colorSpaceName:NSCalibratedRGBColorSpace
-                                                           bytesPerRow:0
-                                                          bitsPerPixel:0];
-    }
-    
-    [NSGraphicsContext saveGraphicsState];
-    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:offScreen]];
-    [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-
-    NSAffineTransform *atf = [NSAffineTransform transform];
-    if( originType == MVD_ORIGIN_RD || originType == MVD_ORIGIN_LU )
-    {
-        [atf translateXBy:r.size.width yBy:0];
-        [atf scaleXBy:-1 yBy:1];
-    }
-    else
-    {
-        [atf translateXBy:0 yBy:r.size.height];
-        [atf scaleXBy:1 yBy:-1];
-    }
-    [atf concat];
-    NSDictionary *hints = [NSDictionary dictionaryWithObject:atf forKey:NSImageHintCTM];
-    NSCompositingOperation op = NSCompositeCopy;
-    CGFloat requestedAlpha = 1.0f;
-    
-    BOOL b = [bitmap drawInRect:r
-                       fromRect:NSZeroRect
-                      operation:op
-                       fraction:requestedAlpha
-                 respectFlipped:NO
-                          hints:hints];
-    [NSGraphicsContext restoreGraphicsState];
-    [image lockFocus];
-    b = [offScreen drawInRect:r fromRect:r operation:op fraction:requestedAlpha respectFlipped:NO hints:nil];
-    [image unlockFocus];
-    
-    [offScreen release];
-    
-	bReverseLR = NO;
-}
-*/
+ - (void)setImageUDLR
+ {
+ NSBitmapImageRep *bitmap = [NSBitmapImageRep imageRepWithData:[image TIFFRepresentation]];
+ 
+ NSRect r = NSMakeRect(0,0,[bitmap pixelsWide], [bitmap pixelsHigh]);
+ 
+ NSBitmapImageRep *offScreen = nil;
+ 
+ if( originType == MVD_ORIGIN_RD || originType == MVD_ORIGIN_LU )
+ {
+ offScreen = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+ pixelsWide:size.width * 2
+ pixelsHigh:size.height
+ bitsPerSample:8
+ samplesPerPixel:4
+ hasAlpha:YES
+ isPlanar:NO
+ colorSpaceName:NSCalibratedRGBColorSpace
+ bytesPerRow:0
+ bitsPerPixel:0];
+ }
+ else
+ {
+ offScreen = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+ pixelsWide:size.width
+ pixelsHigh:size.height * 2
+ bitsPerSample:8
+ samplesPerPixel:4
+ hasAlpha:YES
+ isPlanar:NO
+ colorSpaceName:NSCalibratedRGBColorSpace
+ bytesPerRow:0
+ bitsPerPixel:0];
+ }
+ 
+ [NSGraphicsContext saveGraphicsState];
+ [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:offScreen]];
+ [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+ 
+ NSAffineTransform *atf = [NSAffineTransform transform];
+ if( originType == MVD_ORIGIN_RD || originType == MVD_ORIGIN_LU )
+ {
+ [atf translateXBy:r.size.width yBy:0];
+ [atf scaleXBy:-1 yBy:1];
+ }
+ else
+ {
+ [atf translateXBy:0 yBy:r.size.height];
+ [atf scaleXBy:1 yBy:-1];
+ }
+ [atf concat];
+ NSDictionary *hints = [NSDictionary dictionaryWithObject:atf forKey:NSImageHintCTM];
+ NSCompositingOperation op = NSCompositeCopy;
+ CGFloat requestedAlpha = 1.0f;
+ 
+ BOOL b = [bitmap drawInRect:r
+ fromRect:NSZeroRect
+ operation:op
+ fraction:requestedAlpha
+ respectFlipped:NO
+ hints:hints];
+ [NSGraphicsContext restoreGraphicsState];
+ [image lockFocus];
+ b = [offScreen drawInRect:r fromRect:r operation:op fraction:requestedAlpha respectFlipped:NO hints:nil];
+ [image unlockFocus];
+ 
+ [offScreen release];
+ 
+ bReverseLR = NO;
+ }
+ */
 
 - (void)setOriginType:(int)n
 {
@@ -593,7 +593,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 - (BOOL)setImageFromURL:(NSURL *)url
 {
     BOOL ret = NO;
-
+    
     size = NSZeroSize;
     /* background topImages */
     [self addBackgroundImageURL:url];
@@ -615,7 +615,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     {
         [palette release];
         palette = [[NSMutableArray alloc] init];
-
+        
         for( i = 0; i < n; i++ )
         {
             rgba = [[MyColorData alloc] initWithUCharData:&data[i * 3]];
@@ -691,7 +691,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     BOOL bk = NO;
     if( 0 < [topImages count] && 0.0f < backgroundFraction )
         bk = YES;
-
+    
     if( pixel.x < 3 && pixel.y < 3 )
         [indexImage drawScrollDispRect:disp imageRect:img origin:originType background:bk drawFraction:drawFraction];
     else
@@ -716,9 +716,12 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 
 #pragma mark - Background Image
 
-- (void)addTopImage:(MyTopImage *)tImg
+- (void)addTopImageFromIndex:(NSUInteger)n
 {    
     if ( topSsk == nil ) return;
+    
+    MyTopImage *tImg = [topImages objectAtIndex:n];
+    if( tImg == nil ) return;
     
     if( [tImg isValid] == NO )
         [tImg recache];
@@ -727,8 +730,11 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     [tImg drawInRect:NSMakeRect(0,0,128,128) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0f];
     [image unlockFocus];
     [image setName:[NSString stringWithFormat:@"topImages_%d",[topImages count]]];
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:image
-                                                    forKey:@"image"];
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
+                         image, @"image",
+                         [NSNumber numberWithUnsignedInteger:n], @"index",
+                         [NSNumber numberWithBool:tImg.visible], @"visible",
+                         nil];
     
     [topSsk addTopImage:dic];
 }
@@ -736,13 +742,10 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
 - (void)setTopSsk:(MyTopSsk *)mts
 {
     topSsk = mts;
-    
-    if ( [topImages count] == 0 ) return;
-    
-    MyTopImage *tImage = nil;
-    for( tImage in topImages )
+        
+    for( NSUInteger n = 0; n < [topImages count]; n++ )
     {
-        [self addTopImage:tImage];
+        [self addTopImageFromIndex:n];
     }
 }
 
@@ -756,9 +759,9 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     tImage.visible = TRUE;
     [tImage setDispPosition:NSMakeRect(0, 0, size.width, size.height)];
     tImage.parentImageSize = size;
-
+    
     [topImages addObject:tImage];
-    [self addTopImage:tImage];
+    [self addTopImage:[topImages count] -1];
 }
 
 - (void)removeBackgroundImage:(NSInteger)n
@@ -772,7 +775,7 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     if( [myos alertButtons:btns
                    message:@"Remove the original Picture ?"
                       info:info] == NSAlertSecondButtonReturn )
-            return;
+        return;
     
     [topImages removeObjectAtIndex:n];
     [topSsk removeImageIndex:n];

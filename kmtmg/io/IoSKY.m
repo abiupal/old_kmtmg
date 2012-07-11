@@ -84,6 +84,8 @@ const unsigned char colorLevel[4][4] = {
 	return n;
 }
 
+#pragma mark - Index
+
 - (void)readSizeInIndex
 {
 	c_index idx;
@@ -120,8 +122,6 @@ const unsigned char colorLevel[4][4] = {
         meterSize.height = imageSize.height;
         imageSize.width -= meterSize.width;
     }
-    
-    
 }
 
 #pragma mark - Setter
@@ -363,10 +363,14 @@ const unsigned char colorLevel[4][4] = {
     tmp = [NSData dataWithContentsOfFile:fileName options:NSDataReadingUncached error:[[MyOS sharedManager] error]];
     if( tmp == nil )
     {
-        [[MyOS sharedManager] alertError];
-        goto END_LOADSKY;
+        [[MyOS sharedManager] alertMessage:@"Can not load Palette!!" info:@"Using Default 64 Colors."];
+        // goto END_LOADSKY;
     }
-    memcpy( l64, [tmp bytes], sizeof(l64) );
+    else
+    {
+        memcpy( l64, [tmp bytes], sizeof(l64) );
+        [self sky_palette];
+    }
     
     canUse = YES;
     

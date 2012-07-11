@@ -71,7 +71,7 @@ static MyDrawingManager *sharedMyDrawingManager = NULL;
 	return UINT_MAX;
 }
 
-- (void)release
+-(void)release
 {
 	MyLog( @"release:%@ ",[self className] );
 }

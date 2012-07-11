@@ -16,22 +16,27 @@
        
 @private
     CGFloat version;
+    
 	NSSize size, frameSize, penDot;
 	NSPoint scale, ratio, pixel;
 	NSPoint noSpace, startPosition, startPositionIsNoSpace;
 	NSPoint gridBoldFat;
 	NSColor *backgroundColor, *gridColor, *penColor;
 	// NSImage *image, *backgroundImage;
-    NSMutableArray *palette;
-	NSString *name;
-	NSInteger originType, gridType, index;
-    NSInteger penColorNo, sutekake;
-	BOOL bReverseLR, bEnabled, bSaved;
     
-    MyIndexImageRep *indexImage;
+	NSString *name;
+	NSInteger originType, gridType;
+    NSInteger sutekake;
+	BOOL bEnabled, bSaved;
+    
     CGFloat backgroundFraction, drawFraction;
-    NSMutableArray *topImages;
     MyTopSsk *topSsk;
+    
+    NSInteger penColorNo, index;
+    BOOL bReverseLR;
+    MyIndexImageRep *indexImage;
+    NSMutableArray *topImages;
+    NSMutableArray *palette;
     
     // -1: Ignore
     //  0: normal
@@ -50,8 +55,6 @@
 // - (void)setSize:(NSSize)newSize;
 - (void)setGridType:(int)n;
 - (NSInteger)gridType;
-- (void)setScale:(NSPoint)newRatio;
-- (void)setRatio:(NSPoint)newRatio;
 - (void)setStartX:(CGFloat)startx isNoSpace:(int)n;
 - (void)setStartY:(CGFloat)starty isNoSpace:(int)n;
 - (void)setBackground:(NSColor *)newColor;
