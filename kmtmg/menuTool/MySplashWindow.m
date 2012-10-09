@@ -23,8 +23,8 @@
 
 - (void)drawRect:(NSRect)rect
 {
-    [[NSColor clearColor] set];
-   // [NSBezierPath fillRect:rect];
+   /*  [[NSColor clearColor] set];
+    [NSBezierPath fillRect:rect]; */
 	[iIcon drawRect:rect func:iFuncName];
 }
 

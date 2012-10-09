@@ -100,6 +100,9 @@
 - (void)setMyDrawDst:(MYDRAW *)myd;
 - (void)setTopSsk:(MyTopSsk *)mts;
 
+- (void)startUndoRecordObject:(id)obj;
+- (void)endUndoRecordObject:(id)obj;
+
 @property NSSize size, frameSize, penDot;
 @property NSPoint scale, ratio, pixel;
 @property NSPoint noSpace, startPosition, startPositionIsNoSpace;
@@ -115,5 +118,6 @@
 @property(readonly, assign) MyIndexImageRep *indexImage;
 @property(readonly, assign) NSMutableArray *palette, *topImages;
 
+@property(nonatomic,assign) NSUndoManager *undoManager;
 
 @end

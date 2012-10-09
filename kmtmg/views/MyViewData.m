@@ -14,6 +14,7 @@
 #import "../panels/MyTopImage.h"
 #import <IoCGS/MyOS.h>
 #import "../funcs/MyColoringManager.h"
+#import "../funcs/MyDrawingManager.h"
 
 @implementation MyViewData
 
@@ -30,6 +31,7 @@
 @synthesize sutekake;
 @synthesize indexImage;
 @synthesize palette, topImages;
+@synthesize undoManager;
 
 #pragma mark -
 
@@ -919,6 +921,26 @@ NSString    *MVDCodeKeyTopSsk = @"topSsk";
     return NSMakeRect(po.x - pixel.x, po.y -pixel.y, pixel.x * 2, pixel.y * 2);
 }
 
+#pragma mark - Undo
+
+- (void)startUndoRecordObject:(id)obj
+{
+    [obj startUndoRecord];
+}
+
+- (void)endUndoRecordObject:(id)obj
+{
+    [obj endUndoRecord];
+    
+    if( [indexImage isEqual:obj] == YES || 0 < [indexImage.undoData count] )
+    {
+        [self.undoManager registerUndoWithTarget:obj
+                                        selector:@selector(setUndoDrawing:) 
+                                          object:indexImage.undoData];
+        [self.undoManager setActionName:
+         [NSString stringWithFormat:@"%s", [[MyDrawingManager sharedManager] funcCommand]]];
+    }
+}
 
 
 @end

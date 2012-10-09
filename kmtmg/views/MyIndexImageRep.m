@@ -10,6 +10,7 @@
 #import "MyColorData.h"
 #import "../MyDefines.h"
 #import "../panels/MyInfo.h"
+#import "MyUndoRecordData.h"
 
 @implementation MyIndexExtend
 
@@ -123,6 +124,7 @@ NSString    *MIECodeKeyBuf = @"buf";
 @implementation MyIndexImageRep
 
 @synthesize palette;
+@synthesize undoData;
 @synthesize data;
 
 #pragma mark - Init
@@ -135,6 +137,8 @@ NSString    *MIECodeKeyBuf = @"buf";
         palette = nil;
         data = nil;
         bAccepted = NO;
+        bUndoRecord = NO;
+        undoData = nil;
     }
     
     return self;
@@ -154,17 +158,6 @@ NSString    *MIECodeKeyBuf = @"buf";
     data = malloc( length );
     for( i = 0; i < length; i++ )
         data[i] = 255;
-    /*
-    
-    NSRect main = [[NSScreen mainScreen] frame];
-    if ( main.size.width < size.width && main.size.height < size.height )
-        dispImage = [[NSImage alloc] initWithSize:main.size];
-    else if ( main.size.width < size.width && size.height <= main.size.height )
-        dispImage = [[NSImage alloc] initWithSize:NSMakeSize(main.size.width, size.height)];
-    else if ( size.width <= main.size.width && main.size.height < size.height )
-        dispImage = [[NSImage alloc] initWithSize:NSMakeSize(size.width, main.size.height)];
-    else
-    */
     
     MyIndexExtend *mie;
     extend = [[NSMutableArray alloc] init];
@@ -173,6 +166,9 @@ NSString    *MIECodeKeyBuf = @"buf";
         mie = [[MyIndexExtend alloc] init];
         [extend addObject:mie];
     }
+    
+    bUndoRecord = NO;
+    undoData = nil;
     
     return self;
 }
@@ -183,6 +179,7 @@ NSString    *MIECodeKeyBuf = @"buf";
     {
         [e release];
     }
+    [undoData release];
     [extend release];
     [preDispImage release];
     free(data);
@@ -211,6 +208,7 @@ NSString    *MIICodeKeyExtendData = @"extendData";
     
     memcpy(data, p, length);
     
+    /* class Alloc */
     // dispImage = [[decoder decodeObjectForKey:MIICodeKeyDispImage] retain];
     preDispImage = [[decoder decodeObjectForKey:MIICodeKeyPreDispImage] retain];
     extend = [[decoder decodeObjectForKey:MIICodeKeyExtendData] retain];
@@ -535,6 +533,8 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     }
 }
 
+
+
 - (void)drawDispRect:(NSRect)disp 
            imageRect:(NSRect)img 
               origin:(NSInteger)originType 
@@ -560,8 +560,9 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     [dispImage drawInRect:disp fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
     
     [preDispImage release];
-    preDispImage = [dispImage retain];
     preImgRect = img;
+    
+    preDispImage = [dispImage retain];
     
     [dispImage release];
     dispImage = nil;
@@ -586,8 +587,8 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     scrollImg = NSIntersectionRect( preImgRect, img );
     // MyLog(@"%@", NSStringFromRect(scrollRect));
     
-    dispImage = [[NSImage alloc] initWithSize:img.size];
     
+    dispImage = [[NSImage alloc] initWithSize:img.size];
     [dispImage setCacheMode:NSImageCacheNever];
     
     [dispImage lockFocus];
@@ -618,11 +619,12 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     [dispImage drawInRect:disp fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:fraction];
     
     [preDispImage release];
-    preDispImage = [dispImage retain];
-    preImgRect = img;
     
-    [dispImage release];
-    dispImage = nil;
+    preImgRect = img;
+     preDispImage = [dispImage retain];
+     
+     [dispImage release];
+     dispImage = nil;
 }
 
 - (BOOL)drawPlot:(NSPoint)po paletteIndex:(NSInteger)no
@@ -637,9 +639,39 @@ enum { MVD_ORIGIN_LU =  0, MVD_ORIGIN_LD, MVD_ORIGIN_RU, MVD_ORIGIN_RD, MVD_ORIG
     
     if( *p == no ) return NO;
     
+    if( bUndoRecord == YES )
+    {
+        MyUndoRecordData *undo = [[MyUndoRecordData alloc] initWithPoint:po data:*p];
+        [undoData addObject:undo];
+        [undo release];
+        NSLog(@"undoData count:%d\n", [undoData count]);
+    }
     *p = no;
     
     return YES;
+}
+
+- (void)startUndoRecord
+{
+    if( undoData == nil )
+        undoData = [[NSMutableArray arrayWithCapacity:100] retain];
+    
+    [undoData removeAllObjects];
+}
+- (void)endUndoRecord
+{
+    bUndoRecord = NO;
+}
+
+
+- (void)setUndoDrawing:(id)sender
+{
+    NSMutableArray *a = (NSMutableArray *)sender;
+    MyUndoRecordData *d = nil;
+    for( d in a )
+    {
+        [self drawPlot:d.po paletteIndex:d.d];
+    }
 }
 
 @end

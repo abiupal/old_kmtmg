@@ -227,8 +227,8 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    [[NSColor clearColor] set];
-    NSRectFill(dirtyRect);
+    /* [[NSColor clearColor] set];
+    NSRectFill(dirtyRect); */
         
     if( NSEqualPoints(end, NSZeroPoint) == YES ) return;
     

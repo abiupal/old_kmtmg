@@ -28,13 +28,13 @@
 @end
 
 @interface MyIndexImageRep : NSCustomImageRep {
-    NSMutableArray *palette; // substi
+    NSMutableArray *palette, *undoData; // substi
     unsigned char *data;
     
 @private
     NSImage *dispImage, *preDispImage;
     NSRect preImgRect, scrollImg;
-    BOOL bAccepted;
+    BOOL bAccepted, bUndoRecord;
     
     NSMutableArray *extend;
 }
@@ -55,7 +55,12 @@
 - (MyIndexExtend *)extendByY:(NSUInteger)y;
 - (void)setCGSExtendByY:(NSUInteger)y cgs:(unsigned char *)line;
 
-@property(readonly,assign) NSMutableArray *palette;
+- (void)startUndoRecord;
+- (void)endUndoRecord;
+- (void)setUndoDrawing:(id)sender;
+
+
+@property(readonly,assign) NSMutableArray *palette, *undoData;
 @property(readonly) unsigned char *data;
 
 @end

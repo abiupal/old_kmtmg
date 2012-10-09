@@ -57,7 +57,13 @@
         [mvc setShouldCloseDocument:YES];
         
         mvc.mvd = [mvd retain];
+        mvd.undoManager = [self undoManager];
     }
+}
+
+- (BOOL)hasUndoManager
+{
+    return YES;
 }
 
 #pragma mark - SKY
@@ -207,7 +213,10 @@ END_LOADCGS:
                                                 code:-1
                                             userInfo:nil] autorelease];
 	}
-    
+    else
+    {
+        mvd.undoManager = [self undoManager];
+    }
 	return readSuccess;
 }
 

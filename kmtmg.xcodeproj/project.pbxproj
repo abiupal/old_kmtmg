@@ -80,6 +80,7 @@
 		BAA6F487141602E70042D66F /* MyTopSsk.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA6F486141602E60042D66F /* MyTopSsk.m */; };
 		BAA8235E1490A5520094C313 /* MyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA8235D1490A5520094C313 /* MyInfoView.m */; };
 		BAB02C9E13D50EB8008F0187 /* IoSKY.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB02C9D13D50EB7008F0187 /* IoSKY.m */; };
+		BABC74E515AD066B003B94A9 /* MyUndoRecordData.m in Sources */ = {isa = PBXBuildFile; fileRef = BABC74E415AD066B003B94A9 /* MyUndoRecordData.m */; };
 		BAC2496E131384A600B6A2B0 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC2496C131384A600B6A2B0 /* MyDocument.xib */; };
 		BAC2EFAB13DD893900ED6CF4 /* MyRubberView.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC2EFAA13DD893800ED6CF4 /* MyRubberView.m */; };
 		BAC620BA1314839D00D81CED /* ConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC620AD1314839D00D81CED /* ConfigController.m */; };
@@ -223,6 +224,8 @@
 		BAA8235D1490A5520094C313 /* MyInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyInfoView.m; path = views/MyInfoView.m; sourceTree = "<group>"; };
 		BAB02C9C13D50EB7008F0187 /* IoSKY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoSKY.h; path = io/IoSKY.h; sourceTree = "<group>"; };
 		BAB02C9D13D50EB7008F0187 /* IoSKY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IoSKY.m; path = io/IoSKY.m; sourceTree = "<group>"; };
+		BABC74E315AD066B003B94A9 /* MyUndoRecordData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyUndoRecordData.h; path = views/MyUndoRecordData.h; sourceTree = "<group>"; };
+		BABC74E415AD066B003B94A9 /* MyUndoRecordData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyUndoRecordData.m; path = views/MyUndoRecordData.m; sourceTree = "<group>"; };
 		BAC2496D131384A600B6A2B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MyDocument.xib; sourceTree = "<group>"; };
 		BAC2EFA913DD893800ED6CF4 /* MyRubberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyRubberView.h; path = views/MyRubberView.h; sourceTree = "<group>"; };
 		BAC2EFAA13DD893800ED6CF4 /* MyRubberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyRubberView.m; path = views/MyRubberView.m; sourceTree = "<group>"; };
@@ -391,6 +394,8 @@
 				BA43684613D947B500397F5C /* MyLayerWindow.m */,
 				BAC2EFA913DD893800ED6CF4 /* MyRubberView.h */,
 				BAC2EFAA13DD893800ED6CF4 /* MyRubberView.m */,
+				BABC74E315AD066B003B94A9 /* MyUndoRecordData.h */,
+				BABC74E415AD066B003B94A9 /* MyUndoRecordData.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -734,6 +739,7 @@
 				BA8A34521496EC1F00390EAD /* MyNumberInput.m in Sources */,
 				BA329FDA14BC0D49000FB488 /* MyColoringManager.m in Sources */,
 				BA30BD2714BFFC7700827CA8 /* MyReduceColor.m in Sources */,
+				BABC74E515AD066B003B94A9 /* MyUndoRecordData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,7 +883,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kmtmg/kmtmg-Prefix.pch";
 				INFOPLIST_FILE = "kmtmg/kmtmg-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -900,7 +906,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kmtmg/kmtmg-Prefix.pch";
 				INFOPLIST_FILE = "kmtmg/kmtmg-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;

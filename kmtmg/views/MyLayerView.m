@@ -78,11 +78,14 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	[[NSColor clearColor] set];
-    NSRectFill(dirtyRect);
     
     if( NSEqualPoints(cursorPos, previousPos) == NO )
     {
+        /* [[NSColor clearColor] set];
+
+        NSBezierPath* path= [NSBezierPath bezierPathWithRect:dirtyRect];
+        [path fill];*/
+
         previousPos = cursorPos;
 
         NSPoint pos = [self viewPointFromImagePoint:cursorPos];

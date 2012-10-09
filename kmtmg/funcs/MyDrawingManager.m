@@ -916,7 +916,9 @@ NSInteger circle_cx, circle_cy, circle_sw;
     
     memset(&myd, 0, sizeof(myd));
     [mvd setMyDrawDst:&myd];
-
+    
+    [mvd startUndoRecordObject:mvd.indexImage];
+    
     if( MY_CMP(funcCommand, "D_FreeLine" ) )
     {
         [self plot];
@@ -964,6 +966,8 @@ NSInteger circle_cx, circle_cy, circle_sw;
     
 
 END_MOUSEUP:
+    [mvd endUndoRecordObject:mvd.indexImage];
+    
     [super mouseFinishedUp];
 }
 

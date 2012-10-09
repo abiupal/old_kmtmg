@@ -73,6 +73,7 @@
 	[iIcon setOnShadow];
 	[string drawAtPoint:pos];
 	[iIcon setOffShadow];
+    [string release];
 }
 
 -(void) drawIcon:(NSRect)rect
@@ -105,7 +106,7 @@
 		[self drawTextMenu:NSMakePoint( NSMidX(rect), NSMidY(rect))];
 	else
 		[self drawIcon:rect];
-		
+    
 	// MyLog( @"drawRect:%@", iMenuName );
 }
 

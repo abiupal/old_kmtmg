@@ -581,12 +581,99 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     }
 }
 
+#pragma mark - SelectArea
+
+- (IBAction)pSelectAreaAll:(id)sender
+{
+    
+}
+- (IBAction)pSelectAreaOrg:(id)sender
+{
+    
+}
+- (IBAction)pSelectAreaEnd:(id)sender
+{
+    
+}
+
+#pragma mark - Keyboard
+
+- (void)cancelOperation:(id)sender
+{
+    if( draw != nil )
+        [draw cancel];
+    if( edit != nil )
+        [edit cancel];
+}
+
+- (void)keyCharactor:(NSString *)str
+{
+    const char *p = [str UTF8String];
+    
+    if( *p == 'H' || *p == 'h' )
+        [self setCenterViewFromImagePosition:NSMakePoint(1, 1)];
+    else if( *p == 'T' || *p == 't' )
+        [self setCenterViewFromImagePosition:NSMakePoint(mvd.size.width, mvd.size.height)];
+}
+
+- (void)keyDown:(NSEvent *)e
+{
+	int n = [[e characters] intValue];
+    unsigned short keycode = [e keyCode];
+    NSString *charactors = [e characters];
+    
+	if( [e keyCode] == VKEY_ZERO )
+		n = 10;
+	MyLog( @"KeyDown:0x%04x > %@ > n:%d", keycode, charactors, n );
+    
+    if ( [charactors characterAtIndex:0] == '+' ) {
+        keycode = VKEY_PLUS;
+    }
+	switch( keycode )
+    {
+    case VKEY_UP:
+    case VKEY_DOWN:
+    case VKEY_LEFT:
+    case VKEY_RIGHT:
+            oView.keyScroll = YES;
+            break;
+    }
+	switch( keycode )
+	{/*
+      case VKEY_ESC: MyLog( @"ESC" ); break;
+      case VKEY_SPACE: MyLog( @"SPACE" ); break;
+      case VKEY_RETURN: MyLog( @"RETURN" ); break;
+      case VKEY_TAB: MyLog( @"TAB" ); break;
+      case VKEY_UP: MyLog( @"UP" ); break;
+      case VKEY_DOWN: MyLog( @"DOWN" ); break;
+      case VKEY_LEFT:	MyLog( @"LEFT" ); break;
+      case VKEY_RIGHT: MyLog( @"RIGHT" ); break;
+      case VKEY_PLUS:	MyLog( @"PLUS" ); break;
+      case VKEY_MINUS: MyLog( @"MINUS" ); break;
+      */
+        case VKEY_ESC: [self functionCommand:"A_Cancel"]; break;
+        case VKEY_SPACE: [self functionCommand:"A_Toolbar"]; break;
+        case VKEY_UP:    [oScrollView upScrollLine]; break;
+        case VKEY_DOWN:  [oScrollView downScrollLine]; break;
+        case VKEY_LEFT:  [oScrollView leftScrollLine]; break;
+        case VKEY_RIGHT: [oScrollView rightScrollLine]; break;
+        case VKEY_PLUS:	 [self setScalePlus:YES]; break;
+        case VKEY_MINUS: [self setScaleMinus:YES]; break;
+        default:
+            if( 0 < n )
+                [self setScale:n autoPosition:YES];
+            else
+                [self keyCharactor:[e characters]];
+            break;
+	}
+}
+
 #pragma mark - Command
 
 - (void) topSskCommand:(char *)cmd
 {
     NSInteger n = 0;
-
+    
     if( MY_CMP(cmd, "TS_REMOVE_" ) )
     {
         n = atoi( cmd +10 );
@@ -677,14 +764,14 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
 - (void)testfunc
 {
     /*
-    MySelect4 *ms4 = [MySelect4 sharedManager];
-    NSMutableArray *a = [NSMutableArray arrayWithCapacity:4];
-    [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test1" menu:"menu1"]];
-    [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test2" menu:"menu2"]];
-    [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test3" menu:"menu3"]];
-    [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test4" menu:"menu4"]];
-    
-    [ms4 openWithArray:a];
+     MySelect4 *ms4 = [MySelect4 sharedManager];
+     NSMutableArray *a = [NSMutableArray arrayWithCapacity:4];
+     [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test1" menu:"menu1"]];
+     [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test2" menu:"menu2"]];
+     [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test3" menu:"menu3"]];
+     [a addObject:[[MyDrawButtonFuncMenu alloc] initWithData:"test4" menu:"menu4"]];
+     
+     [ms4 openWithArray:a];
      */
     MyNumberInput *mni = [MyNumberInput sharedManager];
     NSInteger ret = [mni openWithMin:-10.0 max:100 string:"Test Function"];
@@ -711,6 +798,12 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
         [self testfunc];
         return;
     }
+    else if( MY_CMP(cmd, "V_" ) )
+    {
+        [self viewCommand:(char *)cmd];
+        return;
+    }
+
     
     draw = [MyDrawingManager sharedManager];
     [draw disabled];
@@ -728,10 +821,6 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
         draw.view = oView;
         [draw setCommand:cmd data:mvd rubber:oRubberView];
     }
-    else if( MY_CMP(cmd, "V_" ) )
-    {
-        [self viewCommand:(char *)cmd];
-    }
     else if( MY_CMP(cmd, "TS_" ) )
     {
         [self topSskCommand:(char *)cmd];
@@ -745,78 +834,6 @@ static char *effectIgnore[3] = { "M_EFFECTIGNORE_NONE", "M_EFFECTIGNORE_EFFECT",
     if( [draw isEnabled] == NO ) draw = nil;
     if( [edit isEnabled] == NO ) edit = nil;
     if( [color isEnabled] == NO ) color = nil;
-}
-
-#pragma mark - Keyboard
-
-- (void)cancelOperation:(id)sender
-{
-    if( draw != nil )
-        [draw cancel];
-    if( edit != nil )
-        [edit cancel];
-}
-
-- (void)keyCharactor:(NSString *)str
-{
-    const char *p = [str UTF8String];
-    
-    if( *p == 'H' || *p == 'h' )
-        [self setCenterViewFromImagePosition:NSMakePoint(1, 1)];
-    else if( *p == 'T' || *p == 't' )
-        [self setCenterViewFromImagePosition:NSMakePoint(mvd.size.width, mvd.size.height)];
-}
-
-- (void)keyDown:(NSEvent *)e
-{
-	int n = [[e characters] intValue];
-    unsigned short keycode = [e keyCode];
-    NSString *charactors = [e characters];
-    
-	if( [e keyCode] == VKEY_ZERO )
-		n = 10;
-	MyLog( @"KeyDown:0x%04x > %@ > n:%d", keycode, charactors, n );
-    
-    if ( [charactors characterAtIndex:0] == '+' ) {
-        keycode = VKEY_PLUS;
-    }
-	switch( keycode )
-    {
-    case VKEY_UP:
-    case VKEY_DOWN:
-    case VKEY_LEFT:
-    case VKEY_RIGHT:
-            oView.keyScroll = YES;
-            break;
-    }
-	switch( keycode )
-	{/*
-      case VKEY_ESC: MyLog( @"ESC" ); break;
-      case VKEY_SPACE: MyLog( @"SPACE" ); break;
-      case VKEY_RETURN: MyLog( @"RETURN" ); break;
-      case VKEY_TAB: MyLog( @"TAB" ); break;
-      case VKEY_UP: MyLog( @"UP" ); break;
-      case VKEY_DOWN: MyLog( @"DOWN" ); break;
-      case VKEY_LEFT:	MyLog( @"LEFT" ); break;
-      case VKEY_RIGHT: MyLog( @"RIGHT" ); break;
-      case VKEY_PLUS:	MyLog( @"PLUS" ); break;
-      case VKEY_MINUS: MyLog( @"MINUS" ); break;
-      */
-        case VKEY_ESC: [self functionCommand:"A_Cancel"]; break;
-        case VKEY_SPACE: [self functionCommand:"A_Toolbar"]; break;
-        case VKEY_UP:    [oScrollView upScrollLine]; break;
-        case VKEY_DOWN:  [oScrollView downScrollLine]; break;
-        case VKEY_LEFT:  [oScrollView leftScrollLine]; break;
-        case VKEY_RIGHT: [oScrollView rightScrollLine]; break;
-        case VKEY_PLUS:	 [self setScalePlus:YES]; break;
-        case VKEY_MINUS: [self setScaleMinus:YES]; break;
-        default:
-            if( 0 < n )
-                [self setScale:n autoPosition:YES];
-            else
-                [self keyCharactor:[e characters]];
-            break;
-	}
 }
 
 #pragma mark - Left Mouse
